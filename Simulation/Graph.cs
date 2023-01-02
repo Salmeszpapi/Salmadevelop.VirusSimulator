@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Simulation.Graph
 {
@@ -13,8 +16,8 @@ namespace Simulation.Graph
         private int nodes;
         private List<Int32>[] adjency;
         private List<int> visitedNodes = new List<int>();
-        private int save = 0;
-        private int saveIteration = 0;
+        Queue<int> myStack2 = new Queue<int>();
+        //Stack<int> myStack = new Stack<int>();
         public Graph(int nodeCount)
         {
             nodes = nodeCount;
@@ -33,14 +36,61 @@ namespace Simulation.Graph
             else
             {
                 adjency[edge1].Add(edge2);
+                adjency[edge2].Add(edge1);
             }  
         }
-        public void DepthSearching(int node)
+        //public void DepthSearching2(int node=0)
+        //{
+        //    visitedNodes.Add(node);
+        //    if (adjency[node].Count > 0)
+        //    {
+        //        foreach (var nod in adjency[node])
+        //        {
+        //            if (visitedNodes.Contains(nod))
+        //            {
+        //                check all linked elements if all visited go back 
+        //                foreach(var nod2 in adjency[node])
+        //                {
+        //                    if(adjency[nod2].Count > 0)
+        //                    {
+        //                        if (visitedNodes.Contains(nod2))
+        //                        {
+        //                        }
+        //                        else
+        //                        {
+        //                            myStack.Push(nod2);
+                                    
+        //                            DepthSearching2(nod2);
+        //                        }
+        //                    }
+        //                }
+        //                if (myStack.Count > 0)
+        //                {
+        //                    DepthSearching2(myStack.Pop());
+        //                }
+        //            }
+        //            else 
+        //            {
+        //            myStack.Push(node);
+        //            DepthSearching2(nod);
+        //                break;
+        //            }
+        //            Console.WriteLine(nod);
+        //        }
+        //        if(myStack.Count > 0) DepthSearching2(myStack.Pop());
+        //    }
+        //    else
+        //    {
+                
+        //    }
+        //}
+        //int counter = 0;
+
+        public void BFS(int node=0,int infectedPercent=2)
         {
-            for (int i = 0; i < adjency[node].Count; i++)
+            if (adjency[node].Count > 0)
             {
-                visitedNodes.Add(node);
-                if (adjency[node].Count > 0)
+                if (!visitedNodes.Contains(node))
                 {
                     foreach (var nod in adjency[node])
                     {
@@ -50,20 +100,30 @@ namespace Simulation.Graph
                         }
                         else
                         {
-                            visitedNodes.Add(nod);
-                            save = nod;
-                            Console.WriteLine(nod);
-                            DepthSearching(nod);
+                            //here we can check the parent of the node of node is infected then
+                            //we can pass the virus to his parent 
+                            Console.WriteLine(node + "->" + nod);
+                            myStack2.Enqueue(nod);
+                            //myStack.Push(nod);
                         }
                     }
-                    //here we got to the last leaf element
+                    visitedNodes.Add(node);
                 }
-                else
-                {
-
-                    //its the last element-> check it with visiet and go back 
-                }
-            }          
+            }
+            else
+            {
+                //here node has no more childrens 
+                //these objects-peaple will infects as first 
+                Console.WriteLine(node + "-> None");
+            }
+            if (myStack2.Count > 0)
+            {
+                BFS(myStack2.Dequeue());
+            }
+            else
+            {
+                // last row of elements 
+            }
         }
     }
 }
