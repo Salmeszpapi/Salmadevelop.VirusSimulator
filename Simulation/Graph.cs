@@ -102,9 +102,9 @@ namespace Simulation.Graph
                         {
                             //here we can check the parent of the node of node is infected then
                             //we can pass the virus to his parent 
+
                             Console.WriteLine(node + "->" + nod);
                             myStack2.Enqueue(nod);
-                            //myStack.Push(nod);
                         }
                     }
                     visitedNodes.Add(node);
@@ -114,6 +114,7 @@ namespace Simulation.Graph
             {
                 //here node has no more childrens 
                 //these objects-peaple will infects as first 
+
                 Console.WriteLine(node + "-> None");
             }
             if (myStack2.Count > 0)
