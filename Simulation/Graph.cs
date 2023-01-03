@@ -18,6 +18,7 @@ namespace Simulation.Graph
         private readonly List<int> visitedNodes = new();
         private List<int> leafNodes = new();
         Queue<int> myStack2 = new();
+        private List<People> peoplesList= new();
         //Stack<int> myStack = new Stack<int>();
         public Graph(int nodeCount)
         {
@@ -26,8 +27,14 @@ namespace Simulation.Graph
             adjency = new List<int>[nodeCount];
             for(int i=0; i<nodeCount; i++)
             {
+                People people = new People();
+                
                 adjency[i] = new List<int>();
+                people.FriendsList = new List<int>();
+                people.FriendsList.Add(AddEdge(i,5));
+                peoplesList.Add(people);
             }
+
         }
         public void AddEdge(int edge1,int edge2)
         {

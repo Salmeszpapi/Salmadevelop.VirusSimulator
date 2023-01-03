@@ -18,7 +18,7 @@ namespace Simulation.Model
         public int ContagiousDays { get; set; }
         public bool Infecter { get; set; }
         public bool Dead { get; set; }
-        public List<Int32>[] adjency;
+        public List<int> FriendsList;
         public People() 
         {
             
