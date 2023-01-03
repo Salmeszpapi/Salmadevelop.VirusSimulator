@@ -96,15 +96,24 @@ namespace Simulation.Graph
                     {
                         if (visitedNodes.Contains(nod))
                         {
+                            if(adjency[node].Count == 1)
+                            {
+                                //here is our leafe
+                                Console.WriteLine("level= "+ node);
+                                //here node has no more childrens 
+                                //these objects-peaple will infects as first randomly
 
+                            }
                         }
                         else
                         {
                             //here we can check the parent of the node of node is infected then
                             //we can pass the virus to his parent 
-
+                            if (!myStack2.Contains(nod))
+                            {
+                                myStack2.Enqueue(nod);
+                            }
                             Console.WriteLine(node + "->" + nod);
-                            myStack2.Enqueue(nod);
                         }
                     }
                     visitedNodes.Add(node);
@@ -112,18 +121,13 @@ namespace Simulation.Graph
             }
             else
             {
-                //here node has no more childrens 
-                //these objects-peaple will infects as first 
+
 
                 Console.WriteLine(node + "-> None");
             }
             if (myStack2.Count > 0)
             {
                 BFS(myStack2.Dequeue());
-            }
-            else
-            {
-                // last row of elements 
             }
         }
     }
