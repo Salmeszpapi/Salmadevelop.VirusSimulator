@@ -1,6 +1,5 @@
 ﻿using Simulation.Graph;
-using static System.Net.Mime.MediaTypeNames;
-
+using Simulation.Model;
 namespace ConsoleApp1
 {
     internal class Program
@@ -9,7 +8,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Graph asd = new Graph(N);
-
+            
             asd.AddEdge(0, 2);
             asd.AddEdge(0, 3);
             asd.AddEdge(0, 4);
@@ -21,6 +20,9 @@ namespace ConsoleApp1
             asd.AddEdge(7, 21);
             asd.AddEdge(21, 22);
             asd.AddEdge(4, 8);
+            asd.AddEdge(8, 11);
+            asd.AddEdge(8, 12);
+            asd.AddEdge(5, 8);
 
             asd.BFS();
         }
