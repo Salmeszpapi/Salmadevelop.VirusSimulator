@@ -4,12 +4,12 @@ namespace ConsoleApp1
 {
     internal class Program
     {
-        private const int N = 50;
+        private const int N = 30;
         static void Main(string[] args)
         {
             Graph asd = new Graph(N);
 
-            asd.BFS();
+            asd.BFS2();
         }
         
     }
