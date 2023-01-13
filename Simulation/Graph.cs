@@ -30,7 +30,14 @@ namespace Simulation.Graph
                 people.ID = i;
                 adjency[i] = new List<int>();
                 people.FriendsList = new List<int>();
+                people.Friends = new Random().Next(7); 
                 peoplesList.Add(people);
+                //for(int j=0; people.Friends > j ; j++)
+                //{
+                //    int randomSzam = new Random().Next(i);
+                //    AddEdge(i, randomSzam);
+                //    AddEdge(randomSzam, i);
+                //}
             }
             AddEdge(0, 2);
             AddEdge(0, 3);
@@ -43,6 +50,8 @@ namespace Simulation.Graph
             AddEdge(7, 21);
             AddEdge(21, 22);
             AddEdge(4, 8);
+
+            //RemovePeopleWithNoFriends();
         }
         public void AddEdge(int edge1,int edge2)
         {
@@ -129,7 +138,6 @@ namespace Simulation.Graph
                             {
                                 //here is our leafe
                                 Console.WriteLine("level= " + node);
-                                Console.WriteLine("level= " + node);
                                 //here node has no more childrens 
                                 //these objects-peaple will infects as first randomly
                             }
@@ -138,6 +146,9 @@ namespace Simulation.Graph
                         {
                             //here we can check the parent of the node of node is infected then
                             //we can pass the virus to his parent 
+
+
+                            //End of checking 
                             if (!myStack2.Contains(nod))
                             {
                                 myStack2.Enqueue(nod);
@@ -146,12 +157,16 @@ namespace Simulation.Graph
                             Console.WriteLine(node + "->" + nod);
                         }
                     }
+                    //here we will visit only once the Nodes / People
+                    int randomlyInfectedAtFirstTime = new Random().Next(100);
+                    peoplesList[node].Infecter = randomlyInfectedAtFirstTime > 18; //18 is the border if the person catch the virus
+                    peoplesList[node].Infecter= true;
+                    Console.WriteLine($"Ez it teszt{node}");
                     visitedNodes.Add(node);
                 }
-            }
-            else
+            }else
             {
-                Console.WriteLine(node + "-> None");
+                Console.WriteLine($"The {node} node has no firends ");
             }
             if (myStack2.Count > 0)
             {
@@ -161,12 +176,15 @@ namespace Simulation.Graph
         public void BFS3()
         {
             for(int i = 0; i < nodes; i++)
-            { 
-                foreach (var node in peoplesList[i].FriendsList)
+            {
+                if (peoplesList[i].FriendsList.Count>0)
                 {
-                    Console.Write(peoplesList[i].ID + "->" + node + " ");
+                    foreach (var node in peoplesList[i].FriendsList)
+                    {
+                        Console.Write(peoplesList[i].ID + "->" + node + " ");
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
         }
         //public void DepthSearching2(int node=0)
@@ -215,6 +233,15 @@ namespace Simulation.Graph
         //    }
         //}
         //int counter = 0;
-
+        private void RemovePeopleWithNoFriends()
+        {
+            foreach(var node in peoplesList)
+            {
+                if(node.FriendsList.Count == 0)
+                {
+                    peoplesList.Remove(node);
+                }
+            }
+        }
     }
 }

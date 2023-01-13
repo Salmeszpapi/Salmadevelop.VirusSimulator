@@ -10,6 +10,8 @@ namespace ConsoleApp1
             Graph asd = new Graph(N);
 
             asd.BFS2();
+            Console.WriteLine("-----------------------");
+            asd.BFS3();
         }
         
     }
