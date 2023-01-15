@@ -17,7 +17,6 @@ namespace Simulation.Graph
     public class Graph
     {
         private int nodes;
-        private List<Int32>[] adjency;
         private readonly List<int> visitedNodes = new();
         private List<int> leafNodes = new();
         Queue<int> myStack2 = new();
@@ -27,13 +26,12 @@ namespace Simulation.Graph
         public Graph(int nodeCount)
         {
             nodes = nodeCount;
-            adjency = new List<int>[nodeCount];
+
             for(int i=0; i<nodeCount; i++)
             {
                 Place node = new Place();
                 node.ID = i;
 
-                adjency[i] = new List<int>();
                 //ez nem kell most
                 node.AdjencyNodes = new List<int>();
 
@@ -70,19 +68,6 @@ namespace Simulation.Graph
                 nodelist[edge1].AdjencyNodes.Add(edge2);
                 nodelist[edge2].AdjencyNodes.Add(edge1);
             }  
-        }
-        public void AddEdge2(int edge1, int edge2)
-        {
-            if (edge1 >= nodes || edge2 >= nodes)
-            {
-                SystemException.ReferenceEquals(this, edge2);
-            }
-            else
-            {
-                peoplesList[edge1].FriendsList.Add(edge2);
-                peoplesList[edge2].FriendsList.Add(edge1);
-                //adjency[edge2].Add(edge1);
-            }
         }
         public void BFS2(int node = 0, int infectedPercent = 2)
         {
@@ -121,7 +106,12 @@ namespace Simulation.Graph
                         }
                     }
                     //here we will visit only once the Nodes / People
-                    People people = new People(new Random().Next(10));
+                    for(int i=0; i<10; i++)
+                    {
+                        People people = new People(peoplesList.Count);
+                        peoplesList.Add(people);
+                    }
+                    
                     //Console.WriteLine($"Ez it teszt{node}");
                     visitedNodes.Add(node);
                 }
@@ -149,48 +139,48 @@ namespace Simulation.Graph
             }
         }
 
-        public void BFS(int node = 0, int infectedPercent = 2)
-        {
-            if (adjency[node].Count > 0)
-            {
-                if (!visitedNodes.Contains(node))
-                {
-                    foreach (var nod in adjency[node])
-                    {
-                        if (visitedNodes.Contains(nod))
-                        {
-                            if (adjency[node].Count == 1)
-                            {
-                                //here is our leafe
-                                Console.WriteLine("level= " + node);
-                                //here node has no more childrens 
-                                //these objects-peaple will infects as first randomly
-                            }
-                        }
-                        else
-                        {
-                            //here we can check the parent of the node of node is infected then
-                            //we can pass the virus to his parent 
-                            if (!myStack2.Contains(nod))
-                            {
-                                myStack2.Enqueue(nod);
-                            }
-                            leafNodes.Add(nod);
-                            Console.WriteLine(node + "->" + nod);
-                        }
-                    }
-                    visitedNodes.Add(node);
-                }
-            }
-            else
-            {
-                Console.WriteLine(node + "-> None");
-            }
-            if (myStack2.Count > 0)
-            {
-                BFS(myStack2.Dequeue());
-            }
-        }
+        //public void BFS(int node = 0, int infectedPercent = 2)
+        //{
+        //    if (adjency[node].Count > 0)
+        //    {
+        //        if (!visitedNodes.Contains(node))
+        //        {
+        //            foreach (var nod in adjency[node])
+        //            {
+        //                if (visitedNodes.Contains(nod))
+        //                {
+        //                    if (adjency[node].Count == 1)
+        //                    {
+        //                        //here is our leafe
+        //                        Console.WriteLine("level= " + node);
+        //                        //here node has no more childrens 
+        //                        //these objects-peaple will infects as first randomly
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    //here we can check the parent of the node of node is infected then
+        //                    //we can pass the virus to his parent 
+        //                    if (!myStack2.Contains(nod))
+        //                    {
+        //                        myStack2.Enqueue(nod);
+        //                    }
+        //                    leafNodes.Add(nod);
+        //                    Console.WriteLine(node + "->" + nod);
+        //                }
+        //            }
+        //            visitedNodes.Add(node);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(node + "-> None");
+        //    }
+        //    if (myStack2.Count > 0)
+        //    {
+        //        BFS(myStack2.Dequeue());
+        //    }
+        //}
         //public void DepthSearching2(int node=0)
         //{
         //    visitedNodes.Add(node);
