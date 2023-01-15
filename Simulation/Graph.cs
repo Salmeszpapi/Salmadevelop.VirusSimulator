@@ -67,11 +67,8 @@ namespace Simulation.Graph
             }
             else
             {
-
-
                 nodelist[edge1].AdjencyNodes.Add(edge2);
                 nodelist[edge2].AdjencyNodes.Add(edge1);
-
             }  
         }
         public void AddEdge2(int edge1, int edge2)
