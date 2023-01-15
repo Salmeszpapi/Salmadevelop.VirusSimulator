@@ -1,4 +1,7 @@
-﻿using Simulation.Model;
+﻿#region Header
+
+#endregion
+using Simulation.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +22,7 @@ namespace Simulation.Graph
         private List<int> leafNodes = new();
         Queue<int> myStack2 = new();
         private List<People> peoplesList= new();
+        private List<Place> nodelist = new();
         //Stack<int> myStack = new Stack<int>();
         public Graph(int nodeCount)
         {
@@ -26,12 +30,14 @@ namespace Simulation.Graph
             adjency = new List<int>[nodeCount];
             for(int i=0; i<nodeCount; i++)
             {
-                People people = new People();
-                people.ID = i;
+                Place node = new Place();
+                node.ID = i;
+
                 adjency[i] = new List<int>();
-                people.FriendsList = new List<int>();
-                people.Friends = new Random().Next(7); 
-                peoplesList.Add(people);
+                //ez nem kell most
+                node.AdjencyNodes = new List<int>();
+
+                nodelist.Add(node);
                 //for(int j=0; people.Friends > j ; j++)
                 //{
                 //    int randomSzam = new Random().Next(i);
@@ -61,8 +67,10 @@ namespace Simulation.Graph
             }
             else
             {
-                peoplesList[edge1].FriendsList.Add(edge2);
-                peoplesList[edge2].FriendsList.Add(edge1);
+
+
+                nodelist[edge1].AdjencyNodes.Add(edge2);
+                nodelist[edge2].AdjencyNodes.Add(edge1);
 
             }  
         }
@@ -79,7 +87,72 @@ namespace Simulation.Graph
                 //adjency[edge2].Add(edge1);
             }
         }
-        public void BFS(int node=0,int infectedPercent=2)
+        public void BFS2(int node = 0, int infectedPercent = 2)
+        {
+            //For be able to generate random graph, probably I should start with 0
+            // I going to assign 0 -> new friend/s then increment 1 -> new friends
+            // If I follow this logic then it may be possible to generate correctly.
+            if (nodelist[node].AdjencyNodes.Count > 0)
+            {
+                if (!visitedNodes.Contains(node))
+                {
+                    foreach (var nod in nodelist[node].AdjencyNodes)
+                    {
+                        if (visitedNodes.Contains(nod))
+                        {
+                            if (nodelist[node].AdjencyNodes.Count <= 1)
+                            {
+                                //here is our leafe
+                                Console.WriteLine("level= " + node);
+                                //here node has no more childrens 
+                                //these objects-peaple will infects as first randomly
+                            }
+                        }
+                        else
+                        {
+                            //here we can check the parent of the node of node is infected then
+                            //we can pass the virus to his parent 
+
+
+                            //End of checking 
+                            if (!myStack2.Contains(nod))
+                            {
+                                myStack2.Enqueue(nod);
+                            }
+                            leafNodes.Add(nod);
+                            Console.WriteLine(node + "->" + nod);
+                        }
+                    }
+                    //here we will visit only once the Nodes / People
+                    People people = new People(new Random().Next(10));
+                    //Console.WriteLine($"Ez it teszt{node}");
+                    visitedNodes.Add(node);
+                }
+            }else
+            {
+                Console.WriteLine($"The {node} node has no firends ");
+            }
+            if (myStack2.Count > 0)
+            {
+                BFS2(myStack2.Dequeue());
+            }
+        }
+        public void BFS3()
+        {
+            for(int i = 0; i < nodes; i++)
+            {
+                if (nodelist[i].AdjencyNodes.Count>0)
+                {
+                    foreach (var node in nodelist[i].AdjencyNodes)
+                    {
+                        Console.Write(nodelist[i].ID + "->" + node + " ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+        }
+
+        public void BFS(int node = 0, int infectedPercent = 2)
         {
             if (adjency[node].Count > 0)
             {
@@ -89,10 +162,10 @@ namespace Simulation.Graph
                     {
                         if (visitedNodes.Contains(nod))
                         {
-                            if(adjency[node].Count == 1)
+                            if (adjency[node].Count == 1)
                             {
                                 //here is our leafe
-                                Console.WriteLine("level= "+ node);
+                                Console.WriteLine("level= " + node);
                                 //here node has no more childrens 
                                 //these objects-peaple will infects as first randomly
                             }
@@ -119,72 +192,6 @@ namespace Simulation.Graph
             if (myStack2.Count > 0)
             {
                 BFS(myStack2.Dequeue());
-            }
-        }
-        public void BFS2(int node = 0, int infectedPercent = 2)
-        {
-            //For be able to generate random graph, probably I should start with 0
-            // I going to assign 0 -> new friend/s then increment 1 -> new friends
-            // If I follow this logic then it may be possible to generate correctly.
-            if (peoplesList[node].FriendsList.Count > 0)
-            {
-                if (!visitedNodes.Contains(node))
-                {
-                    foreach (var nod in peoplesList[node].FriendsList)
-                    {
-                        if (visitedNodes.Contains(nod))
-                        {
-                            if (peoplesList[node].FriendsList.Count <= 1)
-                            {
-                                //here is our leafe
-                                Console.WriteLine("level= " + node);
-                                //here node has no more childrens 
-                                //these objects-peaple will infects as first randomly
-                            }
-                        }
-                        else
-                        {
-                            //here we can check the parent of the node of node is infected then
-                            //we can pass the virus to his parent 
-
-
-                            //End of checking 
-                            if (!myStack2.Contains(nod))
-                            {
-                                myStack2.Enqueue(nod);
-                            }
-                            leafNodes.Add(nod);
-                            Console.WriteLine(node + "->" + nod);
-                        }
-                    }
-                    //here we will visit only once the Nodes / People
-                    int randomlyInfectedAtFirstTime = new Random().Next(100);
-                    peoplesList[node].Infecter = randomlyInfectedAtFirstTime > 18; //18 is the border if the person catch the virus
-                    peoplesList[node].Infecter= true;
-                    Console.WriteLine($"Ez it teszt{node}");
-                    visitedNodes.Add(node);
-                }
-            }else
-            {
-                Console.WriteLine($"The {node} node has no firends ");
-            }
-            if (myStack2.Count > 0)
-            {
-                BFS2(myStack2.Dequeue());
-            }
-        }
-        public void BFS3()
-        {
-            for(int i = 0; i < nodes; i++)
-            {
-                if (peoplesList[i].FriendsList.Count>0)
-                {
-                    foreach (var node in peoplesList[i].FriendsList)
-                    {
-                        Console.Write(peoplesList[i].ID + "->" + node + " ");
-                    }
-                    Console.WriteLine();
-                }
             }
         }
         //public void DepthSearching2(int node=0)
