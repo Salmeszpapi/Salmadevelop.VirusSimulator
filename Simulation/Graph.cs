@@ -2,15 +2,6 @@
 
 #endregion
 using Simulation.Model;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Simulation.Graph
 {
@@ -18,16 +9,15 @@ namespace Simulation.Graph
     {
         private int nodes;
         private readonly List<int> visitedNodes = new();
-        private List<int> leafNodes = new();
         Queue<int> myStack2 = new();
-        private List<People> peoplesList= new();
+        private List<People> peoplesList = new();
         private List<Place> nodelist = new();
         //Stack<int> myStack = new Stack<int>();
         public Graph(int nodeCount)
         {
             nodes = nodeCount;
 
-            for(int i=0; i<nodeCount; i++)
+            for (int i = 0; i < nodeCount; i++)
             {
                 Place node = new Place();
                 node.ID = i;
@@ -57,9 +47,9 @@ namespace Simulation.Graph
 
             //RemovePeopleWithNoFriends();
         }
-        public void AddEdge(int edge1,int edge2)
+        public void AddEdge(int edge1, int edge2)
         {
-            if(edge1 >= nodes || edge2 >= nodes)
+            if (edge1 >= nodes || edge2 >= nodes)
             {
                 SystemException.ReferenceEquals(this, edge2);
             }
@@ -67,7 +57,7 @@ namespace Simulation.Graph
             {
                 nodelist[edge1].AdjencyNodes.Add(edge2);
                 nodelist[edge2].AdjencyNodes.Add(edge1);
-            }  
+            }
         }
         public void BFS2(int node = 0, int infectedPercent = 2)
         {
@@ -101,21 +91,22 @@ namespace Simulation.Graph
                             {
                                 myStack2.Enqueue(nod);
                             }
-                            leafNodes.Add(nod);
                             Console.WriteLine(node + "->" + nod);
                         }
                     }
-                    //here we will visit only once the Nodes / People
-                    for(int i=0; i<10; i++)
+                    //here we will visit only once the Nodes / Places
+
+                    for (int i = 0; i < 100; i++)
                     {
                         People people = new People(peoplesList.Count);
                         peoplesList.Add(people);
                     }
-                    
+
                     //Console.WriteLine($"Ez it teszt{node}");
                     visitedNodes.Add(node);
                 }
-            }else
+            }
+            else
             {
                 Console.WriteLine($"The {node} node has no firends ");
             }
@@ -126,9 +117,9 @@ namespace Simulation.Graph
         }
         public void BFS3()
         {
-            for(int i = 0; i < nodes; i++)
+            for (int i = 0; i < nodes; i++)
             {
-                if (nodelist[i].AdjencyNodes.Count>0)
+                if (nodelist[i].AdjencyNodes.Count > 0)
                 {
                     foreach (var node in nodelist[i].AdjencyNodes)
                     {
@@ -140,13 +131,57 @@ namespace Simulation.Graph
         }
         private void RemovePeopleWithNoFriends()
         {
-            foreach(var node in peoplesList)
+            foreach (var node in peoplesList)
             {
-                if(node.FriendsList.Count == 0)
+                if (node.FriendsList.Count == 0)
                 {
                     peoplesList.Remove(node);
                 }
             }
         }
+        public bool PlacePeapleIntoPlaces()
+        {
+            foreach (var human in peoplesList)
+            {
+
+                var random = new Random().Next(nodelist.Count);
+                if (nodelist[random].MaxPeople > nodelist[random].peoples.Count)
+                {
+                    if (nodelist[random].placeName == PlaceTypeEnum.Home)
+                    {
+                        GivePeapleFriends(nodelist[random], human);
+                    }
+                    nodelist[random].peoples.Add(human);
+                }
+                else
+                {
+                    var nodecontainingSpace = nodelist.Where(x => x.MaxPeople > x.peoples.Count()).FirstOrDefault();
+                    if (nodecontainingSpace is null)
+                    {
+                        return false;
+                    }
+                    nodecontainingSpace.peoples.Add(human);
+                }
+            }
+            return true;
+        }
+
+        public void GivePeapleFriends(People person)
+        {
+
+        }
+
+        public void GivePeapleFriends(Place place, People person)
+        {
+            if (place.peoples.Count > 0)
+            {
+                foreach (var personInSamePlace in place.peoples)
+                {
+                    person.FriendsList.Add(personInSamePlace);
+                    personInSamePlace.FriendsList.Add(person);
+                }
+            }
+        }
+
     }
 }

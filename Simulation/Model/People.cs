@@ -1,15 +1,10 @@
 ﻿using Simulation.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simulation.Model
 {
     public class People : IPeople
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Age { get; set; }
         public int Immunity { get; set; }
         public bool FullImmunity { get; set; }
@@ -19,20 +14,23 @@ namespace Simulation.Model
         public int Contagiousness { get; set; }
         public int ContagiousDays { get; set; }
         public bool Dead { get; set; }
-        public List<int> FriendsList;
-        public People(int id) 
+        public List<People> FriendsList { get; set; }
+        public List<People> Family { get; set; }
+        public People(int id)
         {
-            ID = id;
+            Id = id;
             initialization();
         }
+
         private void initialization()
         {
             Dead = false;
             Friends = new Random().Next(10);
             Age = new Random().Next(100);
+            FriendsList = new List<People>();
 
-            if (new Random().Next(100) < 2) 
-            { 
+            if (new Random().Next(100) < 2)
+            {
                 Infected = true;
                 Contagiousness = 10;
                 ContagiousDays = 10;

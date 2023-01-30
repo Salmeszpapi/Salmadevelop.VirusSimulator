@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simulation.Model
+﻿namespace Simulation.Model
 {
-    internal enum PlaceTypeEnum
+    public enum PlaceTypeEnum
     {
         Workplace,
         Store,

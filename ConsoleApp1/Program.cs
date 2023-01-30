@@ -1,5 +1,4 @@
 ﻿using Simulation.Graph;
-using Simulation.Model;
 namespace ConsoleApp1
 {
     internal class Program
@@ -12,8 +11,10 @@ namespace ConsoleApp1
             asd.BFS2();
             Console.WriteLine("-----------------------");
             asd.BFS3();
+            var result = asd.PlacePeapleIntoPlaces();
+            Console.WriteLine("asd");
         }
-        
+
     }
 
 }
