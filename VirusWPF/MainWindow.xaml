@@ -8,10 +8,14 @@
         Title="MainWindow" Height="900" Width="1200" 
         ResizeMode="NoResize" ShowInTaskbar="True" WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
-    
-    <Canvas x:Name="myCanvas" 
+
+
+    <Grid>
+        <local:NavButton Text="Jamie" HorizontalAlignment="Center" VerticalAlignment="Center" ImageSource="/Images/cat.jpg"/>
+        <!--<Canvas x:Name="myCanvas" 
             Background="LightBlue" 
             Focusable="True" 
             MouseLeftButtonDown="myCanvas_MouseLeftButtonDown">
-    </Canvas>
+        </Canvas>-->
+    </Grid>
 </Window>
