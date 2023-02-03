@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "WebResult\Web.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{BF3B979E-8CE5-4DF1-8BA2-56C524C77308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirusWPF", "VirusWPF\VirusWPF.csproj", "{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirusWPF", "VirusWPF\VirusWPF.csproj", "{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

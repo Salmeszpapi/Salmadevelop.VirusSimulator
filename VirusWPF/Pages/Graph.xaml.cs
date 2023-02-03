@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace VirusWPF.Pages
 {
     /// <summary>
-    /// Interaction logic for Test.xaml
+    /// Interaction logic for Graph.xaml
     /// </summary>
-    public partial class Test : Page
+    public partial class Graph : Page
     {
-        public Test()
+        public Graph()
         {
             InitializeComponent();
         }

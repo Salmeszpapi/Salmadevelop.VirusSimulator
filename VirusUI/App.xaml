@@ -1,8 +1,9 @@
-﻿<Application x:Class="VirusWPF.App"
+﻿<Application x:Class="VirusUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VirusWPF"
+             xmlns:local="clr-namespace:VirusUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+         
     </Application.Resources>
 </Application>
