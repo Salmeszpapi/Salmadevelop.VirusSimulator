@@ -130,8 +130,6 @@ namespace VirusWPF
                 var newRectangle = new RectanglePointer(rnd, rectangle1, mousePosition);
                 newRectangle.textBoxes.Add(textblock);
                 myRectanglesPoints.Add(newRectangle);
-                
-                //myCanvas.Children.Add(textblock);
             }
             
         }
