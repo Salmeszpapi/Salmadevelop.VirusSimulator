@@ -19,11 +19,10 @@ namespace VirusWPF
     public partial class MainWindow : Window
     {
         Rectangle rectangle1;
-        Rectangle rectangleproperty;
-        public int counter = 0;
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +30,6 @@ namespace VirusWPF
             LiveTime.Tick += timer_Tick;
             LiveTime.Start();
             myCanvas.Margin = new Thickness(10, 10, 50, 50);
-
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -125,10 +123,10 @@ namespace VirusWPF
                 rectangle1 = new Rectangle() { Width = 50, Height = 50, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
-                var rnd = Guid.NewGuid().ToString().Substring(0, 5);
+                var rectangleText = myRectanglesPoints.Count;
                 myCanvas.Children.Add(rectangle1);
-                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 50, rnd.ToString(), Color.FromRgb(0, 0, 0));
-                var newRectangle = new RectanglePointer(rnd, rectangle1, mousePosition);
+                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 50, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
+                var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition);
                 newRectangle.textBox = textblock;
                 myRectanglesPoints.Add(newRectangle);
             }
@@ -180,6 +178,7 @@ namespace VirusWPF
 
         private void Start_Simulation(object sender, RoutedEventArgs e)
         {
+
             Simulator simulator = new Simulator(myRectanglesPoints);
         }
         #endregion

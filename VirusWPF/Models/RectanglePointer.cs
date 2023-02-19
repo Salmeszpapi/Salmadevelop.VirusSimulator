@@ -12,13 +12,13 @@ namespace VirusWPF.Models
 {
     public class RectanglePointer
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public Rectangle rectangle { get; set; }
         public Point pointer { get; set; }
         public TextBlock textBox = new TextBlock();
         public List<Line> lines = new List<Line>();
         public List<RectanglePointer> neighbours = new List<RectanglePointer>();
-        public RectanglePointer(string Id, Rectangle rectangle, Point pointer) 
+        public RectanglePointer(int Id, Rectangle rectangle, Point pointer) 
         {
             this.Id = Id;
             this.pointer = pointer;

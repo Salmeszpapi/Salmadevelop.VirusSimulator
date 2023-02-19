@@ -8,9 +8,11 @@ namespace VirusWPF.Models
 {
     internal class Node
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public int MaxPerson { get; set; }
-        public List<string> neighbours = new List<string>();
+
+        public List<int> neighbours = new List<int>();
+
         public List<Node> neighbourNodes = new List<Node>();
         public Node(RectanglePointer rectanglePointer) 
         {

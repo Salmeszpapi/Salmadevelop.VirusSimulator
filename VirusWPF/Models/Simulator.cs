@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace VirusWPF.Models
@@ -18,10 +19,13 @@ namespace VirusWPF.Models
             startingSimulatoinTime = DateTime.Now;
             Graph graph = new Graph(rectanglePointer);
             graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
+            Console.WriteLine("stop");
             do
             {
-
-            }while(true);
+                graph.GoThroughtNodes(ThroughNodeActionEnum.Moove);
+                Thread.Sleep(2000);
+                graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
+            } while (true);
         }
     }
 }
