@@ -11,19 +11,36 @@
 
 
     <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" FontSize="20" FontStyle="Oblique" FontStretch="UltraExpanded">
 
-        <Canvas x:Name="myCanvas" 
+            <MenuItem Header="Simulation" HorizontalAlignment="Stretch">
+                <MenuItem Header="Create new"/>
+                <MenuItem Header="Start" Click="Start_Simulation"/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Open"/>
+            </MenuItem>
+                <MenuItem x:Name="Time" Header="Open"/>
+                <Label x:Name="TimeLabel" Focusable="False" Content="" HorizontalAlignment="Right"/>
+            </Menu>
+                
+            <StackPanel></StackPanel>
+            <Canvas x:Name="myCanvas" 
+            Height="5000"
+            Width="5000"
             Background="LightBlue" 
             Focusable="True" 
             MouseLeftButtonDown="myCanvas_MouseLeftButtonDown"
             MouseWheel="Canvas_MouseWheel"
             MouseMove="myCanvas_MouseMove"
+            MouseDown="myCanvas_MouseDown"
             MouseRightButtonDown="myCanvas_MouseRightButtonDown">
-            <Canvas.RenderTransform>
-                <MatrixTransform/>
-            </Canvas.RenderTransform>
-            <TextBox x:Name="MyText" Canvas.Left="750" TextWrapping="Wrap" Text="TextBox" Canvas.Top="367" Width="120"/>
-        </Canvas>
+                <Canvas.RenderTransform>
+                    <MatrixTransform/>
+                </Canvas.RenderTransform>
+            </Canvas>
+        </DockPanel>
+
         <!--<Frame NavigationUIVisibility="Hidden" Source="/Pages/WelcomePage.xaml" />-->
     </Grid>
 </Window>

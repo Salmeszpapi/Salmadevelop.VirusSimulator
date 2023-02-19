@@ -10,19 +10,19 @@ using System.Windows.Shapes;
 
 namespace VirusWPF.Models
 {
-    class RectanglePointer
+    public class RectanglePointer
     {
         public string Id { get; set; }
         public Rectangle rectangle { get; set; }
         public Point pointer { get; set; }
-        public RectangleTypeEnum RectangleType { get; set; }
-        public List<TextBlock> textBoxes = new List<TextBlock>();
+        public TextBlock textBox = new TextBlock();
+        public List<Line> lines = new List<Line>();
+        public List<RectanglePointer> neighbours = new List<RectanglePointer>();
         public RectanglePointer(string Id, Rectangle rectangle, Point pointer) 
         {
             this.Id = Id;
             this.pointer = pointer;
             this.rectangle = rectangle; 
-            
         }
     }
 }

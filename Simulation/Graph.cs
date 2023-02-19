@@ -2,6 +2,7 @@
 
 #endregion
 using Simulation.Model;
+using System.Drawing;
 
 namespace Simulation.Graph
 {
@@ -15,37 +16,41 @@ namespace Simulation.Graph
         //Stack<int> myStack = new Stack<int>();
         public Graph(int nodeCount)
         {
-            nodes = nodeCount;
+            //nodes = nodeCount;
 
-            for (int i = 0; i < nodeCount; i++)
-            {
-                Place node = new Place();
-                node.ID = i;
+            //for (int i = 0; i < nodeCount; i++)
+            //{
+            //    Place node = new Place();
+            //    node.ID = i;
 
-                //ez nem kell most
-                node.AdjencyNodes = new List<int>();
+            //    //ez nem kell most
+            //    node.AdjencyNodes = new List<int>();
 
-                nodelist.Add(node);
-                //for(int j=0; people.Friends > j ; j++)
-                //{
-                //    int randomSzam = new Random().Next(i);
-                //    AddEdge(i, randomSzam);
-                //    AddEdge(randomSzam, i);
-                //}
-            }
-            AddEdge(0, 2);
-            AddEdge(0, 3);
-            AddEdge(0, 4);
-            AddEdge(1, 3);
-            AddEdge(2, 4);
-            AddEdge(2, 5);
-            AddEdge(3, 7);
-            AddEdge(7, 20);
-            AddEdge(7, 21);
-            AddEdge(21, 22);
-            AddEdge(4, 8);
+            //    nodelist.Add(node);
+            //    //for(int j=0; people.Friends > j ; j++)
+            //    //{
+            //    //    int randomSzam = new Random().Next(i);
+            //    //    AddEdge(i, randomSzam);
+            //    //    AddEdge(randomSzam, i);
+            //    //}
+            //}
+            //AddEdge(0, 2);
+            //AddEdge(0, 3);
+            //AddEdge(0, 4);
+            //AddEdge(1, 3);
+            //AddEdge(2, 4);
+            //AddEdge(2, 5);
+            //AddEdge(3, 7);
+            //AddEdge(7, 20);
+            //AddEdge(7, 21);
+            //AddEdge(21, 22);
+            //AddEdge(4, 8);
 
-            //RemovePeopleWithNoFriends();
+            ////RemovePeopleWithNoFriends();
+        }
+        public Graph() //random number 
+        {
+
         }
         public void AddEdge(int edge1, int edge2)
         {

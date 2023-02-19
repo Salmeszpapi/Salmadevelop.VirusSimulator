@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using VirusWPF.Models;
 
 namespace VirusWPF
@@ -17,18 +18,27 @@ namespace VirusWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
         Rectangle rectangle1;
         Rectangle rectangleproperty;
         public int counter = 0;
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
+        DispatcherTimer LiveTime = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
-            //myCanvas.Margin = new Thickness(10, 10, 50, 50);
+            LiveTime.Interval = TimeSpan.FromSeconds(1);
+            LiveTime.Tick += timer_Tick;
+            LiveTime.Start();
+            myCanvas.Margin = new Thickness(10, 10, 50, 50);
 
         }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            TimeLabel.Content = DateTime.Now.ToString("HH:mm:ss");
+        }
+
         #region Mouse events
         private void myCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -36,22 +46,14 @@ namespace VirusWPF
             if (e.OriginalSource is Rectangle)
             {
                 var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
-                if(sameRectangle is not null && sameRectangle.RectangleType == RectangleTypeEnum.Connect)
-                {
-                    MyPoints.Add(myRectanglesPoints.Where(x => x.rectangle == rectangle1).FirstOrDefault());
-                }
-                else if(sameRectangle is not null && sameRectangle.RectangleType == RectangleTypeEnum.Remove)
-                {
-                    myRectanglesPoints.Clear();
-                }
-                else if (e.OriginalSource is Rectangle)
+
+                if (e.OriginalSource is Rectangle)
                 {
                     MyPoints.Add(sameRectangle);
                     if (MyPoints.Count == 2)
                     {
                         Drawline(MyPoints);
                         MyPoints.Clear();
-                        RemovePropertyes();
                     }
                 }
             }
@@ -62,16 +64,16 @@ namespace VirusWPF
                 DrawRectangle(mousePosition);
             }
         }
-        
+
         private void myCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MyPoints.Clear();
-            var mousePosition = e.GetPosition(myCanvas);
-            if(e.OriginalSource is not Canvas)
+            if (e.OriginalSource is Rectangle)
             {
-                var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == rectangle1).FirstOrDefault();
-                DrawRectanglePropertys(new Point() { X = sameRectangle.pointer.X - 85.5, Y = sameRectangle.pointer.Y },RectangleTypeEnum.Remove);
-                DrawRectanglePropertys(new Point() { X = sameRectangle.pointer.X + 55.5, Y = sameRectangle.pointer.Y }, RectangleTypeEnum.Connect);
+                var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
+                myCanvas.Children.Remove(sameRectangle.rectangle);
+                myCanvas.Children.Remove(sameRectangle.textBox);
+                foreach (var line in sameRectangle.lines) { myCanvas.Children.Remove(line); }
+                myRectanglesPoints.Remove(sameRectangle);
             }
         }
 
@@ -89,8 +91,7 @@ namespace VirusWPF
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            MyText.Text = e.GetPosition(myCanvas).ToString();
-            if(rectangle1 is not null)
+            if (rectangle1 is not null)
             {
                 if (e.OriginalSource is Rectangle)
                 {
@@ -109,7 +110,7 @@ namespace VirusWPF
         {
             TextBlock textBlock = new TextBlock();
             textBlock.Text = text;
-            textBlock.FontSize= 14;
+            textBlock.FontSize = 14;
             textBlock.Foreground = new SolidColorBrush(color);
             Canvas.SetLeft(textBlock, x);
             Canvas.SetTop(textBlock, y);
@@ -128,33 +129,29 @@ namespace VirusWPF
                 myCanvas.Children.Add(rectangle1);
                 var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 50, rnd.ToString(), Color.FromRgb(0, 0, 0));
                 var newRectangle = new RectanglePointer(rnd, rectangle1, mousePosition);
-                newRectangle.textBoxes.Add(textblock);
+                newRectangle.textBox = textblock;
                 myRectanglesPoints.Add(newRectangle);
             }
-            
-        }
 
-        private void DrawRectanglePropertys(Point mousePosition, RectangleTypeEnum rectangleType)
-        {
-            rectangleproperty = new Rectangle() { Width = 80, Height = 50, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
-            Canvas.SetLeft(rectangleproperty, mousePosition.X);
-            Canvas.SetTop(rectangleproperty, mousePosition.Y);
-            var rnd = Guid.NewGuid().ToString().Substring(0, 5);
-            myRectanglesPoints.Add(new RectanglePointer(rnd, rectangleproperty, mousePosition) { RectangleType = rectangleType });
-            myCanvas.Children.Add(rectangleproperty);
-            DrawText(mousePosition.X + 7, mousePosition.Y + 17, rectangleType.ToString(), Color.FromRgb(0, 0, 0));
         }
 
         private void Drawline(List<RectanglePointer> points)
         {
-            var line = new Line();
-            line.X1 = points[0].pointer.X;
-            line.Y1 = points[0].pointer.Y;
-            line.X2 = points[1].pointer.X;
-            line.Y2 = points[1].pointer.Y;
-            line.Stroke = Brushes.Black;
-            line.StrokeThickness = 3;
-            myCanvas.Children.Add(line);
+            if (!(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
+            {
+                var line = new Line();
+                line.X1 = points[0].pointer.X;
+                line.Y1 = points[0].pointer.Y;
+                line.X2 = points[1].pointer.X;
+                line.Y2 = points[1].pointer.Y;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 3;
+                points[0].lines.Add(line);
+                points[0].neighbours.Add(points[1]);
+                points[1].neighbours.Add(points[0]);
+                points[1].lines.Add(line);
+                myCanvas.Children.Add(line);
+            }
         }
 
         private bool DistanceCalculator(Point point)
@@ -171,19 +168,19 @@ namespace VirusWPF
             }
             return true;
         }
-        private void RemovePropertyes()
+
+        private void myCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var removePropertyes = myRectanglesPoints
-            .Where(x => x.RectangleType == RectangleTypeEnum.Connect || x.RectangleType == RectangleTypeEnum.Remove).ToList();
-            foreach (var items in removePropertyes)
+            //drag canvas an moove 
+            if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                myCanvas.Children.Remove(items.rectangle);
-                foreach(var textblock in items.textBoxes)
-                {
-                    myCanvas.Children.Remove(textblock);
-                }
-                myRectanglesPoints.Remove(items);
+
             }
+        }
+
+        private void Start_Simulation(object sender, RoutedEventArgs e)
+        {
+            Simulator simulator = new Simulator(myRectanglesPoints);
         }
         #endregion
     }

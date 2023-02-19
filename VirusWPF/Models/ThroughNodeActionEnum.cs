@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace VirusWPF.Models
 {
-    public enum RectangleTypeEnum
+    public enum ThroughNodeActionEnum
     {
-        Basic,
-        Connect,
-        Remove
+        None,
+        FirstInfect,
+        Moove,
+        Infect
     }
 }
