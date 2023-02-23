@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace VirusWPF.Models
 {
@@ -16,21 +18,24 @@ namespace VirusWPF.Models
         }
         public Simulator(List<RectanglePointer>rectanglePointer)
         {
-            Thread simulationThread = new Thread(() => { simulation(rectanglePointer); });
-            
-        }
-        private void simulation(List<RectanglePointer> rectanglePointer)
-        {
-            startingSimulatoinTime = DateTime.Now;
-            Graph graph = new Graph(rectanglePointer);
-            graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
-            Console.WriteLine("stop");
-            do
+            Trace.WriteLine("text");
+            Thread thread = new Thread(() =>
             {
-                graph.GoThroughtNodes(ThroughNodeActionEnum.Moove);
-                Thread.Sleep(2000);
-                graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
-            } while (true);
+                startingSimulatoinTime = DateTime.Now;
+                Graph graph = new Graph(rectanglePointer);
+                graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
+                Console.WriteLine("stop");
+                do
+                {
+                    graph.GoThroughtNodes(ThroughNodeActionEnum.Moove);
+                    Thread.Sleep(2000);
+                    graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
+                } while (true);
+
+            });
+            thread.IsBackground = true;
+            thread.Start();
+            Trace.WriteLine("Salmi");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -24,6 +25,7 @@ namespace VirusWPF
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
+        private bool editable = true;
 
         public MainWindow()
         {
@@ -120,7 +122,7 @@ namespace VirusWPF
 
         private void DrawRectangle(Point mousePosition)
         {
-            if (DistanceCalculator(mousePosition))
+            if (DistanceCalculator(mousePosition) && editable)
             {
                 rectangle1 = new Rectangle() { Width = 50, Height = 50, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
@@ -150,7 +152,7 @@ namespace VirusWPF
 
         private void Drawline(List<RectanglePointer> points)
         {
-            if (!(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
+            if (editable && !(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
             {
                 var line = new Line();
                 line.X1 = points[0].pointer.X;
@@ -195,6 +197,7 @@ namespace VirusWPF
         {
             if(myRectanglesPoints.Count > 1)
             {
+                editable = false;
                 Simulator simulator = new Simulator(myRectanglesPoints);
             }
             else
