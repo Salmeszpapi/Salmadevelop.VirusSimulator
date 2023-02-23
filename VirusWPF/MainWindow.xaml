@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VirusWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200" 
         ResizeMode="NoResize" ShowInTaskbar="True" WindowStartupLocation="CenterScreen"
@@ -15,10 +14,10 @@
             <Menu DockPanel.Dock="Top" FontSize="20" FontStyle="Oblique" FontStretch="UltraExpanded">
 
             <MenuItem Header="Simulation" HorizontalAlignment="Stretch">
-                <MenuItem Header="Create new"/>
+                <MenuItem Header="Create new" Click="Restart_NewSimulation"/>
                 <MenuItem Header="Start" Click="Start_Simulation"/>
-                <MenuItem Header="Save"/>
-                <MenuItem Header="Open"/>
+                <MenuItem Header="Save" Click="Save_Simulation"/>
+                <MenuItem Header="Open" Click="Open_Simulation"/>
             </MenuItem>
                 <MenuItem x:Name="Time" Header="Open"/>
                 <Label x:Name="TimeLabel" Focusable="False" Content="" HorizontalAlignment="Right"/>

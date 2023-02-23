@@ -4,5 +4,7 @@
              xmlns:local="clr-namespace:VirusWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
     </Application.Resources>
+    
 </Application>

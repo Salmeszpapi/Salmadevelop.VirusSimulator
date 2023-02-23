@@ -10,6 +10,7 @@ namespace VirusWPF.Models
     {
         public int Id { get; set; }
         public int MaxPerson { get; set; }
+        public HouseTypeEnum HouseType { get; set; }
 
         public List<int> neighbours = new List<int>();
 
@@ -26,5 +27,6 @@ namespace VirusWPF.Models
                 neighbours.Add(neighbour.Id);
             }
         }
+
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 //using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -123,14 +124,27 @@ namespace VirusWPF
                 rectangle1 = new Rectangle() { Width = 50, Height = 50, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
-                var rectangleText = myRectanglesPoints.Count;
+                var rectangleText = rectangleNamer();
                 myCanvas.Children.Add(rectangle1);
                 var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 50, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
                 var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition);
                 newRectangle.textBox = textblock;
-                myRectanglesPoints.Add(newRectangle);
+                myRectanglesPoints.Insert(rectangleText,newRectangle);
             }
+        }
 
+        private int rectangleNamer()
+        {
+            int checkId = 0;
+            foreach(var rectangle in myRectanglesPoints)
+            {
+                if(rectangle.Id != checkId)
+                {
+                    return checkId;
+                }
+                checkId++;
+            }
+            return myRectanglesPoints.Count;
         }
 
         private void Drawline(List<RectanglePointer> points)
@@ -178,9 +192,39 @@ namespace VirusWPF
 
         private void Start_Simulation(object sender, RoutedEventArgs e)
         {
-
-            Simulator simulator = new Simulator(myRectanglesPoints);
+            if(myRectanglesPoints.Count > 1)
+            {
+                Simulator simulator = new Simulator(myRectanglesPoints);
+            }
+            else
+            {
+                //error popup you need 2 or more Places
+            }
         }
         #endregion
+
+        private void Restart_NewSimulation(object sender, RoutedEventArgs e)
+        {
+            myCanvas.Children.Clear();
+            rectangle1 = null;
+            MyPoints.Clear();
+            myRectanglesPoints.Clear();
+        }
+
+        private void Save_Simulation(object sender, RoutedEventArgs e)
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+
+            };
+            string jsonString = JsonSerializer.Serialize(myRectanglesPoints[0]);
+        }
+
+        private void Open_Simulation(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

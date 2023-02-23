@@ -31,7 +31,6 @@ namespace VirusWPF.Models
 
         public void GoThroughtNodes(ThroughNodeActionEnum throughNodeActionEnum, int node = 0)
         {
-            Console.WriteLine("asd");
             if (nodesObjects[node].neighbours.Count > 0)
             {
                 if (!visitedNodes.Contains(node))
@@ -50,10 +49,6 @@ namespace VirusWPF.Models
                         }
                         else
                         {
-                            //here we can check the parent of the node of node is infected then
-                            //we can pass the virus to his parent 
-
-
                             //End of checking 
                             if (!myStack.Contains(nod.Id))
                             {
@@ -62,15 +57,7 @@ namespace VirusWPF.Models
                             Console.WriteLine(node + "->" + nod);
                         }
                     }
-                    //here we will visit only once the Nodes / Places
-
-                    //for (int i = 0; i < 100; i++)
-                    //{
-                    //    People people = new People(peoplesList.Count);
-                    //    peoplesList.Add(people);
-                    //}
-
-                    //Console.WriteLine($"Ez it teszt{node}");
+                    nodesObjects[0].HouseType = HouseTypeEnum.Hospital; 
                     visitedNodes.Add(node);
                 }
             }
