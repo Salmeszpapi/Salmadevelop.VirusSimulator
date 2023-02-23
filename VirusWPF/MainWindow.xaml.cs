@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -10,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using VirusWPF.Models;
@@ -21,7 +23,7 @@ namespace VirusWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Rectangle rectangle1;
+        public Rectangle rectangle1;
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
@@ -34,6 +36,10 @@ namespace VirusWPF
             LiveTime.Tick += timer_Tick;
             LiveTime.Start();
             myCanvas.Margin = new Thickness(10, 10, 50, 50);
+            string startupPath = Environment.CurrentDirectory;
+            ImageBrush ib = new ImageBrush();
+            ib.ImageSource = new BitmapImage(new Uri("C:\\Diploma\\ApplicationCore\\VirusWPF\\Images\\Slovakia.png", UriKind.RelativeOrAbsolute));
+            myCanvas.Background = ib;
         }
 
 
@@ -170,6 +176,25 @@ namespace VirusWPF
             }
         }
 
+        private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
+        {
+            if (rectangle1!=rectangle2 && editable && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
+            {
+                var line = new Line();
+                line.X1 = rectangle1.pointer.X;
+                line.Y1 = rectangle1.pointer.Y;
+                line.X2 = rectangle2.pointer.X;
+                line.Y2 = rectangle2.pointer.Y;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 3;
+                rectangle1.lines.Add(line);
+                rectangle2.lines.Add(line);
+                rectangle1.neighbours.Add(rectangle2);
+                rectangle2.neighbours.Add(rectangle1);
+                myCanvas.Children.Add(line);
+            }
+        }
+
         private bool DistanceCalculator(Point point)
         {
             foreach(var points in myRectanglesPoints)
@@ -210,10 +235,7 @@ namespace VirusWPF
 
         private void Restart_NewSimulation(object sender, RoutedEventArgs e)
         {
-            myCanvas.Children.Clear();
-            rectangle1 = null;
-            MyPoints.Clear();
-            myRectanglesPoints.Clear();
+            clearCanvas();
         }
 
         private void Save_Simulation(object sender, RoutedEventArgs e)
@@ -234,9 +256,31 @@ namespace VirusWPF
         private void Random_NewSimulation(object sender, RoutedEventArgs e)
         {
             Restart_NewSimulation(sender, e);
-            RandomGraphWindow graphWindow = new RandomGraphWindow();
+            RandomGraphWindow graphWindow = new RandomGraphWindow(this);
             graphWindow.Show();
+        }
+        public void createNewRandomGraph(int text)
+        {
+            for(int i = 0; i < text;i++)
+            {
+                Point newPoint = new Point(new Random().Next(0,5000), new Random().Next(0,5000));
+                DrawRectangle(newPoint);
+            }
 
+            foreach(var rectangle in myRectanglesPoints)
+            {
+                for(int i=0;i<new Random().Next(0,text/2);i++) 
+                {
+                    Drawline(rectangle, myRectanglesPoints[new Random().Next(0,myRectanglesPoints.Count)]);
+                }
+            }
+        }
+        private void clearCanvas()
+        {
+            myCanvas.Children.Clear();
+            rectangle1 = null;
+            MyPoints.Clear();
+            myRectanglesPoints.Clear();
         }
     }
 }

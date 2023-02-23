@@ -19,15 +19,17 @@ namespace VirusWPF.Models
     /// </summary>
     public partial class RandomGraphWindow : Window
     {
-        public string NodeCount { get; set; }
-        public RandomGraphWindow()
+        private MainWindow myMainWindow;
+        public RandomGraphWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            myMainWindow = mainWindow;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NodeCount = this.NodeSize.Text.ToString();
+            myMainWindow.createNewRandomGraph(Convert.ToInt32(NodeSize.Text.ToString()));
             this.Close();
         }
     }

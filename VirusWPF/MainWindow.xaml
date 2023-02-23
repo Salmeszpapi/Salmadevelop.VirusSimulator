@@ -26,7 +26,6 @@
             <Canvas x:Name="myCanvas" 
             Height="5000"
             Width="5000"
-            Background="LightBlue" 
             Focusable="True" 
             MouseLeftButtonDown="myCanvas_MouseLeftButtonDown"
             MouseWheel="Canvas_MouseWheel"
