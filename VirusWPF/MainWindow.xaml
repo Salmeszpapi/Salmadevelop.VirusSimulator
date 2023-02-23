@@ -14,6 +14,7 @@
             <Menu DockPanel.Dock="Top" FontSize="20" FontStyle="Oblique" FontStretch="UltraExpanded">
                 <MenuItem Header="Simulation" HorizontalAlignment="Stretch">
                     <MenuItem Header="Create new" Click="Restart_NewSimulation"/>
+                    <MenuItem Header="Create random" Click="Random_NewSimulation"/>
                     <MenuItem Header="Start" Click="Start_Simulation"/>
                     <MenuItem Header="Save" Click="Save_Simulation"/>
                     <MenuItem Header="Open" Click="Open_Simulation"/>

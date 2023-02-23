@@ -231,5 +231,12 @@ namespace VirusWPF
         {
 
         }
+        private void Random_NewSimulation(object sender, RoutedEventArgs e)
+        {
+            Restart_NewSimulation(sender, e);
+            RandomGraphWindow graphWindow = new RandomGraphWindow();
+            graphWindow.Show();
+
+        }
     }
 }

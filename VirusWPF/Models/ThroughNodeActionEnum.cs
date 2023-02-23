@@ -10,7 +10,7 @@ namespace VirusWPF.Models
     {
         None,
         FirstInfect,
-        Moove,
+        Move,
         Infect
     }
 }

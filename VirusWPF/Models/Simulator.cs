@@ -27,7 +27,7 @@ namespace VirusWPF.Models
                 Console.WriteLine("stop");
                 do
                 {
-                    graph.GoThroughtNodes(ThroughNodeActionEnum.Moove);
+                    graph.GoThroughtNodes(ThroughNodeActionEnum.Move);
                     Thread.Sleep(2000);
                     graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
                 } while (true);
