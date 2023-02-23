@@ -16,6 +16,11 @@ namespace VirusWPF.Models
         }
         public Simulator(List<RectanglePointer>rectanglePointer)
         {
+            Thread simulationThread = new Thread(() => { simulation(rectanglePointer); });
+            
+        }
+        private void simulation(List<RectanglePointer> rectanglePointer)
+        {
             startingSimulatoinTime = DateTime.Now;
             Graph graph = new Graph(rectanglePointer);
             graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);

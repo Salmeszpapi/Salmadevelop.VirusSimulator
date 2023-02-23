@@ -12,14 +12,12 @@
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" FontSize="20" FontStyle="Oblique" FontStretch="UltraExpanded">
-
-            <MenuItem Header="Simulation" HorizontalAlignment="Stretch">
-                <MenuItem Header="Create new" Click="Restart_NewSimulation"/>
-                <MenuItem Header="Start" Click="Start_Simulation"/>
-                <MenuItem Header="Save" Click="Save_Simulation"/>
-                <MenuItem Header="Open" Click="Open_Simulation"/>
-            </MenuItem>
-                <MenuItem x:Name="Time" Header="Open"/>
+                <MenuItem Header="Simulation" HorizontalAlignment="Stretch">
+                    <MenuItem Header="Create new" Click="Restart_NewSimulation"/>
+                    <MenuItem Header="Start" Click="Start_Simulation"/>
+                    <MenuItem Header="Save" Click="Save_Simulation"/>
+                    <MenuItem Header="Open" Click="Open_Simulation"/>
+                </MenuItem>
                 <Label x:Name="TimeLabel" Focusable="False" Content="" HorizontalAlignment="Right"/>
             </Menu>
                 
