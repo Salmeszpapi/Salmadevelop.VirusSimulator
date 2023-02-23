@@ -36,6 +36,7 @@ namespace VirusWPF
             myCanvas.Margin = new Thickness(10, 10, 50, 50);
         }
 
+
         void timer_Tick(object sender, EventArgs e)
         {
             TimeLabel.Content = DateTime.Now.ToString("HH:mm:ss");
