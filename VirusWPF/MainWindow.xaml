@@ -24,8 +24,8 @@
                 
             <StackPanel></StackPanel>
             <Canvas x:Name="myCanvas" 
-            Height="5000"
-            Width="5000"
+            Height="800"
+            Width="1180"
             Focusable="True" 
             MouseLeftButtonDown="myCanvas_MouseLeftButtonDown"
             MouseWheel="Canvas_MouseWheel"

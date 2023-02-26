@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using VirusWPF.Models;
+using VirusWPF.Windows;
 
 namespace VirusWPF
 {
@@ -27,7 +28,9 @@ namespace VirusWPF
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
-        private bool editable = true;
+        private bool simulationOn = false;
+        private int peopleIdcounter;
+        private ShowPeaplesInNodeWindow myShowPeaplesInNodeWindow;
 
         public MainWindow()
         {
@@ -41,7 +44,6 @@ namespace VirusWPF
             ib.ImageSource = new BitmapImage(new Uri("C:\\Diploma\\ApplicationCore\\VirusWPF\\Images\\Slovakia.png", UriKind.RelativeOrAbsolute));
             myCanvas.Background = ib;
         }
-
 
         void timer_Tick(object sender, EventArgs e)
         {
@@ -76,6 +78,7 @@ namespace VirusWPF
 
         private void myCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             if (e.OriginalSource is Rectangle)
             {
                 var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
@@ -102,13 +105,28 @@ namespace VirusWPF
         {
             if (rectangle1 is not null)
             {
-                if (e.OriginalSource is Rectangle)
+                if (simulationOn && e.OriginalSource is Rectangle)
+                {
+                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
+                    myShowPeaplesInNodeWindow = ShowPeaplesInNodeWindow.getInstance();
+                    sameRectangle.ReadAllasdsadsa();
+                    myShowPeaplesInNodeWindow.SetPointer(sameRectangle);
+                    if (myShowPeaplesInNodeWindow != null)
+                    {
+                        myShowPeaplesInNodeWindow.Show();
+                    }
+                }
+                else if (e.OriginalSource is Rectangle)
                 {
                     rectangle1 = (Rectangle)e.OriginalSource;
                     rectangle1.Fill = Brushes.BurlyWood;
                 }
                 else if (e.OriginalSource is Canvas)
                 {
+                    if (simulationOn && myShowPeaplesInNodeWindow != null)
+                    {
+                        myShowPeaplesInNodeWindow.Close();
+                    }
                     rectangle1.Fill = Brushes.Gray;
                 }
             }
@@ -129,15 +147,16 @@ namespace VirusWPF
 
         private void DrawRectangle(Point mousePosition)
         {
-            if (DistanceCalculator(mousePosition) && editable)
+            if (DistanceCalculator(mousePosition) && !simulationOn)
             {
-                rectangle1 = new Rectangle() { Width = 50, Height = 50, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
+                rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
                 var rectangleText = rectangleNamer();
                 myCanvas.Children.Add(rectangle1);
-                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 50, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
-                var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition);
+                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 15, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
+                var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition, peopleIdcounter);
+                peopleIdcounter = newRectangle.PeopleIdcounter;
                 newRectangle.textBox = textblock;
                 myRectanglesPoints.Insert(rectangleText,newRectangle);
             }
@@ -159,7 +178,7 @@ namespace VirusWPF
 
         private void Drawline(List<RectanglePointer> points)
         {
-            if (editable && !(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
+            if (!simulationOn && !(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
             {
                 var line = new Line();
                 line.X1 = points[0].pointer.X;
@@ -167,7 +186,7 @@ namespace VirusWPF
                 line.X2 = points[1].pointer.X;
                 line.Y2 = points[1].pointer.Y;
                 line.Stroke = Brushes.Black;
-                line.StrokeThickness = 3;
+                line.StrokeThickness = 1;
                 points[0].lines.Add(line);
                 points[0].neighbours.Add(points[1]);
                 points[1].neighbours.Add(points[0]);
@@ -178,7 +197,7 @@ namespace VirusWPF
 
         private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
         {
-            if (rectangle1!=rectangle2 && editable && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
+            if (rectangle1!=rectangle2 && !simulationOn && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
             {
                 var line = new Line();
                 line.X1 = rectangle1.pointer.X;
@@ -186,7 +205,7 @@ namespace VirusWPF
                 line.X2 = rectangle2.pointer.X;
                 line.Y2 = rectangle2.pointer.Y;
                 line.Stroke = Brushes.Black;
-                line.StrokeThickness = 3;
+                line.StrokeThickness = 1.5;
                 rectangle1.lines.Add(line);
                 rectangle2.lines.Add(line);
                 rectangle1.neighbours.Add(rectangle2);
@@ -223,7 +242,7 @@ namespace VirusWPF
         {
             if(myRectanglesPoints.Count > 1)
             {
-                editable = false;
+                simulationOn = true;
                 Simulator simulator = new Simulator(myRectanglesPoints);
             }
             else
@@ -255,15 +274,15 @@ namespace VirusWPF
         }
         private void Random_NewSimulation(object sender, RoutedEventArgs e)
         {
-            Restart_NewSimulation(sender, e);
             RandomGraphWindow graphWindow = new RandomGraphWindow(this);
             graphWindow.Show();
         }
         public void createNewRandomGraph(int text)
         {
-            for(int i = 0; i < text;i++)
+            clearCanvas();
+            for (int i = 0; i < text;i++)
             {
-                Point newPoint = new Point(new Random().Next(0,5000), new Random().Next(0,5000));
+                Point newPoint = new Point(new Random().Next(0,1180), new Random().Next(0,800));
                 DrawRectangle(newPoint);
             }
 
@@ -274,9 +293,24 @@ namespace VirusWPF
                     Drawline(rectangle, myRectanglesPoints[new Random().Next(0,myRectanglesPoints.Count)]);
                 }
             }
+            var result = CountTheHabitablehouses();
+        }
+
+        private int CountTheHabitablehouses()
+        {
+            int count = 0;
+            foreach (var rectangle in myRectanglesPoints)
+            {
+                if(rectangle.HouseTypeEnum == HouseTypeEnum.House)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
         private void clearCanvas()
         {
+            simulationOn = false;
             myCanvas.Children.Clear();
             rectangle1 = null;
             MyPoints.Clear();

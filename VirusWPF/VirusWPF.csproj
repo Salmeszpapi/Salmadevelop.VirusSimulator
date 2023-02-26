@@ -21,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ReactiveUI" Version="18.4.22" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="VirusWPF.Windows.ShowPeaplesInNodeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirusWPF.Windows"
+        mc:Ignorable="d"
+        Title="ShowPeaplesInNodeWindow" Height="220" Width="176">
+    <Grid>
+        <Label Content="Node :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="21,0,0,0"/>
+        <Label Content="{Binding Id}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="71,0,0,0"/>
+        <Label Content="Healthy:" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Healthy}" HorizontalAlignment="Left" Margin="71,38,0,0" VerticalAlignment="Top"/>
+        <Label Content="Infected:" HorizontalAlignment="Left" Margin="0,66,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Infected}" HorizontalAlignment="Left" Margin="71,66,0,0" VerticalAlignment="Top"/>
+        <Label Content="Dead:" HorizontalAlignment="Left" Margin="0,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Dead}" HorizontalAlignment="Left" Margin="71,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="House type:" HorizontalAlignment="Left" Margin="0,118,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding HouseTypeEnum}" HorizontalAlignment="Left" Margin="78,117,0,0" VerticalAlignment="Top"/>
+        <Label Content="All people:" HorizontalAlignment="Left" Margin="0,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding PeoplesCount}" HorizontalAlignment="Left" Margin="80,142,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
