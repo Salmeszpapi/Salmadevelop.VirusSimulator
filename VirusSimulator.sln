@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirusWPF", "VirusWPF\VirusWPF.csproj", "{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirusSimulator-UI", "VirusSimulator-UI\VirusSimulator-UI.csproj", "{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C1BFA7E-D468-485B-8AC3-7D18C85A0CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

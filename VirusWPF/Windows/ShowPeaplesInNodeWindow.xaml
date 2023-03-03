@@ -7,17 +7,29 @@
         mc:Ignorable="d"
         Title="ShowPeaplesInNodeWindow" Height="220" Width="176">
     <Grid>
-        <Label Content="Node :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="21,0,0,0"/>
-        <Label Content="{Binding Id}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="71,0,0,0"/>
-        <Label Content="Healthy:" HorizontalAlignment="Left" Margin="0,38,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Healthy}" HorizontalAlignment="Left" Margin="71,38,0,0" VerticalAlignment="Top"/>
-        <Label Content="Infected:" HorizontalAlignment="Left" Margin="0,66,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Infected}" HorizontalAlignment="Left" Margin="71,66,0,0" VerticalAlignment="Top"/>
-        <Label Content="Dead:" HorizontalAlignment="Left" Margin="0,92,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Dead}" HorizontalAlignment="Left" Margin="71,92,0,0" VerticalAlignment="Top"/>
-        <Label Content="House type:" HorizontalAlignment="Left" Margin="0,118,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding HouseTypeEnum}" HorizontalAlignment="Left" Margin="78,117,0,0" VerticalAlignment="Top"/>
-        <Label Content="All people:" HorizontalAlignment="Left" Margin="0,144,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding PeoplesCount}" HorizontalAlignment="Left" Margin="80,142,0,0" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Node :"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Id}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Healthy:" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding HealthyCount}" />
+        <Label Grid.Row="2" Grid.Column="0" Content="Infected:" />
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding InfectedCount}"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Dead:" />
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding DeadCount}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="House type:"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="{Binding HouseTypeEnum}" />
+        <Label Grid.Row="5" Grid.Column="0" Content="All people:"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding PeoplesCount}"/>
     </Grid>
 </Window>

@@ -1,0 +1,20 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:VirusSimulator_UI"
+             x:Class="VirusSimulator_UI.App">
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+	<Application.Styles>
+		<FluentTheme Mode="Light"/>
+		
+		<Style Selector="Button:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="Green"></Setter>
+		</Style>
+		<Style Selector="Button:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="Orange"></Setter>
+		</Style>
+		
+    </Application.Styles>
+</Application>

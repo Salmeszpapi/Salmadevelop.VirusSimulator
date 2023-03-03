@@ -14,10 +14,12 @@ namespace VirusWPF.Models
         public List<Node> nodesObjects = new List<Node>();
         List<int> visitedNodes = new List<int>();
         Queue<int> myStack = new();
-        public Graph(List<RectanglePointer> rectanglePointer)
+        private List<RectanglePointer> rectanglePointers= new List<RectanglePointer>();
+        public Graph(List<RectanglePointer> rectanglePointers)
         {
-            Nodes= rectanglePointer.Count;
-            createNodes(rectanglePointer);
+            Nodes= rectanglePointers.Count;
+            createNodes(rectanglePointers);
+            this.rectanglePointers = rectanglePointers;
         }
 
         private void createNodes(List<RectanglePointer> rectanglePointer)
@@ -57,7 +59,7 @@ namespace VirusWPF.Models
                             Console.WriteLine(node + "->" + nod);
                         }
                     }
-                    nodesObjects[0].HouseType = HouseTypeEnum.Hospital; 
+                    //
                     visitedNodes.Add(node);
                 }
             }
@@ -70,6 +72,42 @@ namespace VirusWPF.Models
                 GoThroughtNodes(ThroughNodeActionEnum.None, myStack.Dequeue());
             }
 
+        }
+        public void IterateThroughtRectangles(ThroughNodeActionEnum throughNodeActionEnum)
+        {
+            foreach(var rectangle in rectanglePointers)
+            {
+                switch (throughNodeActionEnum)
+                {
+                    case ThroughNodeActionEnum.FirstInfect:
+                        rectangle.persons[0].Infected = true;
+                        break;
+                    case ThroughNodeActionEnum.Infect:
+                        IterateThroughtPersonsInfect(rectangle, throughNodeActionEnum);
+                        break;
+                    case ThroughNodeActionEnum.Move:
+                        IterateThroughtPersonsMove(rectangle, throughNodeActionEnum);
+                        break;
+                }
+                
+            }
+        }
+        private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer,ThroughNodeActionEnum throughNodeActionEnum)
+        {
+            foreach (var person in rectanglePointer.persons)
+            {
+                if(new Random().Next(100) < 30)
+                {
+                    person.Infected = true;
+                }
+            }
+        }
+        private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer, ThroughNodeActionEnum throughNodeActionEnum)
+        {
+            foreach (var person in rectanglePointer.persons)
+            {
+
+            }
         }
 
     }

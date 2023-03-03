@@ -16,22 +16,43 @@ namespace VirusWPF.Models
         {
             startingSimulatoinTime = DateTime.Now;
         }
-        public Simulator(List<RectanglePointer>rectanglePointer)
+        //public Simulator(List<RectanglePointer>rectanglePointer)
+        //{
+        //    Trace.WriteLine("text");
+        //    Thread thread = new Thread(() =>
+        //    {
+        //        startingSimulatoinTime = DateTime.Now;
+        //        Graph graph = new Graph(rectanglePointer);
+        //        graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
+        //        Console.WriteLine("stop");
+        //        do
+        //        {
+        //            graph.GoThroughtNodes(ThroughNodeActionEnum.Move);
+        //            Thread.Sleep(2000);
+        //            graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
+        //        } while (true);
+
+        //    });
+        //    thread.IsBackground = true;
+        //    thread.Start();
+        //    Trace.WriteLine("Salmi");
+        //}
+        public Simulator(List<RectanglePointer> rectanglePointer)
         {
             Trace.WriteLine("text");
             Thread thread = new Thread(() =>
             {
                 startingSimulatoinTime = DateTime.Now;
                 Graph graph = new Graph(rectanglePointer);
-                graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
+                //graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
+                graph.IterateThroughtRectangles(ThroughNodeActionEnum.FirstInfect);
                 Console.WriteLine("stop");
                 do
                 {
-                    graph.GoThroughtNodes(ThroughNodeActionEnum.Move);
-                    Thread.Sleep(2000);
-                    graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
+                    graph.IterateThroughtRectangles(ThroughNodeActionEnum.Move);
+                    Thread.Sleep(1000);
+                    graph.IterateThroughtRectangles(ThroughNodeActionEnum.Infect);
                 } while (true);
-
             });
             thread.IsBackground = true;
             thread.Start();

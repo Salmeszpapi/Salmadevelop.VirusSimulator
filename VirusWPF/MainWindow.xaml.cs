@@ -48,6 +48,7 @@ namespace VirusWPF
         void timer_Tick(object sender, EventArgs e)
         {
             TimeLabel.Content = DateTime.Now.ToString("HH:mm:ss");
+
         }
 
         #region Mouse events
@@ -108,8 +109,10 @@ namespace VirusWPF
                 if (simulationOn && e.OriginalSource is Rectangle)
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
+                    TestDatacontextxaml testDatacontextxaml = new TestDatacontextxaml(sameRectangle);
+                    testDatacontextxaml.Show();
                     myShowPeaplesInNodeWindow = ShowPeaplesInNodeWindow.getInstance();
-                    sameRectangle.ReadAllasdsadsa();
+                    sameRectangle.ReadPeopleStatus();
                     myShowPeaplesInNodeWindow.SetPointer(sameRectangle);
                     if (myShowPeaplesInNodeWindow != null)
                     {
@@ -221,7 +224,7 @@ namespace VirusWPF
                 var distance = Point.Subtract(point, points.pointer);
                 if (distance.X < 0) distance.X *= -1;
                 if (distance.Y < 0) distance.Y *= -1;
-                if (distance.X < 100 && distance.Y < 100)
+                if (distance.X < 50 && distance.Y < 50)
                 {
                     return false;
                 }

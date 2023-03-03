@@ -1,0 +1,108 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VirusSimulator_UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VirusSimulator_UI.Views.MainWindow"
+        Title="VirusSimulator_UI"
+	    WindowStartupLocation="CenterScreen"
+	    Width="1020"
+	    Height="780"
+	    MaxWidth="1920"
+	    MaxHeight="1080"
+	    CanResize="False"
+	    SystemDecorations="Full"
+	    Background="White">
+	<Design.DataContext>
+         This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) 
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+	
+
+	<StackPanel>
+		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<!--access bar-->
+		<!--grey line-->
+		<Rectangle Fill="Black"
+                   Height="1"
+                   Margin="0"/>
+		<StackPanel Height="72"
+                    Orientation="Horizontal">
+			<Image Width="126"
+                   Height="30"
+                   Margin="24,20,0,20"
+                   Source="{Binding LogoBitmap}"/>
+			<TextBlock Text="Test1"
+                       Margin="40,0,0,0"
+                       Classes="BoldCenter"/>
+		</StackPanel>
+		<!--orange line-->
+		<Rectangle Fill="Orange"
+                   Height="2"/>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150" />
+					<ColumnDefinition Width="710" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Border Grid.Column="0" BorderBrush="Violet"
+        BorderThickness="0,0,2,0" />
+				<Button 
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					FontSize="22"
+					FontWeight="Bold"
+					Grid.Column="0"
+					Name="Simulation"
+					VerticalAlignment="Top"
+					Content="Simulation"
+					IsVisible="True"
+					IsEnabled="True">
+				</Button>
+				<Button
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					FontSize="22"
+					FontWeight="Bold"
+					VerticalAlignment="Top"
+					Grid.Column="0"
+					Name="Chart"
+					Margin="0,60,0,0"
+					Content="Charts"
+					IsVisible="True"
+					IsEnabled="True">
+				</Button>
+				<!--changeable content here via Bindings-->
+				<UserControl Grid.Column="1"
+							 Width="710"
+							 Height="606"
+							 Margin="5"
+							 Content="{Binding ChangableViews}">
+				</UserControl>
+			</Grid>
+
+		<!--orange line-->
+		<Rectangle Fill="Orange"
+                   Height="2"
+                   Margin="0"/>
+		<!--progress content
+		<StackPanel>
+			<TextBlock Text="{Binding StepsCounter}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,5"
+                       Height="20"></TextBlock>
+			<ProgressBar
+                         Height="10"
+                         Minimum="0"
+                         Maximum="{Binding ProgressBarMaximumValue}"
+                         Value="{Binding ProgressBarCurrentValue}"
+                         Classes="Colors"/>
+		</StackPanel>-->
+	</StackPanel>
+	
+	
+</Window>

@@ -18,13 +18,13 @@ namespace VirusWPF.Models
         public TextBlock textBox = new TextBlock();
         public List<Line> lines = new List<Line>();
         public List<RectanglePointer> neighbours = new List<RectanglePointer>();
-        private List<Person> Persons = new List<Person>();
+        public List<Person> persons = new List<Person>();
         public HouseTypeEnum HouseTypeEnum { get; set; }
 
         public int PeoplesCount { get; set; }
-        public int Healthy { get; set; }
-        public int Infected { get; set; }
-        public int Dead { get; set; }
+        public int HealthyCount { get; set; }
+        public int InfectedCount { get; set; }
+        public int DeadCount { get; set; }
         public int PeopleIdcounter { get; set; }
 
         private int maxPeapleAllowed;
@@ -58,6 +58,10 @@ namespace VirusWPF.Models
                     break;
             }
         }
+        public void InfectSomeone()
+        {
+            persons[new Random().Next(persons.Count)].Infected = true;
+        }
 
         private void FillRectngleWithPeaople()
         {
@@ -79,30 +83,30 @@ namespace VirusWPF.Models
                     break;
             }
         }
-        public void ReadAllasdsadsa()
+        public void ReadPeopleStatus()
         {
-           PeoplesCount = Persons.Count;
-           Healthy = GetHealthyPersonCount();
-           Infected =  GetInfectedPersonCount();
-           Dead =  GetDeadPersonCount();
+           PeoplesCount = persons.Count;
+           HealthyCount = GetHealthyPersonCount();
+           InfectedCount =  GetInfectedPersonCount();
+           DeadCount =  GetDeadPersonCount();
         }
         private void generatePeaples(int min, int max)
         {
             maxPeapleAllowed = max;
             for (int i = min; i < max; i++)
             {
-                Persons.Add(new Person(PeopleIdcounter));
+                persons.Add(new Person(PeopleIdcounter));
                 PeopleIdcounter++;
             }
         }
         public int GetPersonCount()
         {
-            return Persons.Count;
+            return persons.Count;
         }
         public int GetHealthyPersonCount()
         {
             var counter = 0;
-            foreach(Person person in Persons)
+            foreach(Person person in persons)
             {
                 if (!person.Infected && !person.Dead)
                 {
@@ -114,7 +118,7 @@ namespace VirusWPF.Models
         public int GetInfectedPersonCount()
         {
             var counter = 0;
-            foreach (Person person in Persons)
+            foreach (Person person in persons)
             {
                 if (person.Infected && !person.Dead)
                 {
@@ -126,7 +130,7 @@ namespace VirusWPF.Models
         public int GetDeadPersonCount()
         {
             var counter = 0;
-            foreach (Person person in Persons)
+            foreach (Person person in persons)
             {
                 if (person.Dead)
                 {
