@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VirusSimulator_UI.Views.SimulationView">
+	<StackPanel>
+		<TextBlock FontSize="40" Text="Welcome to the Jurassic park!" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,30"/>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<Image Grid.Column="0" Grid.Row="0"
+						   Width="126"
+						   Height="30"
+						   Margin="0,40,0,40"
+						   Source="{Binding CreateImage}"/>
+					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+				</Grid>
+			</Button>
+			<Button>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<Image Grid.Column="0" Grid.Row="0"
+						   Width="126"
+						   Height="30"
+						   Margin="0,40,0,40"
+						   Source="{Binding OpenImage}"/>
+					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+				</Grid>
+			</Button>
+			<Button>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<Image Grid.Column="0" Grid.Row="0"
+						   Width="126"
+						   Height="30"
+						   Margin="0,40,0,40"
+						   Source="{Binding RandomImage}"/>
+					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+				</Grid>
+			</Button>
+		</StackPanel>
+	</StackPanel>
+	
+</UserControl>

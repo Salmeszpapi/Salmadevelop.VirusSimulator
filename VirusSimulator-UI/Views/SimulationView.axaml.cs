@@ -1,17 +1,15 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class MainWindow : Window
+    public partial class SimulationView : UserControl
+{
+    public SimulationView()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.AttachDevTools();
-        }
+        InitializeComponent();
+    }
 
         private void InitializeComponent()
         {

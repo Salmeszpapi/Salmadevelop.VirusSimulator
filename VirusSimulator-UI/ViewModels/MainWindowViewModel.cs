@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ReactiveUI.Fody.Helpers;
+using VirusSimulator_UI.Steps;
+using VirusSimulator_UI.Views;
 
 namespace VirusSimulator_UI.ViewModels
 {
@@ -13,6 +15,8 @@ namespace VirusSimulator_UI.ViewModels
         public MainWindowViewModel() : base()
         {
             AnalyzerBitmap = new Bitmap(@"Assets/cat.jpg");
+            SimulationStep simulationStep = new SimulationStep();
+            ChangableViews = simulationStep.GetScreenContent();
         }
         [Reactive]
         public IBitmap AnalyzerBitmap { get; set; }

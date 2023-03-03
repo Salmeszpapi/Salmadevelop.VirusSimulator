@@ -33,7 +33,7 @@
 			<Image Width="126"
                    Height="30"
                    Margin="24,20,0,20"
-                   Source="{Binding LogoBitmap}"/>
+                   Source="{Binding AnalyzerBitmap}"/>
 			<TextBlock Text="Test1"
                        Margin="40,0,0,0"
                        Classes="BoldCenter"/>
@@ -44,7 +44,7 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="150" />
-					<ColumnDefinition Width="710" />
+					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*" />
@@ -78,7 +78,6 @@
 				</Button>
 				<!--changeable content here via Bindings-->
 				<UserControl Grid.Column="1"
-							 Width="710"
 							 Height="606"
 							 Margin="5"
 							 Content="{Binding ChangableViews}">
@@ -89,19 +88,6 @@
 		<Rectangle Fill="Orange"
                    Height="2"
                    Margin="0"/>
-		<!--progress content
-		<StackPanel>
-			<TextBlock Text="{Binding StepsCounter}"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,5"
-                       Height="20"></TextBlock>
-			<ProgressBar
-                         Height="10"
-                         Minimum="0"
-                         Maximum="{Binding ProgressBarMaximumValue}"
-                         Value="{Binding ProgressBarCurrentValue}"
-                         Classes="Colors"/>
-		</StackPanel>-->
 	</StackPanel>
 	
 	
