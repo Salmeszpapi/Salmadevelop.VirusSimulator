@@ -4,9 +4,9 @@ using System;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class SimulationView : UserControl
+    public partial class SimulationWelcomeView : UserControl
 {
-    public SimulationView()
+    public SimulationWelcomeView()
     {
         InitializeComponent();
     }

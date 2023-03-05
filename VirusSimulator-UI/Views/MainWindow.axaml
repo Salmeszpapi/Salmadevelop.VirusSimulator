@@ -22,7 +22,7 @@
 	
 
 	<StackPanel>
-		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<TextBlock Text="{Binding Caption}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		<!--access bar-->
 		<!--grey line-->
 		<Rectangle Fill="Black"

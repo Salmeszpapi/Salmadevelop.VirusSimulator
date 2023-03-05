@@ -32,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\SimulationWelcomeView.axaml.cs">
+      <DependentUpon>SimulationWelcomeView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\create.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

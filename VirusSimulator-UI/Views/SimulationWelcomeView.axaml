@@ -3,11 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="VirusSimulator_UI.Views.SimulationView">
+             x:Class="VirusSimulator_UI.Views.SimulationWelcomeView">
 	<StackPanel>
 		<TextBlock FontSize="40" Text="Welcome to the Jurassic park!" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,30"/>
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-			<Button>
+			<Button Command="{Binding CreateButtonClicked}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="150" />
@@ -20,7 +20,7 @@
 					<Image Grid.Column="0" Grid.Row="0"
 						   Width="126"
 						   Height="30"
-						   Margin="0,40,0,40"
+						   Margin="0,40,0,25"
 						   Source="{Binding CreateImage}"/>
 					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
 				</Grid>
@@ -38,7 +38,7 @@
 					<Image Grid.Column="0" Grid.Row="0"
 						   Width="126"
 						   Height="30"
-						   Margin="0,40,0,40"
+						   Margin="0,40,0,25"
 						   Source="{Binding OpenImage}"/>
 					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
 				</Grid>
@@ -56,7 +56,7 @@
 					<Image Grid.Column="0" Grid.Row="0"
 						   Width="126"
 						   Height="30"
-						   Margin="0,40,0,40"
+						   Margin="0,40,0,25"
 						   Source="{Binding RandomImage}"/>
 					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
 				</Grid>

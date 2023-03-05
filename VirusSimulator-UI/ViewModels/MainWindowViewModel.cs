@@ -1,6 +1,9 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
+using System.Reactive;
 using VirusSimulator_UI.Steps;
 using VirusSimulator_UI.Views;
 
@@ -10,14 +13,20 @@ namespace VirusSimulator_UI.ViewModels
     {
         public string Greeting => "Welcome to Avalonia!";
 
-        //public IBitmap IconWarningBitmap => AssetsManager.Instance.GetImage(AssetsImages.IconWarning);
-
         public MainWindowViewModel() : base()
         {
             AnalyzerBitmap = new Bitmap(@"Assets/cat.jpg");
-            SimulationStep simulationStep = new SimulationStep();
+            SimulationWelcomeStep simulationStep = new SimulationWelcomeStep(this);
             ChangableViews = simulationStep.GetScreenContent();
         }
+        private string caption = "Default text";
+        [Reactive]
+        public string Caption
+        {
+            get => caption;
+            set => this.RaiseAndSetIfChanged(ref caption, value);
+        }
+
         [Reactive]
         public IBitmap AnalyzerBitmap { get; set; }
         [Reactive]
@@ -30,7 +39,6 @@ namespace VirusSimulator_UI.ViewModels
         public string WelcomeText2 { get; }
 
         public string WelcomeText3 { get; }
-
 
     }
 }
