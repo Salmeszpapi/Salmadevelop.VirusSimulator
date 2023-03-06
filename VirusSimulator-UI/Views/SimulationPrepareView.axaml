@@ -9,10 +9,13 @@
 		<Canvas x:Name="SimulationCanvas"
 				  Height="800"
 				  Width="1180"
-				  Background="AliceBlue"
+				  Background="BlanchedAlmond"
 				  Focusable="True"
 				  PointerMoved="OnMouseMove2"
 				  PointerPressed="OnMouseClick">
+			<!--<Canvas.Background>
+				<ImageBrush Source="/Assets/cat.jpg"/>
+			</Canvas.Background>-->
 			<!--
   MouseMove="myCanvas_MouseMove"
   MouseDown="myCanvas_MouseDown"

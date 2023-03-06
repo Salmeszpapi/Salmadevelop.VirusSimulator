@@ -8,6 +8,7 @@ using Avalonia.Threading;
 using System.Collections.Generic;
 using VirusSimulator_UI.Models;
 using System.Windows.Input;
+using Avalonia.Media.Imaging;
 
 namespace VirusSimulator_UI.Views
 {
@@ -24,6 +25,9 @@ namespace VirusSimulator_UI.Views
         public SimulationPrepareView()
         {
             InitializeComponent();
+            SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
+            //Bitmap myBitmap = new Bitmap(@"Assets/avalonia-logo.ico");
+            //SimulationCanvas.Background = new ImageBrush(myBitmap);
         }
         private void InitializeComponent()
         {
@@ -60,8 +64,8 @@ namespace VirusSimulator_UI.Views
 
         private void DrawRectangle(Point mousePosition)
         {
-            //if (DistanceCalculator(mousePosition) && true)
-            //{
+            if (DistanceCalculator(mousePosition) && true)
+            {
                 rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
@@ -73,18 +77,33 @@ namespace VirusSimulator_UI.Views
                 newRectangle.textBox = textblock;
                 myRectanglesPoints.Insert(rectangleText, newRectangle);
                 System.Console.WriteLine(SimulationCanvas.Children.Count);
+            }
         }
 
         private bool DistanceCalculator(Point point)
         {
+            double myX, myY;
             foreach (var points in myRectanglesPoints)
             {
                 var a = point + point;
                 //var distance = Point.Subtract(point, points.pointer);
                 var distance = point - points.pointer;
-                if (distance.X < 0) distance.WithX(distance.X *-1);
-                if (distance.Y < 0) distance.WithY(distance.Y * -1);
-                if (distance.X < 50 && distance.Y < 50)
+                myX = distance.X;
+                myY = distance.Y;
+                if (distance.Y < 0)
+                {
+                    myY = distance.Y * -1;
+                    if (distance.X < 0)
+                    {
+                        myX = distance.X * -1;
+                    }
+                }
+                else if (distance.X < 0)
+                {
+                    myX = distance.X * -1;
+                }
+
+                if (myX < 50.0 && myY < 50.0)
                 {
                     return false;
                 }
@@ -106,7 +125,7 @@ namespace VirusSimulator_UI.Views
             return myRectanglesPoints.Count;
         }
 
-                private TextBlock DrawText(double x, double y, string text, Color color)
+        private TextBlock DrawText(double x, double y, string text, Color color)
         {
             TextBlock textBlock = new TextBlock();
             textBlock.Text = text;
