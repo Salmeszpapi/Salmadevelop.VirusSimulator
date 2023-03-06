@@ -6,19 +6,20 @@
              x:Class="VirusSimulator_UI.Views.SimulationPrepareView"
 			 Background="Transparent">
 	<StackPanel>
-		<Canvas x:Name="myCanvas"
+		<Canvas x:Name="SimulationCanvas"
 				  Height="800"
 				  Width="1180"
 				  Background="AliceBlue"
 				  Focusable="True"
-				PointerMoved="OnMouseMove">
-			<!--MouseWheel="Canvas_MouseWheel"
+				  PointerMoved="OnMouseMove2"
+				  PointerPressed="OnMouseClick">
+			<!--
   MouseMove="myCanvas_MouseMove"
   MouseDown="myCanvas_MouseDown"
   MouseRightButtonDown="myCanvas_MouseRightButtonDown"-->
-			<Canvas.RenderTransform>
+			<!--<Canvas.RenderTransform>
 				<MatrixTransform/>
-			</Canvas.RenderTransform>
+			</Canvas.RenderTransform>-->
 		</Canvas>
 	</StackPanel>
 </UserControl>

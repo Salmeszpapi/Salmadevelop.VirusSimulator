@@ -1,19 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using System;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class SimulationWelcomeView : UserControl
+    public partial class ShowPeaplesInNodeView : Window
 {
-        public SimulationWelcomeView()
+        public ShowPeaplesInNodeView()
         {
             InitializeComponent();
         }
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
-    }
+    }   
 }
