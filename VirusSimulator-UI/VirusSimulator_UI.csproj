@@ -9,10 +9,6 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
-    <AvaloniaResource Remove="Assets\cat.jpg" />
-    <AvaloniaResource Remove="Assets\create.png" />
-    <AvaloniaResource Remove="Assets\open.png" />
-    <AvaloniaResource Remove="Assets\random.png" />
     <None Remove=".gitignore" />
   </ItemGroup>
 

@@ -79,7 +79,6 @@
 				<!--changeable content here via Bindings-->
 				<UserControl Grid.Column="1"
 							 Height="606"
-							 Margin="5"
 							 Content="{Binding ChangableViews}">
 				</UserControl>
 			</Grid>

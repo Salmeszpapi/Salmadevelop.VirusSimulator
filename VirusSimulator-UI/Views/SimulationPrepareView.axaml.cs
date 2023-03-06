@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using VirusSimulator_UI.Models;
 using System.Windows.Input;
 using Avalonia.Media.Imaging;
+using System.IO;
 
 namespace VirusSimulator_UI.Views
 {
@@ -21,13 +22,13 @@ namespace VirusSimulator_UI.Views
         private bool simulationOn = false;
         private int peopleIdcounter;
         private ShowPeaplesInNodeView? myShowPeaplesInNodeWindow;
-        private Canvas myNewCanvas { get; set; }
+        public string TestBindingText { get; set; }
+        public Bitmap ImageToView { get; set; }
         public SimulationPrepareView()
         {
             InitializeComponent();
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
-            //Bitmap myBitmap = new Bitmap(@"Assets/avalonia-logo.ico");
-            //SimulationCanvas.Background = new ImageBrush(myBitmap);
+
         }
         private void InitializeComponent()
         {
@@ -66,12 +67,12 @@ namespace VirusSimulator_UI.Views
         {
             if (DistanceCalculator(mousePosition) && true)
             {
-                rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
+                rectangle1 = new Rectangle() { Width = 20, Height = 20, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
                 var rectangleText = RectangleNamer();
                 SimulationCanvas.Children.Add(rectangle1);
-                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 15, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
+                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 20, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
                 var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition, peopleIdcounter);
                 peopleIdcounter = newRectangle.PeopleIdcounter;
                 newRectangle.textBox = textblock;
@@ -103,7 +104,7 @@ namespace VirusSimulator_UI.Views
                     myX = distance.X * -1;
                 }
 
-                if (myX < 50.0 && myY < 50.0)
+                if ((myX < 50.0 && myY < 50.0)  )
                 {
                     return false;
                 }
