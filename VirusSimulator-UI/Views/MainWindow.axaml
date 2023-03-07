@@ -28,16 +28,28 @@
 		<Rectangle Fill="Black"
                    Height="1"
                    Margin="0"/>
-		<StackPanel Height="72"
-                    Orientation="Horizontal">
-			<Image Width="126"
-                   Height="30"
-                   Margin="24,20,0,20"
-                   Source="{Binding AnalyzerBitmap}"/>
-			<TextBlock Text="Test1"
-                       Margin="40,0,0,0"
-                       Classes="BoldCenter"/>
+		<StackPanel Orientation="Horizontal">
+			<DockPanel HorizontalAlignment="Left" Width="540">
+
+			</DockPanel>
+			<StackPanel HorizontalAlignment="Center" Width="340">
+
+			</StackPanel>
+			<StackPanel HorizontalAlignment="Right" Width="140" Orientation="Horizontal">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="-50,0,0,0">
+					<Button Command="{Binding StartSimulationButtonClicked}">
+						<Image Width="30" Height="30" Source="{Binding StartSimulationButton}"/>
+					</Button>
+					<Button Command="{Binding PauseSimulationClickedCliced}">
+						<Image Width="30" Height="30" Source="{Binding PauseSimulationButton}"/>
+					</Button>
+					<Button Command="{Binding StopSimulationClickedClicked}">
+						<Image Width="30" Height="30" Source="{Binding StopSimulationButton}"/>
+					</Button>
+				</StackPanel>
+			</StackPanel>
 		</StackPanel>
+
 		<!--orange line-->
 		<Rectangle Fill="Orange"
                    Height="2"/>

@@ -7,14 +7,14 @@
 			 Background="Transparent">
 	<StackPanel>
 		<Canvas x:Name="SimulationCanvas"
-				  Height="606"
+				  Height="610"
 				  Width="865"
 				  Background="BlanchedAlmond"
 				  Focusable="True"
 				  PointerMoved="OnMouseMove2"
 				  PointerPressed="OnMouseClick">
 			<Canvas.Background>
-				<ImageBrush Source="/Assets/cat.jpg"/>
+				<ImageBrush Source="/Assets/Slovakia.png" Stretch="Fill"/>
 			</Canvas.Background>
 			<!--
   MouseMove="myCanvas_MouseMove"

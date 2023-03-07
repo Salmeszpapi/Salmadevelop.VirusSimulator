@@ -10,6 +10,8 @@ using VirusSimulator_UI.Models;
 using System.Windows.Input;
 using Avalonia.Media.Imaging;
 using System.IO;
+using System.Linq;
+using SkiaSharp;
 
 namespace VirusSimulator_UI.Views
 {
@@ -36,30 +38,89 @@ namespace VirusSimulator_UI.Views
         }
         private void OnMouseMove2(object sender, PointerEventArgs e)
         {
-
+            if (rectangle1 is not null)
+            {
+                if (simulationOn && e.Source is Rectangle)
+                {
+                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                    //TestDatacontextxaml testDatacontextxaml = new TestDatacontextxaml(sameRectangle);
+                    //testDatacontextxaml.Show();
+                    //myShowPeaplesInNodeWindow = ShowPeaplesInNodeWindow.getInstance();
+                    sameRectangle.ReadPeopleStatus();
+                    //myShowPeaplesInNodeWindow.SetPointer(sameRectangle);
+                    if (myShowPeaplesInNodeWindow != null)
+                    {
+                        myShowPeaplesInNodeWindow.Show();
+                    }
+                }
+                else if (e.Source is Rectangle)
+                {
+                    rectangle1 = (Rectangle)e.Source;
+                    rectangle1.Fill = Brushes.BurlyWood;
+                }
+                else if (e.Source is Canvas)
+                {
+                    if (simulationOn && myShowPeaplesInNodeWindow != null)
+                    {
+                        myShowPeaplesInNodeWindow.Close();
+                    }
+                    rectangle1.Fill = Brushes.Gray;
+                }
+            }
         }
         private void OnMouseClick(object sender, PointerPressedEventArgs e)
         {
             var mousePosition = e.GetPosition(SimulationCanvas);
-            if (e.Source is Rectangle)
+            if (e.GetPointerPoint(null).Properties.IsLeftButtonPressed)
             {
-                //var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.OriginalSource).FirstOrDefault();
+                if (e.Source is Rectangle)
+                {
 
-                //if (e.OriginalSource is Rectangle)
-                //{
-                //    MyPoints.Add(sameRectangle);
-                //    if (MyPoints.Count == 2)
-                //    {
-                //        Drawline(MyPoints);
-                //        MyPoints.Clear();
-                //    }
-                //}
+                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                    if (e.Source is Rectangle)
+                    {
+                        MyPoints.Add(sameRectangle);
+                        if (MyPoints.Count == 2)
+                        {
+                            Drawline(MyPoints);
+                            MyPoints.Clear();
+                        }
+                    }
+                }
+                else
+                {
+                    MyPoints.Clear();
+                    //if(myRectanglesPoints.Where(x => x.pointer.X))
+                    DrawRectangle(mousePosition);
+                }
             }
             else
             {
-                //MyPoints.Clear();
-                ////if(myRectanglesPoints.Where(x => x.pointer.X))
-                DrawRectangle(mousePosition);
+                if (e.Source is Rectangle)
+                {
+                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                    SimulationCanvas.Children.Remove(sameRectangle.rectangle);
+                    SimulationCanvas.Children.Remove(sameRectangle.textBox);
+                    foreach (var line in sameRectangle.lines) { SimulationCanvas.Children.Remove(line); }
+                    myRectanglesPoints.Remove(sameRectangle);
+                }
+            }
+        }
+
+        private void Drawline(List<RectanglePointer> points)
+        {
+            if (!simulationOn && !(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
+            {
+                var line = new Line();
+                line.StartPoint = points[0].pointer;
+                line.EndPoint = points[1].pointer;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 1;
+                points[0].lines.Add(line);
+                points[0].neighbours.Add(points[1]);
+                points[1].neighbours.Add(points[0]);
+                points[1].lines.Add(line);
+                SimulationCanvas.Children.Add(line);
             }
         }
 

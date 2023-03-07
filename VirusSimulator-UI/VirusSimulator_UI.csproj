@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Remove="Assets\pauseSimulation.png" />
+    <AvaloniaResource Remove="Assets\startSimulation.png" />
+    <AvaloniaResource Remove="Assets\stopSimulation.png" />
     <None Remove=".gitignore" />
   </ItemGroup>
 
@@ -42,6 +45,18 @@
     <None Update="Assets\open.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\pauseSimulation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\startSimulation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<AvaloniaResource Update="Assets\Slovakia.png">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</AvaloniaResource>
+	<None Update="Assets\stopSimulation.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
   <ItemGroup>

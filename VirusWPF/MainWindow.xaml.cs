@@ -77,6 +77,7 @@ namespace VirusWPF
             }
         }
 
+
         private void myCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
 
