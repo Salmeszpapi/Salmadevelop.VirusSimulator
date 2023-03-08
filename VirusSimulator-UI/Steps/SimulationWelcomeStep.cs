@@ -48,7 +48,7 @@ namespace VirusSimulator_UI.Steps
         }
         private void RandomSimulationClicked()
         {
-            var a = new SimulationRandomStep();
+            var a = new SimulationRandomStep(mainWindowViewModel);
             a.GetWindow().Show();
             //mainWindowViewModel.ChangableViews = new SimulationRandomStep(NewWindowType.Random).GetScreenContent();
         }

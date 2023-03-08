@@ -14,6 +14,11 @@ namespace VirusSimulator_UI.Steps
     {
         private SimulationPrepareView simulationPrapareView;
         private SimulationPrepareViewModel simulationPrepareViewModel;
+        public SimulationPrepareStep(NewWindowType newWindowType)
+        {
+            simulationPrepareViewModel = new SimulationPrepareViewModel();
+            simulationPrapareView = new SimulationPrepareView(newWindowType) { DataContext = simulationPrepareViewModel };
+        }
         public SimulationPrepareStep()
         {
             simulationPrepareViewModel = new SimulationPrepareViewModel();
