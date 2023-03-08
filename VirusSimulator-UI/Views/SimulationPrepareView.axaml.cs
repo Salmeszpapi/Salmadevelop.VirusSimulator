@@ -12,6 +12,7 @@ using Avalonia.Media.Imaging;
 using System.IO;
 using System.Linq;
 using SkiaSharp;
+using System;
 
 namespace VirusSimulator_UI.Views
 {
@@ -24,13 +25,16 @@ namespace VirusSimulator_UI.Views
         private bool simulationOn = false;
         private int peopleIdcounter;
         private ShowPeaplesInNodeView? myShowPeaplesInNodeWindow;
-        public string TestBindingText { get; set; }
-        public Bitmap ImageToView { get; set; }
         public SimulationPrepareView()
         {
             InitializeComponent();
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
-
+        }
+        public SimulationPrepareView(NewWindowType newWindowType)
+        {
+            InitializeComponent();
+            SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
+            createNewRandomGraph(5);
         }
         private void InitializeComponent()
         {
@@ -82,7 +86,7 @@ namespace VirusSimulator_UI.Views
                         MyPoints.Add(sameRectangle);
                         if (MyPoints.Count == 2)
                         {
-                            Drawline(MyPoints);
+                            Drawline(MyPoints[0], MyPoints[1]);
                             MyPoints.Clear();
                         }
                     }
@@ -107,19 +111,19 @@ namespace VirusSimulator_UI.Views
             }
         }
 
-        private void Drawline(List<RectanglePointer> points)
+        private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
         {
-            if (!simulationOn && !(points[0].neighbours.Contains(points[1]) && points[1].neighbours.Contains(points[0])))
+            if (rectangle1 != rectangle2 && !simulationOn && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
             {
                 var line = new Line();
-                line.StartPoint = points[0].pointer;
-                line.EndPoint = points[1].pointer;
+                line.StartPoint = rectangle1.pointer;
+                line.EndPoint = rectangle2.pointer;
                 line.Stroke = Brushes.Black;
                 line.StrokeThickness = 1;
-                points[0].lines.Add(line);
-                points[0].neighbours.Add(points[1]);
-                points[1].neighbours.Add(points[0]);
-                points[1].lines.Add(line);
+                rectangle1.lines.Add(line);
+                rectangle1.neighbours.Add(rectangle2);
+                rectangle2.neighbours.Add(rectangle1);
+                rectangle2.lines.Add(line);
                 SimulationCanvas.Children.Add(line);
             }
         }
@@ -198,5 +202,33 @@ namespace VirusSimulator_UI.Views
             SimulationCanvas.Children.Add(textBlock);
             return textBlock;
         }
+        public void createNewRandomGraph(int text)
+        {
+            clearCanvas();
+            for (int i = 0; i < text; i++)
+            {
+                Point newPoint = new Point(new Random().Next(0, 1180), new Random().Next(0, 800));
+                DrawRectangle(newPoint);
+            }
+
+            foreach (var rectangle in myRectanglesPoints)
+            {
+                for (int i = 0; i < new Random().Next(0, text / 2); i++)
+                {
+                    Drawline(rectangle, myRectanglesPoints[new Random().Next(0, myRectanglesPoints.Count)]);
+                }
+            }
+            //var result = CountTheHabitablehouses();
+        }
+
+        private void clearCanvas()
+        {
+            simulationOn = false;
+            SimulationCanvas.Children.Clear();
+            rectangle1 = null;
+            MyPoints.Clear();
+            myRectanglesPoints.Clear();
+        }
+
     }   
 }

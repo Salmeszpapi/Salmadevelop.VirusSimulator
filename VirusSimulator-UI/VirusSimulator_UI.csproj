@@ -48,6 +48,9 @@
     <None Update="Assets\pauseSimulation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\return.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\startSimulation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

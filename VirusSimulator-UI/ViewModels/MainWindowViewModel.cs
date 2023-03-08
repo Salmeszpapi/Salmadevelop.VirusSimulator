@@ -3,7 +3,9 @@ using Avalonia.Media.Imaging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Diagnostics;
 using System.Reactive;
+using VirusSimulator_UI.Models;
 using VirusSimulator_UI.Steps;
 using VirusSimulator_UI.Views;
 
@@ -12,6 +14,11 @@ namespace VirusSimulator_UI.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         public string Greeting => "Welcome to Avalonia!";
+        [Reactive]
+        private DateTime startingSimulatoinTime { get; set; }
+        [Reactive]
+        private Stopwatch SimulationTimer { get; set; }
+        private SimulationWelcomeStep simulationStep;
 
         public MainWindowViewModel() : base()
         {
@@ -19,18 +26,12 @@ namespace VirusSimulator_UI.ViewModels
             StartSimulationButton = new Bitmap(@"Assets/startSimulation.png");
             PauseSimulationButton = new Bitmap(@"Assets/pauseSimulation.png");
             StopSimulationButton = new Bitmap(@"Assets/stopSimulation.png");
-            SimulationWelcomeStep simulationStep = new SimulationWelcomeStep(this);
+            simulationStep = new SimulationWelcomeStep(this);
             ChangableViews = simulationStep.GetScreenContent();
             StartSimulationButtonClicked = ReactiveCommand.Create(StartSimulationClicked);
             PauseSimulationClickedCliced = ReactiveCommand.Create(PauseSimulationClicked);
             StopSimulationClickedClicked = ReactiveCommand.Create(StopSimulationClicked);
-        }
-        private string caption = "Default text";
-        [Reactive]
-        public string Caption
-        {
-            get => caption;
-            set => this.RaiseAndSetIfChanged(ref caption, value);
+            BackToWelcomeViewButton = ReactiveCommand.Create(BackToWelcomeView);
         }
 
         public IBitmap AnalyzerBitmap { get; set; }
@@ -43,12 +44,18 @@ namespace VirusSimulator_UI.ViewModels
         public ReactiveCommand<Unit, Unit> PauseSimulationClickedCliced { get; set; }
         [Reactive]
         public ReactiveCommand<Unit, Unit> StopSimulationClickedClicked { get; set; }
+        [Reactive]
+        public ReactiveCommand<Unit, Unit> BackToWelcomeViewButton { get; set; }
 
         [Reactive]
         public UserControl ChangableViews { get; set; }
 
         private void StartSimulationClicked()
         {
+
+            SimulationTimer = new Stopwatch();
+            SimulationTimer.Start();
+            //Simulator.StartSimulation();
             //mainWindowViewModel.ChangableViews = new SimulationPrepareStep().GetScreenContent();
         }
         private void PauseSimulationClicked()
@@ -58,6 +65,10 @@ namespace VirusSimulator_UI.ViewModels
         private void StopSimulationClicked()
         {
 
+        }
+        private void BackToWelcomeView()
+        {
+            ChangableViews = simulationStep.GetScreenContent();
         }
     }
 }

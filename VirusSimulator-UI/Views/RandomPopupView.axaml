@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VirusSimulator_UI.Views.RandomPopupView"
+        Title="RandomPopupView"
+		Width="500"
+		Height="500"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		WindowStartupLocation="CenterScreen">
+	<StackPanel>
+		<Label HorizontalAlignment="Center" Content="Create random graph to the simulation" FontSize="18" FontWeight="Bold"/>
+		<Grid Margin="30" HorizontalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions >
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+				<Label Grid.Column="0" Grid.Row="0"
+						Content="Number of Nodes"/>
+				<TextBox Grid.Column="1" Grid.Row="0"/>
+				<Label Grid.Column="0" Grid.Row="1"
+						Content="Minimum connection of nodes"/>
+				<TextBox Grid.Column="1" Grid.Row="1"/>
+				<Label Grid.Column="0" Grid.Row="2"
+						Content="Maximum connection"/>
+				<TextBox Grid.Column="1" Grid.Row="2"/>
+
+			<!--<Label Content="Size of node:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
+			<TextBox x:Name="NodeSize" HorizontalAlignment="Left" Margin="104,46,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
+			<Label Content="Label" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
+			<TextBox x:Name="Text2" HorizontalAlignment="Left" Margin="104,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="50"/>
+			<Label Content="Label" HorizontalAlignment="Left" Margin="212,10,0,0" VerticalAlignment="Top"/>
+			<Button Content="Button" HorizontalAlignment="Left" Margin="160,170,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+			<Button Content="Button" HorizontalAlignment="Left" Margin="302,170,0,0" VerticalAlignment="Top"/>-->
+			
+		</Grid>
+		<StackPanel HorizontalAlignment="Center">
+			<Button Content="Randomize"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+					Margin="0,203,0,0">
+			<Button Content="Back" Margin="0,0,5,0"/>
+			<Button Content="Approve"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirusSimulator_UI.Models;
 using VirusSimulator_UI.ViewModels;
 using VirusSimulator_UI.Views;
 
@@ -22,8 +23,9 @@ namespace VirusSimulator_UI.Steps
             this.mainWindowViewModel = mainWindowViewModel;
             mySimulationViewModel = new SimulationWelcomeViewModel();
             simulationView = new SimulationWelcomeView() { DataContext = mySimulationViewModel };
-            mainWindowViewModel.Caption = "New text";
             mySimulationViewModel.CreateButtonClicked = ReactiveCommand.Create(CreateSimulationClicked);
+            mySimulationViewModel.OpenButtonClicked = ReactiveCommand.Create(OpenSimulationClicked);
+            mySimulationViewModel.RandomButtonClicked = ReactiveCommand.Create(RandomSimulationClicked);
             //CreateSimulationClicked(mainWindowViewModel);
         }
 
@@ -35,22 +37,20 @@ namespace VirusSimulator_UI.Steps
         {
 
         }
-        private void CreateSimulationClicked2()
-        {
-
-        }
 
         private void CreateSimulationClicked()
         {
             mainWindowViewModel.ChangableViews = new SimulationPrepareStep().GetScreenContent();
         }
-        private void OpenSimulationClicked(MainWindowViewModel mainWindowViewModel)
+        private void OpenSimulationClicked()
         {
-
+            
         }
-        private void RandomSimulationClicked(MainWindowViewModel mainWindowViewModel)
+        private void RandomSimulationClicked()
         {
-
+            var a = new SimulationRandomStep();
+            a.GetWindow().Show();
+            //mainWindowViewModel.ChangableViews = new SimulationRandomStep(NewWindowType.Random).GetScreenContent();
         }
     }
 }

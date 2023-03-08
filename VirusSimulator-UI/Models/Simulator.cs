@@ -9,40 +9,17 @@ using System.Windows;
 
 namespace VirusSimulator_UI.Models
 {
-    public class Simulator
+    public static class Simulator
     {
-        DateTime startingSimulatoinTime;
-        public Simulator(int node)
+        public static void StartSimulation()
         {
-            startingSimulatoinTime = DateTime.Now;
-        }
-        //public Simulator(List<RectanglePointer>rectanglePointer)
-        //{
-        //    Trace.WriteLine("text");
-        //    Thread thread = new Thread(() =>
-        //    {
-        //        startingSimulatoinTime = DateTime.Now;
-        //        Graph graph = new Graph(rectanglePointer);
-        //        graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
-        //        Console.WriteLine("stop");
-        //        do
-        //        {
-        //            graph.GoThroughtNodes(ThroughNodeActionEnum.Move);
-        //            Thread.Sleep(2000);
-        //            graph.GoThroughtNodes(ThroughNodeActionEnum.Infect);
-        //        } while (true);
 
-        //    });
-        //    thread.IsBackground = true;
-        //    thread.Start();
-        //    Trace.WriteLine("Salmi");
-        //}
-        public Simulator(List<RectanglePointer> rectanglePointer)
+        }
+        public static void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             Trace.WriteLine("text");
             Thread thread = new Thread(() =>
             {
-                startingSimulatoinTime = DateTime.Now;
                 Graph graph = new Graph(rectanglePointer);
                 //graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
                 graph.IterateThroughtRectangles(ThroughNodeActionEnum.FirstInfect);

@@ -22,10 +22,10 @@
 						   Height="30"
 						   Margin="0,40,0,25"
 						   Source="{Binding CreateImage}"/>
-					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+					<TextBlock HorizontalAlignment="Center" Text="{Binding CreateSimulationText}" Grid.Column="0" Grid.Row="1"/>
 				</Grid>
 			</Button>
-			<Button>
+			<Button Command="{Binding OpenButtonClicked}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="150" />
@@ -40,10 +40,10 @@
 						   Height="30"
 						   Margin="0,40,0,25"
 						   Source="{Binding OpenImage}"/>
-					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+					<TextBlock HorizontalAlignment="Center" Text="{Binding OpenSimulationText}" Grid.Column="0" Grid.Row="1"/>
 				</Grid>
 			</Button>
-			<Button>
+			<Button Command="{Binding RandomButtonClicked}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="150" />
@@ -58,7 +58,7 @@
 						   Height="30"
 						   Margin="0,40,0,25"
 						   Source="{Binding RandomImage}"/>
-					<TextBlock HorizontalAlignment="Center" Text="TestFeri 123" Grid.Column="0" Grid.Row="1"/>
+					<TextBlock HorizontalAlignment="Center" Text="{Binding RandomSimulationText}" Grid.Column="0" Grid.Row="1"/>
 				</Grid>
 			</Button>
 		</StackPanel>
