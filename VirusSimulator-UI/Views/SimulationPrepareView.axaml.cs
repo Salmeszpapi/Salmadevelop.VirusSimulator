@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using SkiaSharp;
 using System;
+using VirusSimulator_UI.Steps;
 
 namespace VirusSimulator_UI.Views
 {
@@ -20,10 +21,11 @@ namespace VirusSimulator_UI.Views
     {
         public Rectangle? rectangle1;
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
-        private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
+        public List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
         private int peopleIdcounter;
         private ShowPeaplesInNodeView? myShowPeaplesInNodeWindow;
+        private ShowPeaplesInNodeStep myPopupStep;
         public SimulationPrepareView()
         {
             InitializeComponent();
@@ -31,9 +33,10 @@ namespace VirusSimulator_UI.Views
         }
         public SimulationPrepareView(NewWindowType newWindowType, string nodeCount, string minConnection, string maxConnection)
         {
-
             InitializeComponent();
+
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
+            
             if ((nodeCount != null && minConnection != null && maxConnection != null))
             {
                 createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
@@ -53,15 +56,18 @@ namespace VirusSimulator_UI.Views
             {
                 if (Simulator.RunningSimulation && e.Source is Rectangle)
                 {
+                    
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     //TestDatacontextxaml testDatacontextxaml = new TestDatacontextxaml(sameRectangle);
                     //testDatacontextxaml.Show();
                     //myShowPeaplesInNodeWindow = ShowPeaplesInNodeWindow.getInstance();
                     sameRectangle.ReadPeopleStatus();
+                    
                     //myShowPeaplesInNodeWindow.SetPointer(sameRectangle);
-                    if (myShowPeaplesInNodeWindow != null)
+                    if(myPopupStep is null)
                     {
-                        myShowPeaplesInNodeWindow.Show();
+                        myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
+                        myPopupStep.GetView().Show();
                     }
                 }
                 else if (e.Source is Rectangle)

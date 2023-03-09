@@ -4,7 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="VirusSimulator_UI.Views.ShowPeaplesInNodeView"
-        Title="ShowPeaplesInNodeView">
+        Title="ShowPeaplesInNodeView"
+		Width="150"
+		Height="150">
 	<StackPanel>
 		<Grid>
 			<Grid.ColumnDefinitions>

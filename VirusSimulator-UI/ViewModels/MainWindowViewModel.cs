@@ -47,11 +47,11 @@ namespace VirusSimulator_UI.ViewModels
             s = s.Date + ts;
 
             LiveTime = new DispatcherTimer();
-            LiveTime.Interval = TimeSpan.FromSeconds(1);
+            LiveTime.Interval = TimeSpan.FromMilliseconds(1);
             LiveTime.Tick += timer_Tick;
             SimulationTimer = new Stopwatch();
 
-            SimulationTime = "0:0:0";
+            SimulationTime = "0:0:0:0";
         }
 
         [Reactive]
@@ -76,10 +76,11 @@ namespace VirusSimulator_UI.ViewModels
         {
             if(ChangableViews.GetType().Name == "SimulationPrepareView")
             {
+                SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Start();
                 SimulationTimer.Start();
                 Simulator.RunningSimulation = true;
-                Simulator.StartSimulation();
+                Simulator.StartSimulation(myPreparestep.GetView().myRectanglesPoints);
                 
             }
         }
@@ -100,7 +101,7 @@ namespace VirusSimulator_UI.ViewModels
                 PopupWindowExitSimulationStep mypopup= new PopupWindowExitSimulationStep();
                 mypopup.GetWindow().Show();
                 LiveTime.Stop();
-                SimulationTime = "0:0:0";
+                SimulationTime = "0:0:0:0";
                 SimulationTimer.Stop();
                 SimulationTimer.Reset();
                 Simulator.RunningSimulation = false;
@@ -117,7 +118,7 @@ namespace VirusSimulator_UI.ViewModels
         {
             var timeSpan = SimulationTimer.Elapsed;
             
-            SimulationTime = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+            SimulationTime = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}:{timeSpan.Milliseconds}";
         }
     }
 }

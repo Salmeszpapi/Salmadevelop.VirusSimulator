@@ -31,6 +31,10 @@ namespace VirusSimulator_UI.Steps
         {
             return simulationPrapareView;
         }
+        public SimulationPrepareView GetView() 
+        {
+            return simulationPrapareView;
+        }
 
     }
 }
