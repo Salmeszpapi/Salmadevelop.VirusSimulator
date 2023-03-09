@@ -22,7 +22,6 @@ namespace VirusSimulator_UI.Views
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         private List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
         DispatcherTimer LiveTime = new DispatcherTimer();
-        private bool simulationOn = false;
         private int peopleIdcounter;
         private ShowPeaplesInNodeView? myShowPeaplesInNodeWindow;
         public SimulationPrepareView()
@@ -30,11 +29,19 @@ namespace VirusSimulator_UI.Views
             InitializeComponent();
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
         }
-        public SimulationPrepareView(NewWindowType newWindowType)
+        public SimulationPrepareView(NewWindowType newWindowType, string nodeCount, string minConnection, string maxConnection)
         {
+
             InitializeComponent();
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
-            createNewRandomGraph(5);
+            if ((nodeCount != null && minConnection != null && maxConnection != null))
+            {
+                createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
+            }
+            else
+            {
+                createNewRandomGraph(50);
+            }
         }
         private void InitializeComponent()
         {
@@ -44,7 +51,7 @@ namespace VirusSimulator_UI.Views
         {
             if (rectangle1 is not null)
             {
-                if (simulationOn && e.Source is Rectangle)
+                if (Simulator.RunningSimulation && e.Source is Rectangle)
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     //TestDatacontextxaml testDatacontextxaml = new TestDatacontextxaml(sameRectangle);
@@ -64,7 +71,7 @@ namespace VirusSimulator_UI.Views
                 }
                 else if (e.Source is Canvas)
                 {
-                    if (simulationOn && myShowPeaplesInNodeWindow != null)
+                    if (Simulator.RunningSimulation && myShowPeaplesInNodeWindow != null)
                     {
                         myShowPeaplesInNodeWindow.Close();
                     }
@@ -113,7 +120,7 @@ namespace VirusSimulator_UI.Views
 
         private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
         {
-            if (rectangle1 != rectangle2 && !simulationOn && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
+            if (rectangle1 != rectangle2 && !Simulator.RunningSimulation && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
             {
                 var line = new Line();
                 line.StartPoint = rectangle1.pointer;
@@ -202,18 +209,18 @@ namespace VirusSimulator_UI.Views
             SimulationCanvas.Children.Add(textBlock);
             return textBlock;
         }
-        public void createNewRandomGraph(int text)
+        public void createNewRandomGraph(int text,int minConnection=2, int MaxConnection = 10)
         {
             clearCanvas();
             for (int i = 0; i < text; i++)
             {
-                Point newPoint = new Point(new Random().Next(0, 1180), new Random().Next(0, 800));
+                Point newPoint = new Point(new Random().Next(0, 865-30), new Random().Next(0, 610-30));
                 DrawRectangle(newPoint);
             }
 
             foreach (var rectangle in myRectanglesPoints)
             {
-                for (int i = 0; i < new Random().Next(0, text / 2); i++)
+                for (int i = 0; i < new Random().Next(minConnection, MaxConnection-1); i++)
                 {
                     Drawline(rectangle, myRectanglesPoints[new Random().Next(0, myRectanglesPoints.Count)]);
                 }
@@ -223,11 +230,14 @@ namespace VirusSimulator_UI.Views
 
         private void clearCanvas()
         {
-            simulationOn = false;
-            SimulationCanvas.Children.Clear();
-            rectangle1 = null;
-            MyPoints.Clear();
-            myRectanglesPoints.Clear();
+            if(SimulationCanvas != null)
+            {
+                Simulator.RunningSimulation = false;
+                SimulationCanvas.Children.Clear();
+                rectangle1 = null;
+                MyPoints.Clear();
+                myRectanglesPoints.Clear();
+            }
         }
 
     }   

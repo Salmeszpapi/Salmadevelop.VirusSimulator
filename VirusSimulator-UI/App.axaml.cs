@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using VirusSimulator_UI.Steps;
 using VirusSimulator_UI.ViewModels;
 using VirusSimulator_UI.Views;
 
@@ -17,10 +18,10 @@ namespace VirusSimulator_UI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                MainWindowStep mainWindow = new MainWindowStep();
+
+                desktop.MainWindow = mainWindow.GetScreenWindow();
+
             }
 
             base.OnFrameworkInitializationCompleted();

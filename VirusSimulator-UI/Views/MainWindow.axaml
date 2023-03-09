@@ -35,7 +35,7 @@
 				</Button>
 			</StackPanel>
 			<StackPanel HorizontalAlignment="Center" Width="340">
-				<Label Content="{Binding SimulationTime}"/>
+				<Label Name="SimulationTimeLabel" FontSize="32" Foreground="Red" FontWeight="Bold" Content="{Binding	SimulationTime}"/>
 			</StackPanel>
 			<StackPanel HorizontalAlignment="Right" Width="140" Orientation="Horizontal">
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="-50,0,0,0">

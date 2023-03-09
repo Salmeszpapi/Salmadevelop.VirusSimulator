@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VirusSimulator_UI.Views.PopupWindowExitSimulationView"
+        Title="PopupWindowExitSimulationView"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		WindowStartupLocation="CenterScreen"
+		Width="400" Height="150">
+	<StackPanel>
+		<Label HorizontalAlignment="Center" Content="Do you want finish the simulation?" FontSize="18" FontWeight="Bold"/>
+		
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+			Margin="0,90,0,0">
+			<Button Content="Back" Command="{Binding BackButtonClicked}" Margin="0,0,5,0"/>
+			<Button Content="Approve" Command="{Binding	YesButtonClicked}"/>
+		</StackPanel>
+
+	</StackPanel>
+</Window>

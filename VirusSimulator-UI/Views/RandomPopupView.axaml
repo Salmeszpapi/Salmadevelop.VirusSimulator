@@ -28,25 +28,16 @@
 			</Grid.RowDefinitions>
 				<Label Grid.Column="0" Grid.Row="0"
 						Content="Number of Nodes"/>
-				<TextBox Grid.Column="1" Grid.Row="0"/>
+				<TextBox Text="{Binding	Nodes}" Grid.Column="1" Grid.Row="0"/>
 				<Label Grid.Column="0" Grid.Row="1"
 						Content="Minimum connection"/>
-				<TextBox Grid.Column="1" Grid.Row="1"/>
+				<TextBox Text="{Binding	MinConnections}" Grid.Column="1" Grid.Row="1"/>
 				<Label Grid.Column="0" Grid.Row="2"
 						Content="Maximum connection"/>
-				<TextBox Grid.Column="1" Grid.Row="2"/>
-
-			<!--<Label Content="Size of node:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
-			<TextBox x:Name="NodeSize" HorizontalAlignment="Left" Margin="104,46,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-			<Label Content="Label" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
-			<TextBox x:Name="Text2" HorizontalAlignment="Left" Margin="104,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="50"/>
-			<Label Content="Label" HorizontalAlignment="Left" Margin="212,10,0,0" VerticalAlignment="Top"/>
-			<Button Content="Button" HorizontalAlignment="Left" Margin="160,170,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-			<Button Content="Button" HorizontalAlignment="Left" Margin="302,170,0,0" VerticalAlignment="Top"/>-->
-			
+				<TextBox Text="{Binding	MaxConnections}" Grid.Column="1" Grid.Row="2"/>
 		</Grid>
 		<StackPanel HorizontalAlignment="Center">
-			<Button Content="Randomize"/>
+			<Button Content="Randomize" Command="{Binding RandomizeButton}"/>
 		</StackPanel>
 		<UserControl>
 			

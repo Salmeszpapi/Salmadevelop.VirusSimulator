@@ -15,6 +15,12 @@ namespace VirusSimulator_UI.Models
         {
 
         }
+
+        public static void StopSimulation()
+        {
+
+        }
+
         public static void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             Trace.WriteLine("text");
@@ -35,5 +41,6 @@ namespace VirusSimulator_UI.Models
             thread.Start();
             Trace.WriteLine("Salmi");
         }
+        public static bool RunningSimulation { get; set; }
     }
 }

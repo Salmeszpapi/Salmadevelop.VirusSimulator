@@ -26,7 +26,7 @@ namespace VirusSimulator_UI.Steps
             mySimulationViewModel.CreateButtonClicked = ReactiveCommand.Create(CreateSimulationClicked);
             mySimulationViewModel.OpenButtonClicked = ReactiveCommand.Create(OpenSimulationClicked);
             mySimulationViewModel.RandomButtonClicked = ReactiveCommand.Create(RandomSimulationClicked);
-            //CreateSimulationClicked(mainWindowViewModel);
+            WorkFlowManager.SaveStep(this);
         }
 
         public override UserControl GetScreenContent()

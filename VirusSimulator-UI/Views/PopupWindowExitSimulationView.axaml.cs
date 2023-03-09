@@ -1,19 +1,14 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using System;
-using VirusSimulator_UI.Steps;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class MainWindow : Window
+    public partial class PopupWindowExitSimulationView : Window
     {
-        public MainWindow()
+        public PopupWindowExitSimulationView()
         {
             InitializeComponent();
-            SimulationTimeLabel = this.FindControl<Label>("SimulationTimeLabel");
-            this.AttachDevTools();
         }
 
         private void InitializeComponent()

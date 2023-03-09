@@ -14,15 +14,18 @@ namespace VirusSimulator_UI.Steps
     public class SimulationRandomStep : BaseStep
     {
         private RandomPopupView simulationRandomView;
-        private SimulationRandomViewModel simulationPrepareViewModel;
+        private SimulationRandomViewModel mySimulationRandomViewModel;
         private MainWindowViewModel MainWindowViewModel;
+
         public SimulationRandomStep(MainWindowViewModel mainWindowViewModel)
         {
             this.MainWindowViewModel = mainWindowViewModel;
-            simulationPrepareViewModel = new SimulationRandomViewModel();
-            simulationRandomView = new RandomPopupView() { DataContext = simulationPrepareViewModel };
-            simulationPrepareViewModel.BackButtonClicked = ReactiveCommand.Create(GoBack);
-            simulationPrepareViewModel.ApproveButtonClicked = ReactiveCommand.Create(CreateRandomGraph);
+            mySimulationRandomViewModel = new SimulationRandomViewModel();
+            simulationRandomView = new RandomPopupView() { DataContext = mySimulationRandomViewModel };
+            mySimulationRandomViewModel.BackButtonClicked = ReactiveCommand.Create(GoBack);
+            mySimulationRandomViewModel.ApproveButtonClicked = ReactiveCommand.Create(CreateRandomGraph);
+            mySimulationRandomViewModel.RandomizeButton = ReactiveCommand.Create(Randomize);
+            WorkFlowManager.SaveStep(this);
         }
 
         public override UserControl GetScreenContent()
@@ -34,18 +37,26 @@ namespace VirusSimulator_UI.Steps
         {
             return simulationRandomView;
         }
+
         private void GoBack()
         {
             simulationRandomView.Close();
         }
+
         private void CreateRandomGraph()
         {
-            
-            var mySimulationPrepareStep = new SimulationPrepareStep(NewWindowType.Random);
-
+            var mySimulationPrepareStep = new SimulationPrepareStep(NewWindowType.Random, mySimulationRandomViewModel.Nodes,
+                mySimulationRandomViewModel.MinConnections, mySimulationRandomViewModel.MaxConnections);
 
             MainWindowViewModel.ChangableViews = mySimulationPrepareStep.GetScreenContent();
             simulationRandomView.Close();
+        }
+
+        private void Randomize()
+        {
+            mySimulationRandomViewModel.Nodes = new Random().Next(1, 100).ToString();
+            mySimulationRandomViewModel.MinConnections = new Random().Next(1, 3).ToString();
+            mySimulationRandomViewModel.MaxConnections = new Random().Next(5, 10).ToString();
         }
     }
 }

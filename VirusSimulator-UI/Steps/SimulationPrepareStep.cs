@@ -14,15 +14,17 @@ namespace VirusSimulator_UI.Steps
     {
         private SimulationPrepareView simulationPrapareView;
         private SimulationPrepareViewModel simulationPrepareViewModel;
-        public SimulationPrepareStep(NewWindowType newWindowType)
+        public SimulationPrepareStep(NewWindowType newWindowType,string nodeCount,string minConnection,string maxConnection)
         {
             simulationPrepareViewModel = new SimulationPrepareViewModel();
-            simulationPrapareView = new SimulationPrepareView(newWindowType) { DataContext = simulationPrepareViewModel };
+            simulationPrapareView = new SimulationPrepareView(newWindowType, nodeCount, minConnection, maxConnection) { DataContext = simulationPrepareViewModel };
+            WorkFlowManager.SaveStep(this);
         }
         public SimulationPrepareStep()
         {
             simulationPrepareViewModel = new SimulationPrepareViewModel();
             simulationPrapareView = new SimulationPrepareView() { DataContext = simulationPrepareViewModel };
+            WorkFlowManager.SaveStep(this);
         }
 
         public override UserControl GetScreenContent()

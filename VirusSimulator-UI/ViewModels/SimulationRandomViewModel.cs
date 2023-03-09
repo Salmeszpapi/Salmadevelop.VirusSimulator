@@ -13,6 +13,7 @@ namespace VirusSimulator_UI.ViewModels
     {
         public SimulationRandomViewModel()
         {
+
         }
         [Reactive]
         public ReactiveCommand<Unit, Unit> BackButtonClicked { get; set; }
@@ -20,5 +21,14 @@ namespace VirusSimulator_UI.ViewModels
         public ReactiveCommand<Unit, Unit> ApproveButtonClicked { get; set; }
         [Reactive]
         public ReactiveCommand<Unit, Unit> RandomButtonClicked { get; set; }
+        [Reactive]
+        public ReactiveCommand<Unit, Unit> RandomizeButton { get; set; }
+        [Reactive]
+        public string Nodes { get; set; }
+        [Reactive]
+        public string MinConnections { get; set; }
+        [Reactive]
+        public string MaxConnections { get; set; }
+
     }
 }
