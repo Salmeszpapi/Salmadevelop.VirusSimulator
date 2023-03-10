@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="VirusSimulator_UI.Views.ShowPeaplesInNodeView"
         Title="ShowPeaplesInNodeView"
-		Width="150"
+		Width="200"
 		Height="150">
 	<StackPanel>
 		<Grid>

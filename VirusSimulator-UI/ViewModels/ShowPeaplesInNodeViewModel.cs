@@ -13,18 +13,14 @@ namespace VirusSimulator_UI.ViewModels
 {
     public class ShowPeaplesInNodeViewModel : ViewModelBase
     {
-        private DispatcherTimer LiveTime;
+
         private RectanglePointer myrectanglePointer;
         public ShowPeaplesInNodeViewModel(RectanglePointer rectanglePointer)
         {
             myrectanglePointer = rectanglePointer;
-            LiveTime = new DispatcherTimer();
-            LiveTime.Interval = TimeSpan.FromMilliseconds(1);
-            LiveTime.Tick += timer_Tick;
-            LiveTime.Start();
             Id =  rectanglePointer.Id;
             PeoplesCount= rectanglePointer.PeoplesCount;
-            houseTypeEnum= rectanglePointer.HouseTypeEnum;
+            HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
             HealthyCount= rectanglePointer.HealthyCount;
@@ -34,30 +30,30 @@ namespace VirusSimulator_UI.ViewModels
         [Reactive]
         public int PeoplesCount { get; set; }
         [Reactive]
-        public HouseTypeEnum houseTypeEnum { get; set; }
+        public HouseTypeEnum HouseTypeEnum { get; set; }
         [Reactive]
         public int DeadCount { get; set; }
         [Reactive]
         public int InfectedCount { get; set; }
         [Reactive]
         public int HealthyCount { get; set; }
-        void timer_Tick(object sender, EventArgs e)
-        {
-            Id = myrectanglePointer.Id;
-            PeoplesCount = myrectanglePointer.PeoplesCount;
-            houseTypeEnum = myrectanglePointer.HouseTypeEnum;
-            DeadCount = myrectanglePointer.DeadCount;
-            InfectedCount = myrectanglePointer.InfectedCount;
-            HealthyCount = myrectanglePointer.HealthyCount;
-        }
+        //void timer_Tick(object sender, EventArgs e)
+        //{
+        //    Id = myrectanglePointer.Id;
+        //    PeoplesCount = myrectanglePointer.PeoplesCount;
+        //    houseTypeEnum = myrectanglePointer.HouseTypeEnum;
+        //    DeadCount = myrectanglePointer.DeadCount;
+        //    InfectedCount = myrectanglePointer.InfectedCount;
+        //    HealthyCount = myrectanglePointer.HealthyCount;
+        //}
         public void UpdateData(RectanglePointer rectanglePointer)
         {
             Id = rectanglePointer.Id;
             PeoplesCount = rectanglePointer.PeoplesCount;
-            houseTypeEnum = rectanglePointer.HouseTypeEnum;
+            HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
-            HealthyCount = rectanglePointer.HealthyCount;
+            HealthyCount = myrectanglePointer.HealthyCount;
         }
     }
 }
