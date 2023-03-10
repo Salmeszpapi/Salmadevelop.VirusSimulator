@@ -37,15 +37,7 @@ namespace VirusSimulator_UI.ViewModels
         public int InfectedCount { get; set; }
         [Reactive]
         public int HealthyCount { get; set; }
-        //void timer_Tick(object sender, EventArgs e)
-        //{
-        //    Id = myrectanglePointer.Id;
-        //    PeoplesCount = myrectanglePointer.PeoplesCount;
-        //    houseTypeEnum = myrectanglePointer.HouseTypeEnum;
-        //    DeadCount = myrectanglePointer.DeadCount;
-        //    InfectedCount = myrectanglePointer.InfectedCount;
-        //    HealthyCount = myrectanglePointer.HealthyCount;
-        //}
+
         public void UpdateData(RectanglePointer rectanglePointer)
         {
             Id = rectanglePointer.Id;
