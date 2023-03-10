@@ -22,10 +22,10 @@ namespace VirusSimulator_UI.Views
         public Rectangle? rectangle1;
         List<RectanglePointer> MyPoints = new List<RectanglePointer>();
         public List<RectanglePointer> myRectanglesPoints = new List<RectanglePointer>();
-        DispatcherTimer LiveTime = new DispatcherTimer();
+        DispatcherTimer LiveTime;
         private int peopleIdcounter;
-        private ShowPeaplesInNodeView? myShowPeaplesInNodeWindow;
         private ShowPeaplesInNodeStep myPopupStep;
+        private RectanglePointer previousRectangle;
         public SimulationPrepareView()
         {
             InitializeComponent();
@@ -50,25 +50,48 @@ namespace VirusSimulator_UI.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        private void timer_Tick(object? sender, EventArgs e)
+        {
+            if(myPopupStep is not null && myPopupStep.GetView().IsVisible)
+            {
+                previousRectangle.ReadPeopleStatus();
+                myPopupStep.UpdateData(previousRectangle);
+            }
+        }
+
         private void OnMouseMove2(object sender, PointerEventArgs e)
         {
+            if (LiveTime == null)
+            {
+                LiveTime = new DispatcherTimer();
+                LiveTime.Interval = TimeSpan.FromMilliseconds(1);
+                LiveTime.Tick += timer_Tick;
+                LiveTime.Start();
+            }
             if (rectangle1 is not null)
             {
                 if (Simulator.RunningSimulation && e.Source is Rectangle)
                 {
-                    
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
-                    //TestDatacontextxaml testDatacontextxaml = new TestDatacontextxaml(sameRectangle);
-                    //testDatacontextxaml.Show();
-                    //myShowPeaplesInNodeWindow = ShowPeaplesInNodeWindow.getInstance();
                     sameRectangle.ReadPeopleStatus();
-                    
-                    //myShowPeaplesInNodeWindow.SetPointer(sameRectangle);
                     if(myPopupStep is null)
                     {
                         myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
-                        myPopupStep.GetView().Show();
                     }
+                    if (previousRectangle == sameRectangle)
+                    {
+                        if (myPopupStep is not null && !myPopupStep.GetView().IsVisible)
+                        {
+                            myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
+                            myPopupStep.GetView().Show();
+                        }
+                    }
+                    else
+                    {
+                        myPopupStep.GetView().Close();
+                    }
+                    previousRectangle = sameRectangle;
                 }
                 else if (e.Source is Rectangle)
                 {
@@ -77,14 +100,11 @@ namespace VirusSimulator_UI.Views
                 }
                 else if (e.Source is Canvas)
                 {
-                    if (Simulator.RunningSimulation && myShowPeaplesInNodeWindow != null)
-                    {
-                        myShowPeaplesInNodeWindow.Close();
-                    }
                     rectangle1.Fill = Brushes.Gray;
                 }
             }
         }
+
         private void OnMouseClick(object sender, PointerPressedEventArgs e)
         {
             var mousePosition = e.GetPosition(SimulationCanvas);

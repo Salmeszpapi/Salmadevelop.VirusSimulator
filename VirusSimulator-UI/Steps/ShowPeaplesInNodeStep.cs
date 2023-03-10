@@ -22,6 +22,11 @@ namespace VirusSimulator_UI.Steps
             WorkFlowManager.SaveStep(this);
         }
 
+        public void UpdateData(RectanglePointer rectanglePointer)
+        {
+            myShowPeaplesInNodeViewModel.UpdateData(rectanglePointer);
+        }
+
         public override UserControl GetScreenContent()
         {
             throw new NotImplementedException();
