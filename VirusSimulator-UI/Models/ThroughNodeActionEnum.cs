@@ -11,6 +11,7 @@ namespace VirusSimulator_UI.Models
         None,
         FirstInfect,
         Move,
-        Infect
+        Infect,
+        Heal
     }
 }

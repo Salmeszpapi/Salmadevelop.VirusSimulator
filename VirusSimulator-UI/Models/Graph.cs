@@ -87,10 +87,14 @@ namespace VirusSimulator_UI.Models
                     case ThroughNodeActionEnum.Move:
                         IterateThroughtPersonsMove(rectangle, throughNodeActionEnum);
                         break;
+                    case ThroughNodeActionEnum.Heal:
+                        IterateThroughtPersonsHeal(rectangle, throughNodeActionEnum);
+                        break;
                 }
                 
             }
         }
+
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer,ThroughNodeActionEnum throughNodeActionEnum)
         {
             foreach (var person in rectanglePointer.persons)
@@ -106,6 +110,16 @@ namespace VirusSimulator_UI.Models
             foreach (var person in rectanglePointer.persons)
             {
 
+            }
+        }
+        private void IterateThroughtPersonsHeal(RectanglePointer rectanglePointer, ThroughNodeActionEnum throughNodeActionEnum)
+        {
+            foreach (var person in rectanglePointer.persons)
+            {
+                if (new Random().Next(100) < 30)
+                {
+                    person.Infected = false;
+                }
             }
         }
 

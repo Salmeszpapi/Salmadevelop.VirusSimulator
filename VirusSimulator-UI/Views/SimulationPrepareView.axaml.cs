@@ -14,6 +14,7 @@ using System.Linq;
 using SkiaSharp;
 using System;
 using VirusSimulator_UI.Steps;
+using System.Threading.Tasks;
 
 namespace VirusSimulator_UI.Views
 {
@@ -51,12 +52,39 @@ namespace VirusSimulator_UI.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void timer_Tick(object? sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            if(myPopupStep is not null && myPopupStep.GetView().IsVisible)
+            if (Simulator.RunningSimulation)
+            {
+                RefressRectangleContent();
+            }
+        }
+        private async Task RefressRectangleContent()
+        {
+            if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
             {
                 previousRectangle.ReadPeopleStatus();
                 myPopupStep.UpdateData(previousRectangle);
+            }
+            ReColorizeRectangle();
+        }
+
+        private void ReColorizeRectangle()
+        {
+            foreach (var item in myRectanglesPoints)
+            {
+                item.ReadPeopleStatus();
+                if(item.PeoplesCount != 0)
+                {
+                    var percent = (100 * item.InfectedCount) / item.PeoplesCount;
+                    if (percent == 0) item.rectangle.Fill = Brushes.Green;
+                    else if (percent < 20) item.rectangle.Fill = Brushes.YellowGreen;
+                    else if (percent < 40) item.rectangle.Fill = Brushes.Yellow;
+                    else if (percent < 60) item.rectangle.Fill = Brushes.Khaki;
+                    else if (percent < 80) item.rectangle.Fill = Brushes.Orange;
+                    else if (percent <= 100) item.rectangle.Fill = Brushes.Red;
+
+                }
             }
         }
 
@@ -65,7 +93,7 @@ namespace VirusSimulator_UI.Views
             if (LiveTime == null)
             {
                 LiveTime = new DispatcherTimer();
-                LiveTime.Interval = TimeSpan.FromMilliseconds(1);
+                LiveTime.Interval = TimeSpan.FromSeconds(1);
                 LiveTime.Tick += timer_Tick;
                 LiveTime.Start();
             }
@@ -107,39 +135,42 @@ namespace VirusSimulator_UI.Views
 
         private void OnMouseClick(object sender, PointerPressedEventArgs e)
         {
-            var mousePosition = e.GetPosition(SimulationCanvas);
-            if (e.GetPointerPoint(null).Properties.IsLeftButtonPressed)
+            if (!Simulator.RunningSimulation)
             {
-                if (e.Source is Rectangle)
+                var mousePosition = e.GetPosition(SimulationCanvas);
+                if (e.GetPointerPoint(null).Properties.IsLeftButtonPressed)
                 {
-
-                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     if (e.Source is Rectangle)
                     {
-                        MyPoints.Add(sameRectangle);
-                        if (MyPoints.Count == 2)
+
+                        var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                        if (e.Source is Rectangle)
                         {
-                            Drawline(MyPoints[0], MyPoints[1]);
-                            MyPoints.Clear();
+                            MyPoints.Add(sameRectangle);
+                            if (MyPoints.Count == 2)
+                            {
+                                Drawline(MyPoints[0], MyPoints[1]);
+                                MyPoints.Clear();
+                            }
                         }
+                    }
+                    else
+                    {
+                        MyPoints.Clear();
+                        //if(myRectanglesPoints.Where(x => x.pointer.X))
+                        DrawRectangle(mousePosition);
                     }
                 }
                 else
                 {
-                    MyPoints.Clear();
-                    //if(myRectanglesPoints.Where(x => x.pointer.X))
-                    DrawRectangle(mousePosition);
-                }
-            }
-            else
-            {
-                if (e.Source is Rectangle)
-                {
-                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
-                    SimulationCanvas.Children.Remove(sameRectangle.rectangle);
-                    SimulationCanvas.Children.Remove(sameRectangle.textBox);
-                    foreach (var line in sameRectangle.lines) { SimulationCanvas.Children.Remove(line); }
-                    myRectanglesPoints.Remove(sameRectangle);
+                    if (e.Source is Rectangle && !Simulator.RunningSimulation)
+                    {
+                        var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                        SimulationCanvas.Children.Remove(sameRectangle.rectangle);
+                        SimulationCanvas.Children.Remove(sameRectangle.textBox);
+                        foreach (var line in sameRectangle.lines) { SimulationCanvas.Children.Remove(line); }
+                        myRectanglesPoints.Remove(sameRectangle);
+                    }
                 }
             }
         }
@@ -175,7 +206,6 @@ namespace VirusSimulator_UI.Views
                 peopleIdcounter = newRectangle.PeopleIdcounter;
                 newRectangle.textBox = textblock;
                 myRectanglesPoints.Insert(rectangleText, newRectangle);
-                System.Console.WriteLine(SimulationCanvas.Children.Count);
             }
         }
 
