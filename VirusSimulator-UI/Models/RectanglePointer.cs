@@ -84,7 +84,6 @@ namespace VirusSimulator_UI.Models
            PeoplesCount = persons.Count;
            HealthyCount = GetHealthyPersonCount();
            InfectedCount =  GetInfectedPersonCount();
-           DeadCount =  GetDeadPersonCount();
         }
         private void generatePeaples(int min, int max)
         {
@@ -117,18 +116,6 @@ namespace VirusSimulator_UI.Models
             foreach (Person person in persons)
             {
                 if (person.Infected && !person.Dead)
-                {
-                    counter++;
-                }
-            }
-            return counter;
-        }
-        public int GetDeadPersonCount()
-        {
-            var counter = 0;
-            foreach (Person person in persons)
-            {
-                if (person.Dead)
                 {
                     counter++;
                 }

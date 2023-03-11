@@ -98,18 +98,18 @@ namespace VirusSimulator_UI.Models
                         TryInfect(person, Simulator.InfectionChance / person.TimesInfected);
                     }
 
-                    //if (person.Infected && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
-                    //{
-                    //    if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
-                    //    {
-                    //        rectanglePointer.DeadCount++;
-                    //        rectanglePointer.persons.Remove(person);
-                    //    }
-                    //    else
-                    //    {
-                    //        person.Infected = false;
-                    //    }
-                    //}
+                    if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
+                    {
+                        if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
+                        {
+                            rectanglePointer.DeadCount++;
+                            rectanglePointer.persons.Remove(person);
+                        }
+                        else
+                        {
+                            person.Infected = false;
+                        }
+                    }
                 }
             }
             

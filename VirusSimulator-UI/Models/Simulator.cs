@@ -14,7 +14,7 @@ namespace VirusSimulator_UI.Models
         public static bool RunningSimulation { get; set; }
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 10;
-        public static double InfectionChance { get; set; } = 0.2;
+        public static double InfectionChance { get; set; } = 0.02;
         public static int Iteration { get; set; }
         public const double PROPABILITYTOBEDEAD = 0.3;
         public static void StartSimulation()
@@ -38,6 +38,7 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
+                    Thread.Sleep(1000);
                 } while (true);
             });
             thread.IsBackground = true;
