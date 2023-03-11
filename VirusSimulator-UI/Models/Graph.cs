@@ -99,7 +99,7 @@ namespace VirusSimulator_UI.Models
         {
             foreach (var person in rectanglePointer.persons)
             {
-                if(new Random().Next(100) < 30)
+                if(new Random().Next(100) < 2)
                 {
                     person.Infected = true;
                 }
