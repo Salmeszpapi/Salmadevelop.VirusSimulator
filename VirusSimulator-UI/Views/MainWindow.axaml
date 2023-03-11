@@ -65,7 +65,7 @@
 				</Grid.RowDefinitions>
 				<Border Grid.Column="0" BorderBrush="Violet"
         BorderThickness="0,0,2,0" />
-				<Button 
+				<Button
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
 					FontSize="22"
@@ -74,8 +74,8 @@
 					Name="Simulation"
 					VerticalAlignment="Top"
 					Content="Simulation"
-					IsVisible="True"
-					IsEnabled="True">
+					Command="{Binding SimulationViewClicked}"
+					IsVisible="{Binding	SimulationButtonVisible}">
 				</Button>
 				<Button
 					HorizontalAlignment="Stretch"
@@ -87,8 +87,8 @@
 					Name="Chart"
 					Margin="0,60,0,0"
 					Content="Charts"
-					IsVisible="True"
-					IsEnabled="True">
+					Command="{Binding ChartsViewButtonClicked}"
+					IsVisible="{Binding ChartsButtonVisible}">
 				</Button>
 				<!--changeable content here via Bindings-->
 				<UserControl Grid.Column="1"

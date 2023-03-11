@@ -43,6 +43,8 @@ namespace VirusSimulator_UI.ViewModels
             PauseSimulationClickedCliced = ReactiveCommand.Create(PauseSimulationClicked);
             StopSimulationClickedClicked = ReactiveCommand.Create(StopSimulationClicked);
             BackToWelcomeViewButton = ReactiveCommand.Create(BackToWelcomeView);
+            ChartsViewButtonClicked = ReactiveCommand.Create(SwitchToCharts);
+            SimulationViewClicked = ReactiveCommand.Create(SwitchToimulation);
 
             s = s.Date + ts;
 
@@ -70,7 +72,16 @@ namespace VirusSimulator_UI.ViewModels
         public ReactiveCommand<Unit, Unit> BackToWelcomeViewButton { get; set; }
 
         [Reactive]
+        public ReactiveCommand<Unit, Unit> ChartsViewButtonClicked { get; set; }
+        [Reactive]
+        public ReactiveCommand<Unit, Unit> SimulationViewClicked { get; set; }
+
+        [Reactive]
         public UserControl ChangableViews { get; set; }
+        [Reactive]
+        public bool SimulationButtonVisible{ get; set; }
+        [Reactive]
+        public bool ChartsButtonVisible { get; set; }
 
         private void StartSimulationClicked()
         {
@@ -81,7 +92,9 @@ namespace VirusSimulator_UI.ViewModels
                 SimulationTimer.Start();
                 Simulator.RunningSimulation = true;
                 Simulator.StartSimulation(myPreparestep.GetView().myRectanglesPoints);
-                
+                Simulator.SimulatorState = SimulatorStateEnum.Run;
+                SimulationButtonVisible = true;
+                ChartsButtonVisible = true;
             }
         }
         private void PauseSimulationClicked()
@@ -92,6 +105,7 @@ namespace VirusSimulator_UI.ViewModels
                 SimulationTimer.Stop();
                 Simulator.StopSimulation();
                 Simulator.RunningSimulation = false;
+                Simulator.SimulatorState = SimulatorStateEnum.Pause;
             }
         }
         private void StopSimulationClicked()
@@ -106,6 +120,10 @@ namespace VirusSimulator_UI.ViewModels
                 SimulationTimer.Reset();
                 Simulator.RunningSimulation = false;
                 Simulator.StopSimulation();
+                //WorkFlowManager.DeleteStep("SimulationPrepareStep");
+                Simulator.SimulatorState = SimulatorStateEnum.Stop;
+                SimulationButtonVisible = false;
+                ChartsButtonVisible = false;
             }
         }
 
@@ -119,6 +137,19 @@ namespace VirusSimulator_UI.ViewModels
             var timeSpan = SimulationTimer.Elapsed;
             
             SimulationTime = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}:{timeSpan.Milliseconds}";
+        }
+        private void SwitchToCharts()
+        {
+            ChartsStep chartsStep = new ChartsStep();
+            MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
+            mainWindow.SetView(chartsStep.GetScreenContent());
+        }
+
+        private void SwitchToimulation()
+        {
+            MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
+            SimulationPrepareStep mySimulationPrepareStep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
+            mainWindow.SetView(mySimulationPrepareStep.GetScreenContent());
         }
     }
 }

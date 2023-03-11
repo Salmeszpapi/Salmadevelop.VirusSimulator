@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace VirusSimulator_UI.Steps
 {
@@ -24,7 +25,25 @@ namespace VirusSimulator_UI.Steps
         }
         public static BaseStep GetStep(string name) 
         {
-            return listofSteps[name];
+            if (listofSteps.ContainsKey(name))
+                return listofSteps[name];
+            else
+                throw new Exception(String.Format("Key {0} was not found", name));       
+        }
+        //public static bool IsStepInTheWorkflowmanager(string name)
+        //{
+        //    if (listofSteps.ContainsKey(name));
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        public static void DeleteStep(string name)
+        {
+            var step = listofSteps[name];
+            var view = step.GetScreenContent();
+            view = null;
+            listofSteps.Remove(name);
         }
     }
 }

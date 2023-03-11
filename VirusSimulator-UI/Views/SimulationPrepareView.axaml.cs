@@ -57,6 +57,7 @@ namespace VirusSimulator_UI.Views
             if (Simulator.RunningSimulation)
             {
                 RefressRectangleContent();
+                Simulator.Iteration++;
             }
         }
         private async Task RefressRectangleContent()
@@ -83,7 +84,6 @@ namespace VirusSimulator_UI.Views
                     else if (percent < 60) item.rectangle.Fill = Brushes.Khaki;
                     else if (percent < 80) item.rectangle.Fill = Brushes.Orange;
                     else if (percent <= 100) item.rectangle.Fill = Brushes.Red;
-
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace VirusSimulator_UI.Views
             }
             if (rectangle1 is not null)
             {
-                if (Simulator.RunningSimulation && e.Source is Rectangle)
+                if (e.Source is Rectangle)
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     sameRectangle.ReadPeopleStatus();

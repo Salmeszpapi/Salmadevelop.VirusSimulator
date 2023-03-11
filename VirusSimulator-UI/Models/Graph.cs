@@ -14,6 +14,7 @@ namespace VirusSimulator_UI.Models
         List<int> visitedNodes = new List<int>();
         Queue<int> myStack = new();
         private List<RectanglePointer> rectanglePointers= new List<RectanglePointer>();
+        public int AllPeaople { get; set; }
         public Graph(List<RectanglePointer> rectanglePointers)
         {
             Nodes= rectanglePointers.Count;
@@ -72,54 +73,94 @@ namespace VirusSimulator_UI.Models
             }
 
         }
-        public void IterateThroughtRectangles(ThroughNodeActionEnum throughNodeActionEnum)
+        public void IterateThroughtRectangles()
         {
             foreach(var rectangle in rectanglePointers)
             {
-                switch (throughNodeActionEnum)
-                {
-                    case ThroughNodeActionEnum.FirstInfect:
-                        rectangle.persons[0].Infected = true;
-                        break;
-                    case ThroughNodeActionEnum.Infect:
-                        IterateThroughtPersonsInfect(rectangle, throughNodeActionEnum);
-                        break;
-                    case ThroughNodeActionEnum.Move:
-                        IterateThroughtPersonsMove(rectangle, throughNodeActionEnum);
-                        break;
-                    case ThroughNodeActionEnum.Heal:
-                        IterateThroughtPersonsHeal(rectangle, throughNodeActionEnum);
-                        break;
-                }
-                
+                IterateThroughtPersonsInfect(rectangle);
+                //IterateThroughtPersonsMove(rectangle);
             }
         }
 
-        private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer,ThroughNodeActionEnum throughNodeActionEnum)
+        private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
         {
-            foreach (var person in rectanglePointer.persons)
+            if (rectanglePointer.HasInfectedPerson())
             {
-                if(new Random().Next(100) < 2)
+                for (int i = 0; i < rectanglePointer.persons.Count; i++)
                 {
-                    person.Infected = true;
+                    var person = rectanglePointer.persons[i];
+                    if (!person.Infected && person.TimesInfected == 0)
+                    {
+                        TryInfect(person, Simulator.InfectionChance);
+                    }
+                    else if (!person.Infected && person.TimesInfected != 0)
+                    {
+                        TryInfect(person, Simulator.InfectionChance / person.TimesInfected);
+                    }
+
+                    //if (person.Infected && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
+                    //{
+                    //    if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
+                    //    {
+                    //        rectanglePointer.DeadCount++;
+                    //        rectanglePointer.persons.Remove(person);
+                    //    }
+                    //    else
+                    //    {
+                    //        person.Infected = false;
+                    //    }
+                    //}
                 }
             }
+            
         }
-        private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer, ThroughNodeActionEnum throughNodeActionEnum)
+        private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer)
         {
             foreach (var person in rectanglePointer.persons)
             {
 
+                //if (new Random().Next(100) < Simulator.InfectionChance)
+                //{
+                //    person.Infected = true;
+
+                //}
+                //if (person.Infected)
+                //{
+                //    if (person.InfectedDays > Simulator.MaxInfectedDaysSurvived)
+                //    {
+                //        //person going to hospital
+
+                //        person.Dead = true;
+                //    }
+                //    if (person.Immunity > 8 && person.InfectedDays > Simulator.MaxInfectedDaysSurvived / 3 && person.InfectedDays < 8)
+                //    {
+
+                //        if (new Random().Next(100) > 30)
+                //        {
+                //            person.InfectedDays = 0;
+                //            person.Infected = false;
+                //        }
+                //    }
+                //    person.InfectedDays++;
+                //}
             }
         }
-        private void IterateThroughtPersonsHeal(RectanglePointer rectanglePointer, ThroughNodeActionEnum throughNodeActionEnum)
+
+        private void TryInfect(Person person, double infectionChance)
         {
-            foreach (var person in rectanglePointer.persons)
+            if (new Random().NextDouble() < infectionChance)
             {
-                if (new Random().Next(100) < 30)
-                {
-                    person.Infected = false;
-                }
+                person.Infected = true;
+                person.InfectedDays++;
+                person.TimesInfected++;
+            }
+        }
+
+        private void TryCureOrDie(Person person)
+        {
+            if (new Random().Next(100) < Simulator.InfectionChance)
+            {
+                person.Infected = true;
             }
         }
 

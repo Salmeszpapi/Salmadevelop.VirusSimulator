@@ -21,7 +21,6 @@ namespace VirusSimulator_UI.Models
         public List<RectanglePointer> neighbours = new List<RectanglePointer>();
         public List<Person> persons = new List<Person>();
         public HouseTypeEnum HouseTypeEnum { get; set; }
-
         public int PeoplesCount { get; set; }
         public int HealthyCount { get; set; }
         public int InfectedCount { get; set; }
@@ -58,10 +57,6 @@ namespace VirusSimulator_UI.Models
                 default:
                     break;
             }
-        }
-        public void InfectSomeone()
-        {
-            persons[new Random().Next(persons.Count)].Infected = true;
         }
 
         private void FillRectngleWithPeaople()
@@ -139,6 +134,17 @@ namespace VirusSimulator_UI.Models
                 }
             }
             return counter;
+        }
+        public bool HasInfectedPerson()
+        {
+            foreach(var person in persons)
+            {
+                if (person.Infected)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
