@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -81,9 +82,10 @@ namespace VirusSimulator_UI.Models
         }
         public void ReadPeopleStatus()
         {
-           PeoplesCount = persons.Count;
-           HealthyCount = GetHealthyPersonCount();
-           InfectedCount =  GetInfectedPersonCount();
+            PeoplesCount = persons.Count;
+            var myList = GetInfectedAndHealthyPersonsCount();
+            HealthyCount = myList[0];
+            InfectedCount = myList[1];
         }
         private void generatePeaples(int min, int max)
         {
@@ -101,14 +103,13 @@ namespace VirusSimulator_UI.Models
         public int GetHealthyPersonCount()
         {
             var counter = 0;
-            foreach(Person person in persons)
+            for (int i = 0; i < persons.Count; i++)
             {
-                if (!person.Infected && !person.Dead)
+                if (!persons[i].Infected && !persons[i].Dead)
                 {
                     counter++;
                 }
-            }
-            return counter;
+            }return counter;
         }
         public int GetInfectedPersonCount()
         {
@@ -122,16 +123,33 @@ namespace VirusSimulator_UI.Models
             }
             return counter;
         }
+        public List<int> GetInfectedAndHealthyPersonsCount()
+        {
+            var infected = 0;
+            var healthy = 0;
+            for (int i = 0; i < persons.Count; i++)
+            {
+                if (persons[i] is not null && !persons[i].Infected && !persons[i].Dead)
+                {
+                    healthy++;
+                }
+                else if (persons[i] is not null && persons[i].Infected && !persons[i].Dead)
+                {
+                    infected++;
+                }
+            }
+            return new List<int>() { healthy, infected };
+        }
         public bool HasInfectedPerson()
         {
-            foreach(var person in persons)
+            for (int i = 0; i < persons.Count; i++)
             {
-                if (person.Infected)
+                if (persons[i].Infected)
                 {
                     return true;
                 }
             }
-            return false;
+            return false;            
         }
     }
 }

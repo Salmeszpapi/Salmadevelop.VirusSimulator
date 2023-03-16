@@ -1,7 +1,9 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -75,11 +77,20 @@ namespace VirusSimulator_UI.Models
         }
         public void IterateThroughtRectangles()
         {
-            foreach(var rectangle in rectanglePointers)
+            var AllPeople = 0;
+            var AllHealthypeaples = 0;
+            var AllInfectedPeoples = 0;
+            var AllDeadPeoples = 0;
+            foreach (var rectangle in rectanglePointers)
             {
+                AllPeople += rectangle.PeoplesCount;
+                AllHealthypeaples += rectangle.HealthyCount;
+                AllInfectedPeoples += rectangle.InfectedCount;
+                AllDeadPeoples += rectangle.DeadCount;
                 IterateThroughtPersonsInfect(rectangle);
-                //IterateThroughtPersonsMove(rectangle);
+                IterateThroughtPersonsMove(rectangle);
             }
+            Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
         }
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
@@ -89,25 +100,29 @@ namespace VirusSimulator_UI.Models
                 for (int i = 0; i < rectanglePointer.persons.Count; i++)
                 {
                     var person = rectanglePointer.persons[i];
-                    if (!person.Infected && person.TimesInfected == 0)
+                    if (person is not null && !person.Dead)
                     {
-                        TryInfect(person, Simulator.InfectionChance);
-                    }
-                    else if (!person.Infected && person.TimesInfected != 0)
-                    {
-                        TryInfect(person, Simulator.InfectionChance / person.TimesInfected);
-                    }
-
-                    if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
-                    {
-                        if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
+                        if (!person.Infected && person.TimesInfected == 0)
                         {
-                            rectanglePointer.DeadCount++;
-                            rectanglePointer.persons.Remove(person);
+                            TryInfect(person, Simulator.InfectionChance);
                         }
-                        else
+                        else if (!person.Infected && person.TimesInfected != 0)
                         {
-                            person.Infected = false;
+                            TryInfect(person, Simulator.InfectionChance / person.TimesInfected);
+                        }
+
+                        if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
+                        {
+                            if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
+                            {
+                                rectanglePointer.DeadCount++;
+                                //rectanglePointer.persons.Remove(person);
+                                person.Dead = true;
+                            }
+                            else
+                            {
+                                person.Infected = false;
+                            }
                         }
                     }
                 }
@@ -116,33 +131,25 @@ namespace VirusSimulator_UI.Models
         }
         private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer)
         {
-            foreach (var person in rectanglePointer.persons)
+            List<Person> myPersonList = new List<Person>();
+
+            for (int i = 0; i < rectanglePointer.persons.Count; i++)
             {
+                if (rectanglePointer.neighbours.Count > 0)
+                {
+                    var chanceToMove = 1 / Convert.ToDouble(rectanglePointer.neighbours.Count);
 
-                //if (new Random().Next(100) < Simulator.InfectionChance)
-                //{
-                //    person.Infected = true;
-
-                //}
-                //if (person.Infected)
-                //{
-                //    if (person.InfectedDays > Simulator.MaxInfectedDaysSurvived)
-                //    {
-                //        //person going to hospital
-
-                //        person.Dead = true;
-                //    }
-                //    if (person.Immunity > 8 && person.InfectedDays > Simulator.MaxInfectedDaysSurvived / 3 && person.InfectedDays < 8)
-                //    {
-
-                //        if (new Random().Next(100) > 30)
-                //        {
-                //            person.InfectedDays = 0;
-                //            person.Infected = false;
-                //        }
-                //    }
-                //    person.InfectedDays++;
-                //}
+                    if (new Random().NextDouble() <= chanceToMove)
+                    {
+                        var persons = rectanglePointer.persons[i];
+                        rectanglePointer.neighbours[new Random().Next(rectanglePointer.neighbours.Count)].persons.Add(persons);
+                        myPersonList.Add(persons);
+                    }
+                }
+            }
+            foreach (var person in myPersonList)
+            {
+                rectanglePointer.persons.Remove(person);
             }
         }
 

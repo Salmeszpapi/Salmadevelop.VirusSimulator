@@ -62,6 +62,16 @@ namespace VirusSimulator_UI.ViewModels
         public IBitmap StartSimulationButton { get; set; }
         public IBitmap StopSimulationButton { get; set; }
         public IBitmap PauseSimulationButton { get; set; }
+
+        [Reactive]
+        public int AllPeople { get; set; }
+        [Reactive]
+        public int AllHealthyPeoples { get; set; }
+        [Reactive]
+        public int AllInfectedPeoples { get; set; }
+        [Reactive]
+        public int AllDeadPeoples { get; set; }
+
         [Reactive]
         public ReactiveCommand<Unit, Unit> StartSimulationButtonClicked { get; set; }
         [Reactive]
@@ -137,6 +147,12 @@ namespace VirusSimulator_UI.ViewModels
             var timeSpan = SimulationTimer.Elapsed;
             
             SimulationTime = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}:{timeSpan.Milliseconds}";
+            var myPeopleList = Simulator.GetPeopleData();
+            AllPeople = myPeopleList[0];
+            AllHealthyPeoples = myPeopleList[1];
+            AllInfectedPeoples = myPeopleList[2];
+            AllDeadPeoples= myPeopleList[3];
+
         }
         private void SwitchToCharts()
         {
