@@ -14,10 +14,11 @@ namespace VirusSimulator_UI.Models
     {
         public static bool RunningSimulation { get; set; }
         public static SimulatorStateEnum SimulatorState { get; set; }
-        public static int MaxIterationCount { get; set; } = 10;
-        public static double InfectionChance { get; set; } = 0.02;
+        public static int MaxIterationCount { get; set; } = 13;
+        public static double InfectionChance { get; set; } = 0.04;
         public static int Iteration { get; set; }
         public const double PROPABILITYTOBEDEAD = 0.3;
+        public const double PROPABILITYTOCURE = 0.2;
         public static int AllPeople { get; set; }
         public static int AllHealthyPeoples { get; set; }
         public static int AllInfectedPeoples { get; set; }

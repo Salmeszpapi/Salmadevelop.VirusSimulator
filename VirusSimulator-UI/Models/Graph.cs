@@ -106,6 +106,7 @@ namespace VirusSimulator_UI.Models
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
         {
+            var mycounter = 0;
             if (rectanglePointer.HasInfectedPerson())
             {
                 for (int i = 0; i < rectanglePointer.persons.Count; i++)
@@ -121,18 +122,24 @@ namespace VirusSimulator_UI.Models
                         {
                             TryInfect(person, Simulator.InfectionChance / person.TimesInfected);
                         }
-
                         if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
                         {
+                            var random = new Random().NextDouble();
                             if (Simulator.PROPABILITYTOBEDEAD >= new Random().NextDouble())
                             {
                                 rectanglePointer.DeadCount++;
                                 //rectanglePointer.persons.Remove(person);
                                 person.Dead = true;
                             }
+                            else if (Simulator.PROPABILITYTOCURE >= random)
+                            {
+                                mycounter++;
+                                rectanglePointer.InfectedCount--;
+                                person.Infected = false;
+                            }
                             else
                             {
-                                person.Infected = false;
+
                             }
                         }
                     }

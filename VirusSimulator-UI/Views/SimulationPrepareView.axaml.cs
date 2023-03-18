@@ -173,6 +173,14 @@ namespace VirusSimulator_UI.Views
                     }
                 }
             }
+            else if(e.Source is Rectangle && Simulator.RunningSimulation) 
+            {
+                var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                Person targetPerson = sameRectangle.persons[new Random().Next(sameRectangle.persons.Count)];
+                targetPerson.Infected= true;
+                targetPerson.InfectedDays = 0;
+            }
+
         }
 
         private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
@@ -265,7 +273,7 @@ namespace VirusSimulator_UI.Views
             SimulationCanvas.Children.Add(textBlock);
             return textBlock;
         }
-        public void createNewRandomGraph(int text,int minConnection=2, int MaxConnection = 10)
+        public void createNewRandomGraph(int text,int minConnection=1, int MaxConnection = 3)
         {
             clearCanvas();
             for (int i = 0; i < text; i++)
