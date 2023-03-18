@@ -78,12 +78,13 @@ namespace VirusSimulator_UI.Views
                 if(item.PeoplesCount != 0)
                 {
                     var percentInfected = (100 * item.InfectedCount) / item.PeoplesCount;
-                    if (percentInfected == 0) item.rectangle.Fill = Brushes.Green;
-                    else if (percentInfected < 20) item.rectangle.Fill = Brushes.YellowGreen;
-                    else if (percentInfected < 40) item.rectangle.Fill = Brushes.Yellow;
-                    else if (percentInfected < 60) item.rectangle.Fill = Brushes.Khaki;
-                    else if (percentInfected < 80) item.rectangle.Fill = Brushes.Orange;
-                    else if (percentInfected <= 100) item.rectangle.Fill = Brushes.Red;
+                    var percentDead = (100 * item.DeadCount) / item.PeoplesCount;
+                    if (percentInfected == 0 || percentDead == 0) item.rectangle.Fill = Brushes.Green;
+                    else if (percentDead < 20 || percentInfected < 20 ) item.rectangle.Fill = Brushes.YellowGreen;
+                    else if (percentDead < 40 || percentInfected < 40 ) item.rectangle.Fill = Brushes.Yellow;
+                    else if (percentDead < 60 || percentInfected < 60 ) item.rectangle.Fill = Brushes.Khaki;
+                    else if (percentDead < 80 || percentInfected < 80 ) item.rectangle.Fill = Brushes.Orange;
+                    else if (percentDead == 100 || percentInfected <= 100 ) item.rectangle.Fill = Brushes.Red;
                 }
             }
         }
@@ -204,12 +205,12 @@ namespace VirusSimulator_UI.Views
         {
             if (DistanceCalculator(mousePosition) && true)
             {
-                rectangle1 = new Rectangle() { Width = 20, Height = 20, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
+                rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
                 Canvas.SetLeft(rectangle1, mousePosition.X);
                 Canvas.SetTop(rectangle1, mousePosition.Y);
                 var rectangleText = RectangleNamer();
                 SimulationCanvas.Children.Add(rectangle1);
-                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 20, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
+                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 15, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
                 var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition, peopleIdcounter);
                 peopleIdcounter = newRectangle.PeopleIdcounter;
                 newRectangle.textBox = textblock;
@@ -240,7 +241,7 @@ namespace VirusSimulator_UI.Views
                     myX = distance.X * -1;
                 }
 
-                if ((myX < 50.0 && myY < 50.0)  )
+                if ((myX < 30.0 && myY < 30.0)  )
                 {
                     return false;
                 }
