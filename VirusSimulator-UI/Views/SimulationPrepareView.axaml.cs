@@ -57,7 +57,7 @@ namespace VirusSimulator_UI.Views
             if (Simulator.RunningSimulation)
             {
                 RefressRectangleContent();
-                Simulator.Iteration++;
+                //Simulator.Iteration++;
             }
         }
         private async Task RefressRectangleContent()
@@ -77,13 +77,13 @@ namespace VirusSimulator_UI.Views
                 item.ReadPeopleStatus();
                 if(item.PeoplesCount != 0)
                 {
-                    var percent = (100 * item.InfectedCount) / item.PeoplesCount;
-                    if (percent == 0) item.rectangle.Fill = Brushes.Green;
-                    else if (percent < 20) item.rectangle.Fill = Brushes.YellowGreen;
-                    else if (percent < 40) item.rectangle.Fill = Brushes.Yellow;
-                    else if (percent < 60) item.rectangle.Fill = Brushes.Khaki;
-                    else if (percent < 80) item.rectangle.Fill = Brushes.Orange;
-                    else if (percent <= 100) item.rectangle.Fill = Brushes.Red;
+                    var percentInfected = (100 * item.InfectedCount) / item.PeoplesCount;
+                    if (percentInfected == 0) item.rectangle.Fill = Brushes.Green;
+                    else if (percentInfected < 20) item.rectangle.Fill = Brushes.YellowGreen;
+                    else if (percentInfected < 40) item.rectangle.Fill = Brushes.Yellow;
+                    else if (percentInfected < 60) item.rectangle.Fill = Brushes.Khaki;
+                    else if (percentInfected < 80) item.rectangle.Fill = Brushes.Orange;
+                    else if (percentInfected <= 100) item.rectangle.Fill = Brushes.Red;
                 }
             }
         }
