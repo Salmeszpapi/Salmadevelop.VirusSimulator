@@ -81,6 +81,7 @@ namespace VirusSimulator_UI.Models
             var AllHealthypeaples = 0;
             var AllInfectedPeoples = 0;
             var AllDeadPeoples = 0;
+
             foreach (var rectangle in rectanglePointers)
             {
                 AllPeople += rectangle.PeoplesCount;
@@ -91,6 +92,16 @@ namespace VirusSimulator_UI.Models
                 IterateThroughtPersonsMove(rectangle);
             }
             Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
+        }
+        private void CollectPeapleData()
+        {
+            foreach (var rectangle in rectanglePointers)
+            {
+                Simulator.AllPeople += rectangle.PeoplesCount;
+                Simulator.AllHealthyPeoples += rectangle.HealthyCount;
+                Simulator.AllInfectedPeoples += rectangle.InfectedCount;
+                Simulator.AllDeadPeoples += rectangle.DeadCount;
+            }
         }
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
@@ -162,14 +173,5 @@ namespace VirusSimulator_UI.Models
                 person.TimesInfected++;
             }
         }
-
-        private void TryCureOrDie(Person person)
-        {
-            if (new Random().Next(100) < Simulator.InfectionChance)
-            {
-                person.Infected = true;
-            }
-        }
-
     }
 }
