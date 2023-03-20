@@ -24,6 +24,10 @@ namespace VirusSimulator_UI.Models
         public static int AllHealthyPeoples { get; set; }
         public static int AllInfectedPeoples { get; set; }
         public static int AllDeadPeoples { get; set; }
+        public static void StartSimulation()
+        {
+            RunningSimulation = true;
+        }
 
         public static void StopSimulation()
         {
