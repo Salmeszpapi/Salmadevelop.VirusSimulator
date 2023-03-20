@@ -19,7 +19,7 @@ namespace VirusSimulator_UI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public string Greeting => "Welcome to Avalonia!";
+        public string Greeting => "Welcome to Avalonia framework!";
         [Reactive]
         private DateTime startingSimulatoinTime { get; set; }
         [Reactive]

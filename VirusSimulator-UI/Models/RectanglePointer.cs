@@ -95,33 +95,8 @@ namespace VirusSimulator_UI.Models
                 PeopleIdcounter++;
             }
         }
-        public int GetPersonCount()
-        {
-            return persons.Count;
-        }
-        public int GetHealthyPersonCount()
-        {
-            var counter = 0;
-            for (int i = 0; i < persons.Count; i++)
-            {
-                if (!persons[i].Infected && !persons[i].Dead)
-                {
-                    counter++;
-                }
-            }return counter;
-        }
-        public int GetInfectedPersonCount()
-        {
-            var counter = 0;
-            foreach (Person person in persons)
-            {
-                if (person.Infected && !person.Dead)
-                {
-                    counter++;
-                }
-            }
-            return counter;
-        }
+
+
         public List<int> GetInfectedAndHealthyPersonsCount()
         {
             var infected = 0;

@@ -12,21 +12,18 @@ namespace VirusSimulator_UI.Models
 {
     public static class Simulator
     {
+        public const double PROPABILITYTOBEDEAD = 0.3;
+        public const double PROPABILITYTOCURE = 0.2;
         public static bool RunningSimulation { get; set; }
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 13;
         public static double InfectionChance { get; set; } = 0.04;
         public static int Iteration { get; set; }
-        public const double PROPABILITYTOBEDEAD = 0.3;
-        public const double PROPABILITYTOCURE = 0.2;
+
         public static int AllPeople { get; set; }
         public static int AllHealthyPeoples { get; set; }
         public static int AllInfectedPeoples { get; set; }
         public static int AllDeadPeoples { get; set; }
-        public static void StartSimulation()
-        {
-            RunningSimulation = true;
-        }
 
         public static void StopSimulation()
         {
@@ -49,6 +46,7 @@ namespace VirusSimulator_UI.Models
                     }
                     graph.IterateThroughtRectangles();
                     Simulator.Iteration++;
+
                     Thread.Sleep(1000);
                 } while (true);
             });
@@ -56,7 +54,7 @@ namespace VirusSimulator_UI.Models
             thread.Start();
             Trace.WriteLine("Salmi");
         }
-        public static void PassNewData(int allPeople,int allHealthypeaples,int allInfectedPeoples,int  allDeadPeoples)
+        public static void PassNewData(int allPeople,int allHealthypeaples,int allInfectedPeoples,int allDeadPeoples)
         {
             AllPeople = allPeople;
             AllHealthyPeoples= allHealthypeaples;
