@@ -79,12 +79,106 @@ namespace VirusSimulator_UI.Views
                 {
                     var percentInfected = (100 * item.InfectedCount) / item.PeoplesCount;
                     var percentDead = (100 * item.DeadCount) / item.PeoplesCount;
-                    if (percentInfected == 0 || percentDead == 0) item.rectangle.Fill = Brushes.Green;
-                    else if (percentDead < 20 || percentInfected < 20 ) item.rectangle.Fill = Brushes.YellowGreen;
-                    else if (percentDead < 40 || percentInfected < 40 ) item.rectangle.Fill = Brushes.Yellow;
-                    else if (percentDead < 60 || percentInfected < 60 ) item.rectangle.Fill = Brushes.Khaki;
-                    else if (percentDead < 80 || percentInfected < 80 ) item.rectangle.Fill = Brushes.Orange;
-                    else if (percentDead == 100 || percentInfected <= 100 ) item.rectangle.Fill = Brushes.Red;
+                    //if (percentInfected == 0 || percentDead == 0) item.rectangle.Fill = Brushes.Green;
+                    //else if (percentDead < 20 || percentInfected < 20) item.rectangle.Fill = Brushes.YellowGreen;
+                    //else if (percentDead < 40 || percentInfected < 40) item.rectangle.Fill = Brushes.Yellow;
+                    //else if (percentDead < 60 || percentInfected < 60) item.rectangle.Fill = Brushes.Khaki;
+                    //else if (percentDead < 80 || percentInfected < 80) item.rectangle.Fill = Brushes.Orange;
+                    //else if (percentDead == 100 || percentInfected <= 100) item.rectangle.Fill = Brushes.Red;
+
+                    switch (percentInfected)
+                    {
+                        case < 20 :
+                            switch (percentDead)
+                            {
+                                case < 40:
+                                    item.rectangle.Fill = Brushes.Green;
+                                    break;
+                                case < 60:
+                                    item.rectangle.Fill = Brushes.IndianRed;
+                                    break;
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                                case > 95:
+                                    item.rectangle.Fill = Brushes.DarkRed;
+                                    break;
+                            }
+                            break;
+                        case < 40 :
+                            switch (percentDead)
+                            {
+                                case < 40:
+                                    item.rectangle.Fill = Brushes.YellowGreen;
+                                    break;
+                                case < 60:
+                                    item.rectangle.Fill = Brushes.IndianRed;
+                                    break;
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                                case > 90:
+                                    item.rectangle.Fill = Brushes.DarkRed;
+                                    break;
+                            }
+                            break;
+                        case < 60:
+                            switch (percentDead)
+                            {
+                                case < 40:
+                                    item.rectangle.Fill = Brushes.Khaki;
+                                    break;
+                                case < 60:
+                                    item.rectangle.Fill = Brushes.DarkKhaki;
+                                    break;
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                                case > 90:
+                                    item.rectangle.Fill = Brushes.DarkRed;
+                                    break;
+                            }
+                            break;
+                        case < 80:
+                            switch (percentDead)
+                            {
+                                case < 30:
+                                    item.rectangle.Fill = Brushes.Orange;
+                                    break;
+                                case < 60:
+                                    item.rectangle.Fill = Brushes.OrangeRed;
+                                    break;
+                                case < 85:
+                                    item.rectangle.Fill = Brushes.DarkOrange;
+                                    break;
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                            }
+                            item.rectangle.Fill = Brushes.Orange;
+                            break;
+                        case <= 100:
+                            switch (percentDead)
+                            {
+                                case < 30:
+                                    item.rectangle.Fill = Brushes.MediumVioletRed;
+                                    break;
+                                case < 40:
+                                    item.rectangle.Fill = Brushes.IndianRed;
+                                    break;
+                                case < 60:
+                                    item.rectangle.Fill = Brushes.Red;
+                                    break;
+                                case < 80:
+                                    item.rectangle.Fill = Brushes.DarkRed;
+                                    break;
+                                case <= 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                            }
+                            item.rectangle.Fill = Brushes.Red;
+                            break;
+                    }
                 }
             }
         }
