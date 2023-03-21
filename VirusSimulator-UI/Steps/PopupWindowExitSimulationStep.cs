@@ -15,12 +15,16 @@ namespace VirusSimulator_UI.Steps
     {
         private PopupWindowExitSimulationViewModel myPopupWindowExitSimulationViewModel;
         private PopupWindowExitSimulationView myPopupWindowExitSimulationView;
-        public PopupWindowExitSimulationStep() 
+        private MainWindowViewModel mainWindowViewModel;
+        public PopupWindowExitSimulationStep(MainWindowViewModel mainWindowViewModel) 
         {
             myPopupWindowExitSimulationViewModel = new PopupWindowExitSimulationViewModel();
             myPopupWindowExitSimulationView = new PopupWindowExitSimulationView(){ DataContext = myPopupWindowExitSimulationViewModel };
             myPopupWindowExitSimulationViewModel.BackButtonClicked = ReactiveCommand.Create(GoBack);
             myPopupWindowExitSimulationViewModel.YesButtonClicked = ReactiveCommand.Create(StopSimulation);
+            this.mainWindowViewModel = mainWindowViewModel;
+
+
             WorkFlowManager.SaveStep(this);
         }
 
@@ -38,13 +42,33 @@ namespace VirusSimulator_UI.Steps
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             SimulationWelcomeStep simulationWelcomeStep = (SimulationWelcomeStep)WorkFlowManager.GetStep("SimulationWelcomeStep");
             mainWindow.SetView(simulationWelcomeStep.GetScreenContent());
+
+            mainWindowViewModel.LiveTime.Stop();
+            mainWindowViewModel.SimulationTimer.Stop();
+            mainWindowViewModel.SimulationTimer.Reset();
+            mainWindowViewModel.SimulationTime2 = "";
+            Simulator.RunningSimulation = false;
+            //WorkFlowManager.DeleteStep("SimulationPrepareStep");
+            Simulator.SimulatorState = SimulatorStateEnum.Stop;
+            Simulator.Iteration = 0;
+            mainWindowViewModel.SimulationButtonVisible = false;
+            mainWindowViewModel.ChartsButtonVisible = false;
+
+            mainWindowViewModel.AllDeadPeoples = 0;
+            mainWindowViewModel.AllInfectedPeoples = 0;
+            mainWindowViewModel.AllHealthyPeoples = 0;
+            mainWindowViewModel.AllPeople = 0;
+
             myPopupWindowExitSimulationView.Close();
         }
 
         private void GoBack()
         {
             Simulator.RunningSimulation = true;
+            mainWindowViewModel.LiveTime.Start();
+            mainWindowViewModel.SimulationTimer.Start();
             myPopupWindowExitSimulationView.Close();
+
         }
     }
 }

@@ -75,23 +75,23 @@ namespace VirusSimulator_UI.Models
         }
         public async Task IterateThroughtRectangles()
         {
-            //var AllPeople = 0;
-            //var AllHealthypeaples = 0;
-            //var AllInfectedPeoples = 0;
-            //var AllDeadPeoples = 0;
-            //foreach(var rectangle in rectanglePointers)
-            //{
-            //    AllPeople += rectangle.PeoplesCount;
-            //    AllHealthypeaples += rectangle.HealthyCount;
-            //    AllInfectedPeoples += rectangle.InfectedCount;
-            //    AllDeadPeoples += rectangle.DeadCount;
-            //}
-            //Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
-            //foreach (var rectangle in rectanglePointers)
-            //{
-            //    IterateThroughtPersonsInfect(rectangle);
-            //    IterateThroughtPersonsMove(rectangle);
-            //}
+            var AllPeople = 0;
+            var AllHealthypeaples = 0;
+            var AllInfectedPeoples = 0;
+            var AllDeadPeoples = 0;
+            foreach (var rectangle in rectanglePointers)
+            {
+                AllPeople += rectangle.PeoplesCount;
+                AllHealthypeaples += rectangle.HealthyCount;
+                AllInfectedPeoples += rectangle.InfectedCount;
+                AllDeadPeoples += rectangle.DeadCount;
+            }
+            Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
+            foreach (var rectangle in rectanglePointers)
+            {
+                IterateThroughtPersonsInfect(rectangle);
+                IterateThroughtPersonsMove(rectangle);
+            }
         }
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)

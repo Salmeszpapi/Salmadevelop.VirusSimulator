@@ -19,14 +19,13 @@ namespace VirusSimulator_UI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public string Greeting => "Welcome to Avalonia framework!";
         [Reactive]
         private DateTime startingSimulatoinTime { get; set; }
-        private Stopwatch SimulationTimer = new Stopwatch();
+        public Stopwatch SimulationTimer = new Stopwatch();
         private SimulationWelcomeStep simulationStep;
 
 
-        DispatcherTimer LiveTime;
+        public DispatcherTimer LiveTime;
 
         public MainWindowViewModel() : base()
         {
@@ -109,24 +108,11 @@ namespace VirusSimulator_UI.ViewModels
         }
         private void StopSimulationClicked()
         {
-            if (Simulator.RunningSimulation)
-            {
-                PopupWindowExitSimulationStep mypopup= new PopupWindowExitSimulationStep();
-                mypopup.GetWindow().Show();
-                LiveTime.Stop();
-                SimulationTimer.Stop();
-                SimulationTimer.Reset();
-                Simulator.RunningSimulation = false;
-                //WorkFlowManager.DeleteStep("SimulationPrepareStep");
-                Simulator.SimulatorState = SimulatorStateEnum.Stop;
-                Simulator.Iteration= 0;
-                SimulationButtonVisible = false;
-                ChartsButtonVisible = false;
-                AllDeadPeoples = 0;
-                AllInfectedPeoples = 0;
-                AllHealthyPeoples = 0;
-                AllPeople = 0;
-            }
+            LiveTime.Stop();
+            SimulationTimer.Stop();
+            Simulator.RunningSimulation = false;
+            PopupWindowExitSimulationStep mypopup= new PopupWindowExitSimulationStep(this);
+            mypopup.GetWindow().Show();
         }
 
         private void BackToWelcomeView()
@@ -139,7 +125,7 @@ namespace VirusSimulator_UI.ViewModels
             SimulationTime2 = Simulator.Iteration + " Days";
 
             var myPeopleList = Simulator.GetPeopleData();
-            AllPeople = myPeopleList[0];
+            AllPeople = myPeopleList[0]- myPeopleList[3];
             AllHealthyPeoples = myPeopleList[1];
             AllInfectedPeoples = myPeopleList[2];
             AllDeadPeoples= myPeopleList[3];

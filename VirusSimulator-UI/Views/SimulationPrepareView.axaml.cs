@@ -53,7 +53,7 @@ namespace VirusSimulator_UI.Views
             if (LiveTime == null)
             {
                 LiveTime = new DispatcherTimer();
-                LiveTime.Interval = TimeSpan.FromSeconds(1);
+                LiveTime.Interval = TimeSpan.FromMilliseconds(1);
                 LiveTime.Tick += timer_Tick;
                 LiveTime.Start();
             }
@@ -221,15 +221,6 @@ namespace VirusSimulator_UI.Views
                         myPopupStep.GetView().Close();
                     }
                     previousRectangle = sameRectangle;
-                }
-                else if (e.Source is Rectangle)
-                {
-                    rectangle1 = (Rectangle)e.Source;
-                    rectangle1.Fill = Brushes.BurlyWood;
-                }
-                else if (e.Source is Canvas)
-                {
-                    rectangle1.Fill = Brushes.Gray;
                 }
             }
         }
