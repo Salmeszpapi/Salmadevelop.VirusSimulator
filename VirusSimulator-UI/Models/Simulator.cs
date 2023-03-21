@@ -17,7 +17,7 @@ namespace VirusSimulator_UI.Models
         public static bool RunningSimulation { get; set; }
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 13;
-        public static double InfectionChance { get; set; } = 0.04;
+        public static double InfectionChance { get; set; } = 0.4;
         public static int Iteration { get; set; }
 
         public static int AllPeople { get; set; }
@@ -30,21 +30,21 @@ namespace VirusSimulator_UI.Models
             RunningSimulation = false;
         }
 
-        public static async Task StartSimulation(List<RectanglePointer> rectanglePointer)
+        public static void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             Trace.WriteLine("text");
-            Thread thread = new Thread(async () =>
+            Thread thread = new Thread(()=>
             {
                 Graph graph = new Graph(rectanglePointer);
                 //graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
                 Console.WriteLine("stop");
                 do
                 {
-                    await graph.IterateThroughtRectangles();
+                    graph.IterateThroughtRectangles();
                     Thread.Sleep(400);
                     Simulator.Iteration++;
 
-                } while (SimulatorState == SimulatorStateEnum.Run || AllPeople == 0);
+                } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0);
             });
             //Simulation finished show popup window
             thread.IsBackground = true;

@@ -73,7 +73,7 @@ namespace VirusSimulator_UI.Models
                 GoThroughtNodes(ThroughNodeActionEnum.None, myStack.Dequeue());
             }
         }
-        public async Task IterateThroughtRectangles()
+        public void IterateThroughtRectangles()
         {
             var AllPeople = 0;
             var AllHealthypeaples = 0;
@@ -82,9 +82,20 @@ namespace VirusSimulator_UI.Models
             foreach (var rectangle in rectanglePointers)
             {
                 AllPeople += rectangle.persons.Count;
-                AllHealthypeaples += rectangle.HealthyCount;
-                AllInfectedPeoples += rectangle.InfectedCount;
-                AllDeadPeoples += rectangle.DeadCount;
+                foreach (var person in rectangle.persons)
+                {
+                    if(!person.Infected && !person.Dead)
+                    {
+                        AllHealthypeaples++;
+                    }
+                    else if(person.Infected && !person.Dead)
+                    {
+                        AllInfectedPeoples++;
+                    }else if (person.Dead)
+                    {
+                        AllDeadPeoples++;
+                    }
+                }
             }
             Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
             foreach (var rectangle in rectanglePointers)
@@ -92,12 +103,21 @@ namespace VirusSimulator_UI.Models
                 IterateThroughtPersonsInfect(rectangle);
                 IterateThroughtPersonsMove(rectangle);
             }
-
         }
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
         {
-            var myinfectedPersons = rectanglePointer.persons.Where(x =>x.Infected).ToList().Count;
+            rectanglePointer.InitialCountInfected();
+            var myinfectedPersons = rectanglePointer.persons.Where(x =>x.Infected == true).ToList();
+            List<Person> people = new List<Person>();
+            foreach (var item in rectanglePointer.persons)
+            {
+                if (item.Infected)
+                {
+                    people.Add(item);
+                }
+
+            }
             int myCounter = 0;
             var test = rectanglePointer.InfectedCount;
             if (rectanglePointer.HasInfectedPerson()) //initial infected count probably missing
@@ -115,7 +135,7 @@ namespace VirusSimulator_UI.Models
                         {
                             TryInfect(rectanglePointer, Simulator.InfectionChance / person.TimesInfected, person);
                         }
-                        if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
+                        else if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
                         {
                             var random = new Random().NextDouble();
                             if (Simulator.PROPABILITYTOBEDEAD >= random)

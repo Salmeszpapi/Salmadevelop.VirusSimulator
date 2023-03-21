@@ -19,8 +19,6 @@ namespace VirusSimulator_UI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        [Reactive]
-        private DateTime startingSimulatoinTime { get; set; }
         public Stopwatch SimulationTimer = new Stopwatch();
         private SimulationWelcomeStep simulationStep;
 
@@ -125,7 +123,7 @@ namespace VirusSimulator_UI.ViewModels
             SimulationTime2 = Simulator.Iteration + " Days";
 
             var myPeopleList = Simulator.GetPeopleData();
-            AllPeople = myPeopleList[0]- myPeopleList[3];
+            AllPeople = myPeopleList[0] - myPeopleList[3];
             AllHealthyPeoples = myPeopleList[1];
             AllInfectedPeoples = myPeopleList[2];
             AllDeadPeoples= myPeopleList[3];

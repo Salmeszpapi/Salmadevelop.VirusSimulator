@@ -62,58 +62,57 @@ namespace VirusSimulator_UI.Models
 
         private void FillRectngleWithPeaople()
         {
-            switch (HouseTypeEnum)
-            {
-                case HouseTypeEnum.Hospital:
-                    generatePeople(50, 300);
-                    break;
-                case HouseTypeEnum.House:
-                    generatePeople(1, 12);
-                    break;
-                case HouseTypeEnum.WorkPlace:
-                    generatePeople(10, 400);
-                    break;
-                case HouseTypeEnum.Store:
-                    generatePeople(4, 50);
-                    break;
-                default:
-                    break;
-            }
+            generatePeople(10,11);
+            //switch (HouseTypeEnum)
+            //{
+            //    case HouseTypeEnum.Hospital:
+            //        generatePeople(50, 300);
+            //        break;
+            //    case HouseTypeEnum.House:
+            //        generatePeople(1, 12);
+            //        break;
+            //    case HouseTypeEnum.WorkPlace:
+            //        generatePeople(10, 400);
+            //        break;
+            //    case HouseTypeEnum.Store:
+            //        generatePeople(4, 50);
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
         public void ReadPeopleStatus()
         {
             PeoplesCount = persons.Count;
-            var myList = GetInfectedAndHealthyPersonsCount();
-            HealthyCount = myList[0];
-            InfectedCount = myList[1];
+            GetInfectedAndHealthyPersonsCount();
         }
-        private void generatePeople(int min, int max)
+        private void generatePeople(int min, int max=50)
         {
             maxPeapleAllowed = max;
-            for (int i = min; i < max; i++)
+
+            for (int i = 0; i < new Random().Next(min,max); i++)
             {
                 persons.Add(new Person(PeopleIdcounter));
                 PeopleIdcounter++;
             }
         }
 
-
-        public List<int> GetInfectedAndHealthyPersonsCount()
+        public void GetInfectedAndHealthyPersonsCount()
         {
-            var infected = 0;
-            var healthy = 0;
+            HealthyCount = 0;
+            InfectedCount = 0;
             for (int i = 0; i < persons.Count; i++)
             {
                 if (persons[i] is not null && !persons[i].Infected && !persons[i].Dead)
                 {
-                    healthy++;
+                    HealthyCount++;
                 }
                 else if (persons[i] is not null && persons[i].Infected && !persons[i].Dead)
                 {
-                    infected++;
+                    InfectedCount++;
                 }
             }
-            return new List<int>() { healthy, infected };
+            
         }
         public bool HasInfectedPerson()
         {
@@ -126,7 +125,7 @@ namespace VirusSimulator_UI.Models
             }
             return false;            
         }
-        private void InitialCountInfected()
+        public void InitialCountInfected()
         {
             foreach(Person person in persons)
             {
