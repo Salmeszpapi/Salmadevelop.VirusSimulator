@@ -116,7 +116,6 @@ namespace VirusSimulator_UI.Models
                 {
                     people.Add(item);
                 }
-
             }
             int myCounter = 0;
             var test = rectanglePointer.InfectedCount;
@@ -141,7 +140,7 @@ namespace VirusSimulator_UI.Models
                             if (Simulator.PROPABILITYTOBEDEAD >= random)
                             {
                                 rectanglePointer.DeadCount++;
-                                rectanglePointer.persons.Remove(person);
+                                //rectanglePointer.persons.Remove(person);
                                 person.Dead = true;
                                 rectanglePointer.InfectedCount--;
                             }
@@ -168,26 +167,34 @@ namespace VirusSimulator_UI.Models
         }
         private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer)
         {
-            List<Person> myPersonList = new List<Person>();
 
+            List<Person> myPersonList = new List<Person>();
             for (int i = 0; i < rectanglePointer.persons.Count; i++)
             {
-                var persons = rectanglePointer.persons[i];
-                if (rectanglePointer.neighbours.Count > 0 && !persons.Dead)
+                var person = rectanglePointer.persons[i];
+                if (rectanglePointer.neighbours.Count > 1 && !person.Dead)
                 {
                     var chanceToMove = 1 / Convert.ToDouble(rectanglePointer.neighbours.Count);
-
-                    if (new Random().NextDouble() <= chanceToMove)
-                    {
-                        var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
-                        rectanglePointer.neighbours[myRandomNumber].persons.Add(persons);
-                        myPersonList.Add(persons);
-                    }
+                    MovePersons(rectanglePointer,person, myPersonList, chanceToMove);
+                }
+                else if(rectanglePointer.neighbours.Count == 1 &&!person.Dead)
+                {
+                    var chanceToMove = 0.5;
+                    MovePersons(rectanglePointer, person, myPersonList, chanceToMove);
                 }
             }
             foreach (var person in myPersonList)
             {
                 rectanglePointer.persons.Remove(person);
+            }
+        }
+        private void MovePersons(RectanglePointer rectanglePointer,Person person,List<Person> people,double chanceToMove)
+        {
+            if (new Random().NextDouble() <= chanceToMove)
+            {
+                var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
+                rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
+                people.Add(person);
             }
         }
 

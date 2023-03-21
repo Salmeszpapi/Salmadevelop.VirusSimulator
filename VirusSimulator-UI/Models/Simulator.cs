@@ -12,7 +12,7 @@ namespace VirusSimulator_UI.Models
 {
     public static class Simulator
     {
-        public const double PROPABILITYTOBEDEAD = 0.1;
+        public const double PROPABILITYTOBEDEAD = 0.8;
         public const double PROPABILITYTOCURE = 0.3;
         public static bool RunningSimulation { get; set; }
         public static SimulatorStateEnum SimulatorState { get; set; }
@@ -41,10 +41,11 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
-                    Thread.Sleep(400);
+                    Thread.Sleep(1000);
                     Simulator.Iteration++;
 
-                } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0);
+                } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);
+                Console.WriteLine("Asd");
             });
             //Simulation finished show popup window
             thread.IsBackground = true;
