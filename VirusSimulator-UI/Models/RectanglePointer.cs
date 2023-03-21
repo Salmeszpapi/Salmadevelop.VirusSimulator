@@ -36,6 +36,7 @@ namespace VirusSimulator_UI.Models
             this.PeopleIdcounter = peopleIdcounter;
             SetHouseType();
             FillRectngleWithPeaople();
+            InitialCountInfected();
         }
 
         private void SetHouseType()
@@ -61,19 +62,19 @@ namespace VirusSimulator_UI.Models
 
         private void FillRectngleWithPeaople()
         {
-            switch (HouseTypeEnum) 
+            switch (HouseTypeEnum)
             {
                 case HouseTypeEnum.Hospital:
-                    generatePeople(50,300);
+                    generatePeople(50, 300);
                     break;
                 case HouseTypeEnum.House:
-                    generatePeople(1,12);
+                    generatePeople(1, 12);
                     break;
                 case HouseTypeEnum.WorkPlace:
-                    generatePeople(10,400);
+                    generatePeople(10, 400);
                     break;
                 case HouseTypeEnum.Store:
-                    generatePeople(4,50);
+                    generatePeople(4, 50);
                     break;
                 default:
                     break;
@@ -118,12 +119,22 @@ namespace VirusSimulator_UI.Models
         {
             for (int i = 0; i < persons.Count; i++)
             {
-                if (persons[i].Infected)
+                if (persons[i].Infected && !persons[i].Dead)
                 {
                     return true;
                 }
             }
             return false;            
+        }
+        private void InitialCountInfected()
+        {
+            foreach(Person person in persons)
+            {
+                if(person.Infected)
+                {
+                    InfectedCount++;
+                }
+            }
         }
     }
 }

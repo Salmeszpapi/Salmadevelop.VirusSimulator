@@ -82,10 +82,10 @@ namespace VirusSimulator_UI.Views
             foreach (var item in myRectanglesPoints)
             {
                 item.ReadPeopleStatus();
-                if(item.PeoplesCount != 0)
+                if(item.persons.Count != 0)
                 {
-                    var percentInfected = (100 * item.InfectedCount) / item.PeoplesCount;
-                    var percentDead = (100 * item.DeadCount) / item.PeoplesCount;
+                    var percentInfected = (100 * item.InfectedCount) / item.persons.Count;
+                    var percentDead = (100 * item.DeadCount) / item.persons.Count;
                     //if (percentInfected == 0 || percentDead == 0) item.rectangle.Fill = Brushes.Green;
                     //else if (percentDead < 20 || percentInfected < 20) item.rectangle.Fill = Brushes.YellowGreen;
                     //else if (percentDead < 40 || percentInfected < 40) item.rectangle.Fill = Brushes.Yellow;

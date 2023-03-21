@@ -21,7 +21,7 @@ namespace VirusSimulator_UI.ViewModels
             Id =  rectanglePointer.Id;
             HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
-            PeoplesCount = rectanglePointer.PeoplesCount - DeadCount;
+            PeoplesCount = rectanglePointer.persons.Count - DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
             HealthyCount= rectanglePointer.HealthyCount;
         }
@@ -43,7 +43,7 @@ namespace VirusSimulator_UI.ViewModels
             Id = rectanglePointer.Id;
             HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
-            PeoplesCount = rectanglePointer.PeoplesCount- DeadCount;
+            PeoplesCount = rectanglePointer.persons.Count - DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
             HealthyCount = myrectanglePointer.HealthyCount;
         }

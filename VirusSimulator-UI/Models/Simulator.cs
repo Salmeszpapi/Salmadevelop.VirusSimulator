@@ -41,10 +41,12 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     await graph.IterateThroughtRectangles();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(400);
                     Simulator.Iteration++;
-                } while (SimulatorState == SimulatorStateEnum.Run);
+
+                } while (SimulatorState == SimulatorStateEnum.Run || AllPeople == 0);
             });
+            //Simulation finished show popup window
             thread.IsBackground = true;
             thread.Start();
             Trace.WriteLine("Salmi");
