@@ -64,16 +64,16 @@ namespace VirusSimulator_UI.Models
             switch (HouseTypeEnum) 
             {
                 case HouseTypeEnum.Hospital:
-                    generatePeaples(50,300);
+                    generatePeople(50,300);
                     break;
                 case HouseTypeEnum.House:
-                    generatePeaples(1,12);
+                    generatePeople(1,12);
                     break;
                 case HouseTypeEnum.WorkPlace:
-                    generatePeaples(10,400);
+                    generatePeople(10,400);
                     break;
                 case HouseTypeEnum.Store:
-                    generatePeaples(4,50);
+                    generatePeople(4,50);
                     break;
                 default:
                     break;
@@ -86,7 +86,7 @@ namespace VirusSimulator_UI.Models
             HealthyCount = myList[0];
             InfectedCount = myList[1];
         }
-        private void generatePeaples(int min, int max)
+        private void generatePeople(int min, int max)
         {
             maxPeapleAllowed = max;
             for (int i = min; i < max; i++)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,9 @@ namespace VirusSimulator_UI.DataContext
 {
     internal class SimulationContext : DbContext
     {
-        public SimulationContext()
-         : base("name=SimulationDbConnection")
+        public SimulationContext():base("Data Source=localhostasd;Initial Catalog=Energy;Integrated Security=true;")
         {
-            this.Database.CreateIfNotExists();
-        }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
         }
 
         public virtual DbSet<SimulationData> Simulation { get; set; }

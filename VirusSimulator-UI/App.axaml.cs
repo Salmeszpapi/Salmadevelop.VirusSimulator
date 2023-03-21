@@ -19,16 +19,13 @@ namespace VirusSimulator_UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-            //SimulationContext mySimulationContext = new SimulationContext();
-            //SimulationRun mySimulationRun = new SimulationRun();
-            //mySimulationRun.DateOfRun = DateTime.Now;
+            SimulationContext mySimulationContext = new SimulationContext();
+            SimulationRun mySimulationRun = new SimulationRun();
+            mySimulationRun.DateOfRun = DateTime.Now;
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-
                 MainWindowStep mainWindow = new MainWindowStep();
-
                 desktop.MainWindow = mainWindow.GetScreenWindow();
-
             }
 
             base.OnFrameworkInitializationCompleted();

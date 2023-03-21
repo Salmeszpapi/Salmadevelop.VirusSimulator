@@ -19,7 +19,10 @@ namespace VirusSimulator_UI.ViewModels
             CreateSimulationText = "Create new Simulation";
             OpenSimulationText = "Open Simulation";
             RandomSimulationText = "Create random Simulation";
+            WelcomeVirusText = "Welcome to the virus simulator 2023";
         }
+
+        public string WelcomeVirusText { get; set; }
         [Reactive]
         public IBitmap CreateImage { get; set; }
         [Reactive]

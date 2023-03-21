@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirusSimulator_UI", "VirusSimulator-UI\VirusSimulator_UI.csproj", "{E4787A25-2B6A-44BE-A6A2-D9092E8927AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulation_Web", "Simulation_Web\Simulation_Web.csproj", "{9C08738E-B501-4CE1-AEFA-3B892B975433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulation_Web", "Simulation_Web\Simulation_Web.csproj", "{9C08738E-B501-4CE1-AEFA-3B892B975433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

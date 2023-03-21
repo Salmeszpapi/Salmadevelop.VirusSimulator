@@ -16,7 +16,6 @@ namespace VirusSimulator_UI.Models
         List<int> visitedNodes = new List<int>();
         Queue<int> myStack = new();
         private List<RectanglePointer> rectanglePointers= new List<RectanglePointer>();
-        public int AllPeaople { get; set; }
         public Graph(List<RectanglePointer> rectanglePointers)
         {
             Nodes= rectanglePointers.Count;
@@ -73,35 +72,26 @@ namespace VirusSimulator_UI.Models
             {
                 GoThroughtNodes(ThroughNodeActionEnum.None, myStack.Dequeue());
             }
-
         }
-        public void IterateThroughtRectangles()
+        public async Task IterateThroughtRectangles()
         {
-            var AllPeople = 0;
-            var AllHealthypeaples = 0;
-            var AllInfectedPeoples = 0;
-            var AllDeadPeoples = 0;
-
-            foreach (var rectangle in rectanglePointers)
-            {
-                AllPeople += rectangle.PeoplesCount;
-                AllHealthypeaples += rectangle.HealthyCount;
-                AllInfectedPeoples += rectangle.InfectedCount;
-                AllDeadPeoples += rectangle.DeadCount;
-                IterateThroughtPersonsInfect(rectangle);
-                IterateThroughtPersonsMove(rectangle);
-            }
-            Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
-        }
-        private void CollectPeapleData()
-        {
-            foreach (var rectangle in rectanglePointers)
-            {
-                Simulator.AllPeople += rectangle.PeoplesCount;
-                Simulator.AllHealthyPeoples += rectangle.HealthyCount;
-                Simulator.AllInfectedPeoples += rectangle.InfectedCount;
-                Simulator.AllDeadPeoples += rectangle.DeadCount;
-            }
+            //var AllPeople = 0;
+            //var AllHealthypeaples = 0;
+            //var AllInfectedPeoples = 0;
+            //var AllDeadPeoples = 0;
+            //foreach(var rectangle in rectanglePointers)
+            //{
+            //    AllPeople += rectangle.PeoplesCount;
+            //    AllHealthypeaples += rectangle.HealthyCount;
+            //    AllInfectedPeoples += rectangle.InfectedCount;
+            //    AllDeadPeoples += rectangle.DeadCount;
+            //}
+            //Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
+            //foreach (var rectangle in rectanglePointers)
+            //{
+            //    IterateThroughtPersonsInfect(rectangle);
+            //    IterateThroughtPersonsMove(rectangle);
+            //}
         }
 
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
@@ -145,7 +135,6 @@ namespace VirusSimulator_UI.Models
                     }
                 }
             }
-            
         }
         private void IterateThroughtPersonsMove(RectanglePointer rectanglePointer)
         {
@@ -153,14 +142,16 @@ namespace VirusSimulator_UI.Models
 
             for (int i = 0; i < rectanglePointer.persons.Count; i++)
             {
-                if (rectanglePointer.neighbours.Count > 0)
+                var persons = rectanglePointer.persons[i];
+                if (rectanglePointer.neighbours.Count > 0 && !persons.Dead)
                 {
                     var chanceToMove = 1 / Convert.ToDouble(rectanglePointer.neighbours.Count);
 
                     if (new Random().NextDouble() <= chanceToMove)
                     {
-                        var persons = rectanglePointer.persons[i];
-                        rectanglePointer.neighbours[new Random().Next(rectanglePointer.neighbours.Count)].persons.Add(persons);
+                        
+                        var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
+                        rectanglePointer.neighbours[myRandomNumber].persons.Add(persons);
                         myPersonList.Add(persons);
                     }
                 }

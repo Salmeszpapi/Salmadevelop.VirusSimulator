@@ -35,6 +35,11 @@ namespace VirusSimulator_UI.Steps
         {
             return simulationPrapareView;
         }
+        public void TearDown()
+        {
+            simulationPrapareView = null;
+            simulationPrepareViewModel = null;
+        }
 
     }
 }

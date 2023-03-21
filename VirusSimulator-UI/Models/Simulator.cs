@@ -24,20 +24,16 @@ namespace VirusSimulator_UI.Models
         public static int AllHealthyPeoples { get; set; }
         public static int AllInfectedPeoples { get; set; }
         public static int AllDeadPeoples { get; set; }
-        public static void StartSimulation()
-        {
-            RunningSimulation = true;
-        }
 
         public static void StopSimulation()
         {
             RunningSimulation = false;
         }
 
-        public static void StartSimulation(List<RectanglePointer> rectanglePointer)
+        public static async Task StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             Trace.WriteLine("text");
-            Thread thread = new Thread(() =>
+            Thread thread = new Thread(async () =>
             {
                 Graph graph = new Graph(rectanglePointer);
                 //graph.GoThroughtNodes(ThroughNodeActionEnum.FirstInfect);
@@ -46,12 +42,11 @@ namespace VirusSimulator_UI.Models
                 {
                     while (!RunningSimulation)
                     {
-                        Thread.Sleep(100);
+                        
                     }
-                    graph.IterateThroughtRectangles();
-                    Simulator.Iteration++;
-
+                    await graph.IterateThroughtRectangles();
                     Thread.Sleep(1000);
+                    Simulator.Iteration++;
                 } while (true);
             });
             thread.IsBackground = true;

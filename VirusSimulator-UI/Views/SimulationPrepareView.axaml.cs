@@ -50,6 +50,13 @@ namespace VirusSimulator_UI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            if (LiveTime == null)
+            {
+                LiveTime = new DispatcherTimer();
+                LiveTime.Interval = TimeSpan.FromSeconds(1);
+                LiveTime.Tick += timer_Tick;
+                LiveTime.Start();
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -60,7 +67,7 @@ namespace VirusSimulator_UI.Views
                 //Simulator.Iteration++;
             }
         }
-        private async Task RefressRectangleContent()
+        private void RefressRectangleContent()
         {
             if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
             {
@@ -94,14 +101,14 @@ namespace VirusSimulator_UI.Views
                                 case < 40:
                                     item.rectangle.Fill = Brushes.Green;
                                     break;
-                                case < 60:
-                                    item.rectangle.Fill = Brushes.IndianRed;
-                                    break;
                                 case 100:
                                     item.rectangle.Fill = Brushes.Black;
                                     break;
                                 case > 95:
                                     item.rectangle.Fill = Brushes.DarkRed;
+                                    break;
+                                case > 60:
+                                    item.rectangle.Fill = Brushes.IndianRed;
                                     break;
                             }
                             break;
@@ -111,15 +118,17 @@ namespace VirusSimulator_UI.Views
                                 case < 40:
                                     item.rectangle.Fill = Brushes.YellowGreen;
                                     break;
-                                case < 60:
-                                    item.rectangle.Fill = Brushes.IndianRed;
-                                    break;
                                 case 100:
                                     item.rectangle.Fill = Brushes.Black;
                                     break;
+
                                 case > 90:
                                     item.rectangle.Fill = Brushes.DarkRed;
                                     break;
+                                case > 60:
+                                    item.rectangle.Fill = Brushes.IndianRed;
+                                    break;
+
                             }
                             break;
                         case < 60:
@@ -128,15 +137,17 @@ namespace VirusSimulator_UI.Views
                                 case < 40:
                                     item.rectangle.Fill = Brushes.Khaki;
                                     break;
-                                case < 60:
-                                    item.rectangle.Fill = Brushes.DarkKhaki;
-                                    break;
                                 case 100:
                                     item.rectangle.Fill = Brushes.Black;
                                     break;
                                 case > 90:
                                     item.rectangle.Fill = Brushes.DarkRed;
                                     break;
+                                case > 60:
+                                    item.rectangle.Fill = Brushes.DarkKhaki;
+                                    break;
+
+
                             }
                             break;
                         case < 80:
@@ -145,14 +156,14 @@ namespace VirusSimulator_UI.Views
                                 case < 30:
                                     item.rectangle.Fill = Brushes.Orange;
                                     break;
-                                case < 60:
-                                    item.rectangle.Fill = Brushes.OrangeRed;
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
                                     break;
                                 case < 85:
                                     item.rectangle.Fill = Brushes.DarkOrange;
                                     break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
+                                case > 60:
+                                    item.rectangle.Fill = Brushes.OrangeRed;
                                     break;
                             }
                             item.rectangle.Fill = Brushes.Orange;
@@ -166,15 +177,16 @@ namespace VirusSimulator_UI.Views
                                 case < 40:
                                     item.rectangle.Fill = Brushes.IndianRed;
                                     break;
-                                case < 60:
+                                case 100:
+                                    item.rectangle.Fill = Brushes.Black;
+                                    break;
+                                case > 60:
                                     item.rectangle.Fill = Brushes.Red;
                                     break;
                                 case < 80:
                                     item.rectangle.Fill = Brushes.DarkRed;
                                     break;
-                                case <= 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
+
                             }
                             item.rectangle.Fill = Brushes.Red;
                             break;
@@ -185,13 +197,7 @@ namespace VirusSimulator_UI.Views
 
         private void OnMouseMove2(object sender, PointerEventArgs e)
         {
-            if (LiveTime == null)
-            {
-                LiveTime = new DispatcherTimer();
-                LiveTime.Interval = TimeSpan.FromSeconds(1);
-                LiveTime.Tick += timer_Tick;
-                LiveTime.Start();
-            }
+
             if (rectangle1 is not null)
             {
                 if (e.Source is Rectangle)

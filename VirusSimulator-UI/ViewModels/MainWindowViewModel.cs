@@ -22,12 +22,9 @@ namespace VirusSimulator_UI.ViewModels
         public string Greeting => "Welcome to Avalonia framework!";
         [Reactive]
         private DateTime startingSimulatoinTime { get; set; }
-        [Reactive]
-        private Stopwatch SimulationTimer { get; set; }
+        private Stopwatch SimulationTimer = new Stopwatch();
         private SimulationWelcomeStep simulationStep;
 
-        private DateTime s = new DateTime();
-        private TimeSpan ts = new TimeSpan(0, 0, 0);
 
         DispatcherTimer LiveTime;
 
@@ -46,25 +43,16 @@ namespace VirusSimulator_UI.ViewModels
             ChartsViewButtonClicked = ReactiveCommand.Create(SwitchToCharts);
             SimulationViewClicked = ReactiveCommand.Create(SwitchToimulation);
 
-            s = s.Date + ts;
-
             LiveTime = new DispatcherTimer();
             LiveTime.Interval = TimeSpan.FromMilliseconds(1);
             LiveTime.Tick += timer_Tick;
-            SimulationTimer = new Stopwatch();
-
-            SimulationTime = "0:0:0:0";
         }
-
-        [Reactive]
-        public string SimulationTime { get; set; }
         [Reactive]
         public string SimulationTime2 { get; set; }
         public IBitmap AnalyzerBitmap { get; set; }
         public IBitmap StartSimulationButton { get; set; }
         public IBitmap StopSimulationButton { get; set; }
         public IBitmap PauseSimulationButton { get; set; }
-
         [Reactive]
         public int AllPeople { get; set; }
         [Reactive]
@@ -97,7 +85,7 @@ namespace VirusSimulator_UI.ViewModels
 
         private void StartSimulationClicked()
         {
-            if(ChangableViews.GetType().Name == "SimulationPrepareView")
+            if(!Simulator.RunningSimulation)
             {
                 SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Start();
@@ -111,27 +99,24 @@ namespace VirusSimulator_UI.ViewModels
         }
         private void PauseSimulationClicked()
         {
-            if(ChangableViews.GetType().Name == "SimulationPrepareView")
+            if(Simulator.RunningSimulation)
             {
                 LiveTime.Stop();
                 SimulationTimer.Stop();
-                Simulator.StopSimulation();
                 Simulator.RunningSimulation = false;
                 Simulator.SimulatorState = SimulatorStateEnum.Pause;
             }
         }
         private void StopSimulationClicked()
         {
-            if (ChangableViews.GetType().Name == "SimulationPrepareView")
+            if (Simulator.RunningSimulation)
             {
                 PopupWindowExitSimulationStep mypopup= new PopupWindowExitSimulationStep();
                 mypopup.GetWindow().Show();
                 LiveTime.Stop();
-                SimulationTime = "0:0:0:0";
                 SimulationTimer.Stop();
                 SimulationTimer.Reset();
                 Simulator.RunningSimulation = false;
-                Simulator.StopSimulation();
                 //WorkFlowManager.DeleteStep("SimulationPrepareStep");
                 Simulator.SimulatorState = SimulatorStateEnum.Stop;
                 Simulator.Iteration= 0;
@@ -153,10 +138,6 @@ namespace VirusSimulator_UI.ViewModels
         {
             SimulationTime2 = Simulator.Iteration + " Days";
 
-
-            var timeSpan = SimulationTimer.Elapsed;
-            
-            SimulationTime = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}:{timeSpan.Milliseconds}";
             var myPeopleList = Simulator.GetPeopleData();
             AllPeople = myPeopleList[0];
             AllHealthyPeoples = myPeopleList[1];

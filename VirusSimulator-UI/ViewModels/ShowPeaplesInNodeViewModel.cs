@@ -19,9 +19,9 @@ namespace VirusSimulator_UI.ViewModels
         {
             myrectanglePointer = rectanglePointer;
             Id =  rectanglePointer.Id;
-            PeoplesCount= rectanglePointer.PeoplesCount;
             HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
+            PeoplesCount = rectanglePointer.PeoplesCount - DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
             HealthyCount= rectanglePointer.HealthyCount;
         }
@@ -41,9 +41,9 @@ namespace VirusSimulator_UI.ViewModels
         public void UpdateData(RectanglePointer rectanglePointer)
         {
             Id = rectanglePointer.Id;
-            PeoplesCount = rectanglePointer.PeoplesCount;
             HouseTypeEnum = rectanglePointer.HouseTypeEnum;
             DeadCount = rectanglePointer.DeadCount;
+            PeoplesCount = rectanglePointer.PeoplesCount- DeadCount;
             InfectedCount = rectanglePointer.InfectedCount;
             HealthyCount = myrectanglePointer.HealthyCount;
         }
