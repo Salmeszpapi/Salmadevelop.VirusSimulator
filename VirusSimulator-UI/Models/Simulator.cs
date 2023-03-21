@@ -40,7 +40,6 @@ namespace VirusSimulator_UI.Models
                 Console.WriteLine("stop");
                 do
                 {
-
                     await graph.IterateThroughtRectangles();
                     Thread.Sleep(1000);
                     Simulator.Iteration++;
