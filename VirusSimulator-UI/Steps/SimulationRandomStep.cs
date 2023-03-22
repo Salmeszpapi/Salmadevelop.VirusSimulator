@@ -48,8 +48,13 @@ namespace VirusSimulator_UI.Steps
             var mySimulationPrepareStep = new SimulationPrepareStep(NewWindowType.Random, mySimulationRandomViewModel.Nodes,
                 mySimulationRandomViewModel.MinConnections, mySimulationRandomViewModel.MaxConnections);
 
-            MainWindowViewModel.ChangableViews = mySimulationPrepareStep.GetScreenContent();
+            //MainWindowViewModel.ChangableViews = mySimulationPrepareStep.GetScreenContent();
             simulationRandomView.Close();
+
+            VirusCreatePopupStep virusCreatePopupStep = new VirusCreatePopupStep(NewWindowType.Random, mySimulationRandomViewModel.Nodes,
+                mySimulationRandomViewModel.MinConnections, mySimulationRandomViewModel.MaxConnections);
+            virusCreatePopupStep.GetView().Show();
+
         }
 
         private void Randomize()

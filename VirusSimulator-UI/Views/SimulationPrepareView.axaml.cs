@@ -38,7 +38,7 @@ namespace VirusSimulator_UI.Views
 
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
             
-            if ((nodeCount != null && minConnection != null && maxConnection != null))
+            if (nodeCount != null && minConnection != null && maxConnection != null)
             {
                 createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
             }

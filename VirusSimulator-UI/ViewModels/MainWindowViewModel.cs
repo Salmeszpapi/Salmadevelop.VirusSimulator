@@ -82,8 +82,9 @@ namespace VirusSimulator_UI.ViewModels
 
         private void StartSimulationClicked()
         {
-            if(!Simulator.RunningSimulation)
+            if(!Simulator.RunningSimulation && ChangableViews.GetType().Name == "SimulationPrepareView")
             {
+                var a = ChangableViews.GetType().Name;
                 SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Start();
                 SimulationTimer.Start();
@@ -106,11 +107,13 @@ namespace VirusSimulator_UI.ViewModels
         }
         private void StopSimulationClicked()
         {
+
             LiveTime.Stop();
             SimulationTimer.Stop();
             Simulator.RunningSimulation = false;
-            PopupWindowExitSimulationStep mypopup= new PopupWindowExitSimulationStep(this);
+            PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
             mypopup.GetWindow().Show();
+
         }
 
         private void BackToWelcomeView()

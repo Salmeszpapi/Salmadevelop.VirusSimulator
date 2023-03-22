@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class CreateVirus : Window
+    public partial class VirusCreatePopupView : Window
     {
-        public CreateVirus()
+        public VirusCreatePopupView()
         {
             InitializeComponent();
         }

@@ -20,8 +20,6 @@ namespace VirusSimulator_UI.ViewModels
         [Reactive]
         public ReactiveCommand<Unit, Unit> ApproveButtonClicked { get; set; }
         [Reactive]
-        public ReactiveCommand<Unit, Unit> RandomButtonClicked { get; set; }
-        [Reactive]
         public ReactiveCommand<Unit, Unit> RandomizeButton { get; set; }
         [Reactive]
         public string Nodes { get; set; }

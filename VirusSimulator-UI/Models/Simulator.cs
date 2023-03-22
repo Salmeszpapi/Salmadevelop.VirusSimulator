@@ -12,9 +12,9 @@ namespace VirusSimulator_UI.Models
 {
     public static class Simulator
     {
-        public const double PROPABILITYTOBEDEAD = 0.1;
-        public const double PROPABILITYTOCURE = 0.3;
-        public static bool RunningSimulation { get; set; }
+        public static double PROPABILITYTOBEDEAD = 0.1;
+        public static double PROPABILITYTOCURE = 0.3;
+        public static bool RunningSimulation { get; set; } = false;
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 13;
         public static double InfectionChance { get; set; } = 0.02;

@@ -40,7 +40,8 @@ namespace VirusSimulator_UI.Steps
 
         private void CreateSimulationClicked()
         {
-            mainWindowViewModel.ChangableViews = new SimulationPrepareStep().GetScreenContent();
+            VirusCreatePopupStep virusCreatePopupStep = new VirusCreatePopupStep();
+            virusCreatePopupStep.GetView().Show();
         }
         private void OpenSimulationClicked()
         {
