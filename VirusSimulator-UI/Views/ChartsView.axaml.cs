@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ScottPlot.Avalonia;
+using System.Drawing;
 
 namespace VirusSimulator_UI.Views
 {
@@ -12,6 +14,11 @@ namespace VirusSimulator_UI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            test();
+        }
+        public void test()
+        {
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace VirusSimulator_UI.Steps
         {
             ChartsViewModel = new ChartsViewModel();
             ChartsView = new ChartsView() { DataContext = ChartsViewModel };
+            ChartsViewModel.Test2(ChartsView);
             WorkFlowManager.SaveStep(this);
         }
 
