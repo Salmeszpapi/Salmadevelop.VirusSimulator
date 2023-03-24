@@ -82,7 +82,8 @@ namespace VirusSimulator_UI.ViewModels
 
         private void StartSimulationClicked()
         {
-            if(!Simulator.RunningSimulation && ChangableViews.GetType().Name == "SimulationPrepareView")
+            if(!Simulator.RunningSimulation && (ChangableViews.GetType().Name == "SimulationPrepareView" ||
+                ChangableViews.GetType().Name == "ChartsView"))
             {
                 var a = ChangableViews.GetType().Name;
                 SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
@@ -93,6 +94,11 @@ namespace VirusSimulator_UI.ViewModels
                 Simulator.SimulatorState = SimulatorStateEnum.Run;
                 SimulationButtonVisible = true;
                 ChartsButtonVisible = true;
+
+                if(WorkFlowManager.GetStep("ChartsStep") is null)
+                {
+                    ChartsStep chartsStep = new ChartsStep();
+                }
             }
         }
         private void PauseSimulationClicked()
@@ -133,9 +139,9 @@ namespace VirusSimulator_UI.ViewModels
         }
         private void SwitchToCharts()
         {
-            ChartsStep chartsStep = new ChartsStep();
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
-            mainWindow.SetView(chartsStep.GetScreenContent());
+            ChartsStep charts = (ChartsStep)WorkFlowManager.GetStep("ChartsStep");
+            mainWindow.SetView(charts.GetScreenContent());
         }
 
         private void SwitchToimulation()

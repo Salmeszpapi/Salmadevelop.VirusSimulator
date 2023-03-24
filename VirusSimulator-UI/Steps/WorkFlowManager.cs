@@ -28,7 +28,9 @@ namespace VirusSimulator_UI.Steps
             if (listofSteps.ContainsKey(name))
                 return listofSteps[name];
             else
-                throw new Exception(String.Format("Key {0} was not found", name));       
+            {
+                return null;
+            }  
         }
         //public static bool IsStepInTheWorkflowmanager(string name)
         //{

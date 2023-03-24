@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using ReactiveUI.Fody.Helpers;
 using ScottPlot.Avalonia;
 using System;
 using System.Collections.Generic;
@@ -14,47 +15,28 @@ namespace VirusSimulator_UI.ViewModels
 {
     public class ChartsViewModel : ViewModelBase
     {
-        private int localiteration =0;
+        [Reactive]
+        public double[] dataX { get; set; }
+        [Reactive]
+        public double[] dataY { get; set; }
+        [Reactive]
+        public AvaPlot avaPlot1 { get; set; }
         public ChartsViewModel()
         {
             
         }
-        public void Test2(ChartsView chartsView)
+        public async Task Test2Async(ChartsView chartsView)
         {
 
-            var a = DateTime.Now;
-            AvaPlot avaPlot1 = chartsView.Find<AvaPlot>("AvaPlot1");
-            double[] dataX = new double[20];
-            double[] dataY = new double[20];
+        }
+        public async Task DoStuff(ChartsView chartsView)
+        {
 
-            dataX[0] = 20;
-            dataY[0] = 20;
-            dataX[1] = 10;
-            dataY[1] = 5;
+        }
 
-            avaPlot1.Plot.AddScatter(dataX, dataY);
-            avaPlot1.Refresh();
-            Thread thread2 = new Thread(() =>
-            {
-
-                do
-                {
-                    if (Simulator.Iteration == localiteration)
-                    {
-                        dataX[localiteration] = localiteration;
-                        dataY[localiteration] = Simulator.AllPeople;
-
-                        avaPlot1.Plot.AddScatter(dataX, dataY);
-                        avaPlot1.Refresh();
-                        localiteration++;
-                    }
-                    
-                } while (true);
-                thread2.IsBackground = true;
-                thread2.Start();
-                Trace.WriteLine("Salmi");
-            });
-
+        private void TestChart()
+        {
+            
         }
     }
 }
