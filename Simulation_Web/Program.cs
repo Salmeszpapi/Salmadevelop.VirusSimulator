@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using VirusSimulator_UI.Db;
+
 namespace Simulation_Web
 {
     public class Program
@@ -8,7 +11,9 @@ namespace Simulation_Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("SimulatorDb"))
+            ); 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
