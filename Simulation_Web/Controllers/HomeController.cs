@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Simulation_Web.Db;
 using Simulation_Web.Models;
 using System.Diagnostics;
 
@@ -13,8 +14,12 @@ namespace Simulation_Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(DataContext dataContext)
         {
+            dataContext.simulationRuns.Add(new SimulationRun()
+            {
+                DateOfRun = DateTime.Now,
+            });
             return View();
         }
 

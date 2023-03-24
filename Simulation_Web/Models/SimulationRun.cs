@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VirusSimulator_UI.Models
+namespace Simulation_Web.Models
 {
     public class SimulationRun
     {

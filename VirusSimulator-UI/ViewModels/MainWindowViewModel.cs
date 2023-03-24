@@ -1,19 +1,15 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using Avalonia.Styling;
 using Avalonia.Threading;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Simulation_Web.Db;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reactive;
-using System.Threading;
-using System.Threading.Tasks;
 using VirusSimulator_UI.Models;
 using VirusSimulator_UI.Steps;
-using VirusSimulator_UI.Views;
 
 namespace VirusSimulator_UI.ViewModels
 {
@@ -80,9 +76,9 @@ namespace VirusSimulator_UI.ViewModels
         [Reactive]
         public bool ChartsButtonVisible { get; set; }
 
-        private void StartSimulationClicked()
+        private async void StartSimulationClicked()
         {
-            if(!Simulator.RunningSimulation && (ChangableViews.GetType().Name == "SimulationPrepareView" ||
+            if (!Simulator.RunningSimulation && (ChangableViews.GetType().Name == "SimulationPrepareView" ||
                 ChangableViews.GetType().Name == "ChartsView"))
             {
                 var a = ChangableViews.GetType().Name;
