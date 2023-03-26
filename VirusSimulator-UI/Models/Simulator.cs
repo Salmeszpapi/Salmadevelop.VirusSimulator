@@ -12,6 +12,7 @@ namespace VirusSimulator_UI.Models
 {
     public static class Simulator
     {
+        public static string VirusName = "Default";
         public static double PROPABILITYTOBEDEAD = 0.1;
         public static double PROPABILITYTOCURE = 0.3;
         public static bool RunningSimulation { get; set; } = false;
@@ -41,7 +42,7 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                     Simulator.Iteration++;
 
                 } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);

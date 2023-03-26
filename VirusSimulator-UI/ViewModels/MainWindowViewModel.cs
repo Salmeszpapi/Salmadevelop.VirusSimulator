@@ -1,9 +1,11 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Simulation_Web.Db;
+using Simulator_Web.Db;
+using Simulator_Web.Models;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -94,6 +96,15 @@ namespace VirusSimulator_UI.ViewModels
                 if(WorkFlowManager.GetStep("ChartsStep") is null)
                 {
                     ChartsStep chartsStep = new ChartsStep();
+                }
+                using (DataContext context = new DataContext())
+                {
+                    context.simulationRuns.Add(new SimulationRun
+                    {
+                        Id =0,
+                        DateOfRun = DateTime.Now,
+                    });
+                    context.SaveChanges();
                 }
             }
         }

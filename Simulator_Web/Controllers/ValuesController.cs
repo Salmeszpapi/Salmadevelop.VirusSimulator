@@ -11,9 +11,9 @@ namespace Simulator_Web.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _dataContext1;
-        public ValuesController(DataContext dataContext)
+        public ValuesController()
         {
-            _dataContext1 = dataContext;
+            _dataContext1 = new DataContext();
         }
         [HttpPost]
         public async Task<ActionResult<List<SimulationRun>>> AddSomething()

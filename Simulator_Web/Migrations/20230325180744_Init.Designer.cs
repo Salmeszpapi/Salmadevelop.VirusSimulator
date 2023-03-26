@@ -11,14 +11,13 @@ using Simulator_Web.Db;
 namespace Simulator_Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230324122907_InitTest3")]
-    partial class InitTest3
+    [Migration("20230325180744_Init")]
+    partial class Init
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
 
             modelBuilder.Entity("Simulator_Web.Models.SimulationData", b =>
                 {

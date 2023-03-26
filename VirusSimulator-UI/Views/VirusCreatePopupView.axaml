@@ -32,11 +32,15 @@
 				</RadioButton>
 			</WrapPanel>
 		</StackPanel>
-		<StackPanel Height="296" IsVisible="{Binding VirusTypeDefault}">
+		<StackPanel Height="308" IsVisible="{Binding VirusTypeDefault}">
 			
 		</StackPanel>
 		<StackPanel IsVisible="{Binding VirusTypeSpecial}">
 			<StackPanel Margin="30,20,30,0" Orientation="Horizontal">
+				<Label Content="Name your virus " VerticalAlignment="Center" Margin="0,0,20,0"/>
+				<TextBox Text="{Binding	VirusName}" MinWidth="230"/>
+			</StackPanel>
+			<StackPanel Margin="30,10,30,0" Orientation="Horizontal">
 				<Label Content="Severity of infection: " VerticalAlignment="Center" Margin="0,0,20,0"/>
 				<Slider Name="SliderWithTooltip"
 					TickPlacement="BottomRight"
@@ -57,7 +61,7 @@
 				</Slider>
 			</StackPanel>
 		
-			<StackPanel Margin="30,20,30,0" Orientation="Horizontal">
+			<StackPanel Margin="30,10,30,0" Orientation="Horizontal">
 				<Label Content="Severity of death:      " VerticalAlignment="Center" Margin="0,0,20,0"/>
 				<Slider Name="SliderWithTooltip2"
 					TickPlacement="BottomRight"
@@ -78,8 +82,8 @@
 				</Slider>
 			</StackPanel>
 		
-			<StackPanel Margin="30,20,30,0" Orientation="Horizontal">
-				<Label Content="Incubation period:      " VerticalAlignment="Center" Margin="0,0,20,0"/>
+			<StackPanel Margin="30,10,30,0" Orientation="Horizontal">
+				<Label Content="Severity of health:      " VerticalAlignment="Center" Margin="0,0,20,0"/>
 				<Slider Name="SliderWithTooltip3"
 					TickPlacement="BottomRight"
 					IsSnapToTickEnabled="True"
@@ -99,7 +103,7 @@
 				</Slider>
 			</StackPanel>
 
-			<StackPanel Margin="30,20,30,0" Orientation="Horizontal">
+			<StackPanel Margin="30,10,30,0" Orientation="Horizontal">
 				<Label Content="Incubation period:      " VerticalAlignment="Center" Margin="0,0,20,0"/>
 				<Slider Name="SliderWithTooltip4"
 					TickPlacement="BottomRight"
@@ -121,7 +125,7 @@
 			</StackPanel>
 		</StackPanel>
 		
-		<StackPanel Margin="0,50,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+		<StackPanel Margin="0,30,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
 			<Button Content="Back" Command="{Binding BackButton}" Margin="0,0,5,0"/>
 			<Button Content="Create" Command="{Binding CreateButton}"/>
 		</StackPanel>

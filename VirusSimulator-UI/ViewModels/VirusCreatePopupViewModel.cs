@@ -7,6 +7,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using VirusSimulator_UI.Models;
 
 namespace VirusSimulator_UI.ViewModels
 {
@@ -33,6 +34,20 @@ namespace VirusSimulator_UI.ViewModels
         public bool VirusTypeDefault { get; set; } = true;
         [Reactive]
         public bool VirusTypeSpecial { get; set; }
+        public string VirusName
+        {
+            get
+            {
+                return "asd";
+            }
+            set
+            {
+                if(value is not null)
+                {
+                    Simulator.VirusName = value;
+                }
+            }
+        }
 
     }
 }
