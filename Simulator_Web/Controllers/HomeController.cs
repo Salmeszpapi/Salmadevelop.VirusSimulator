@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Simulator_Web.Models;
 
 namespace Simulator_Web.Controllers
 {
@@ -10,6 +11,17 @@ namespace Simulator_Web.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Index2(string Email, string Password)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index3(string Email, string Password)
+        {
+            return View();
+        }
+
 
         // GET: HomeController/Details/5
         public ActionResult Details(int id)

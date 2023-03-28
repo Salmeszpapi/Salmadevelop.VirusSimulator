@@ -8,6 +8,7 @@ namespace Simulator_Web.Db
 
         public DbSet<SimulationRun> simulationRuns => Set<SimulationRun>();
         public DbSet<SimulationData> simulationDatas => Set<SimulationData>();
+        public DbSet<LoginData> loginDatas => Set<LoginData>();
 
         public DataContext()
         {
@@ -18,11 +19,5 @@ namespace Simulator_Web.Db
             optionsBuilder.UseSqlite("Data Source=C:\\Diploma\\ApplicationCore\\Simulator_Web\\Db\\sqlite.db");
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    var dbPath = Path.Combine(Simulator_Web.Current.LocalFolder.Path, "YourDbName.db");
-        //    optionsBuilder.UseSqlite("Filename = " + dbPath);
-        //    base.OnConfiguring(optionsBuilder);
-        //}
     }
 }

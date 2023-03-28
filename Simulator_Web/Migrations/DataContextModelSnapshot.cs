@@ -17,6 +17,20 @@ namespace Simulator_Web.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
 
+            modelBuilder.Entity("Simulator_Web.Models.LoginData", b =>
+                {
+                    b.Property<string>("usr")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("pw")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("usr");
+
+                    b.ToTable("loginDatas");
+                });
+
             modelBuilder.Entity("Simulator_Web.Models.SimulationData", b =>
                 {
                     b.Property<int>("Id")
@@ -35,6 +49,9 @@ namespace Simulator_Web.Migrations
                     b.Property<int>("AllPeople")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("SimulationId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("simulationDatas");
@@ -47,6 +64,10 @@ namespace Simulator_Web.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateOfRun")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VirusName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

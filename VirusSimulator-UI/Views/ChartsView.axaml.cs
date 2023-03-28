@@ -47,7 +47,7 @@ namespace VirusSimulator_UI.Views
         {
             AvaloniaXamlLoader.Load(this);
             LiveTime3 = new DispatcherTimer();
-            LiveTime3.Interval = TimeSpan.FromMilliseconds(10);
+            LiveTime3.Interval = TimeSpan.FromSeconds(1);
             LiveTime3.Tick += newTest123;
             LiveTime3.Start();
         }

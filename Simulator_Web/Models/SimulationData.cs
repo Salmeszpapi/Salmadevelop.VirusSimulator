@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Simulator_Web.Models
 {
@@ -10,5 +11,6 @@ namespace Simulator_Web.Models
         public int AllHealthyPeoples { get; set; }
         public int AllInfectedPeoples { get; set; }
         public int AllDeadPeoples { get; set; }
+        public int SimulationId { get; set; }
     }
 }

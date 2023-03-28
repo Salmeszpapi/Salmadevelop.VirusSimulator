@@ -16,12 +16,19 @@ namespace Simulator_Web
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout= TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             //builder.Services.AddDbContext<DataContext>(options =>
             //    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
             //);
 
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -32,7 +39,7 @@ namespace Simulator_Web
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseSession();
 
             app.MapControllers();
             app.MapControllerRoute(

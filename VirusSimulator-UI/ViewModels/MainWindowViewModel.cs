@@ -97,15 +97,6 @@ namespace VirusSimulator_UI.ViewModels
                 {
                     ChartsStep chartsStep = new ChartsStep();
                 }
-                using (DataContext context = new DataContext())
-                {
-                    context.simulationRuns.Add(new SimulationRun
-                    {
-                        Id =0,
-                        DateOfRun = DateTime.Now,
-                    });
-                    context.SaveChanges();
-                }
             }
         }
         private void PauseSimulationClicked()
