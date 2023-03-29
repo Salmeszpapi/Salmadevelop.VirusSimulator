@@ -4,8 +4,6 @@ using Avalonia.Threading;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Simulator_Web.Db;
-using Simulator_Web.Models;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;

@@ -38,7 +38,7 @@ namespace VirusSimulator_UI.ViewModels
         {
             get
             {
-                return "asd";
+                return "";
             }
             set
             {

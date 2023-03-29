@@ -35,10 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Simulator_Web\Simulator_Web.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Views\SimulationWelcomeView.axaml.cs">
       <DependentUpon>SimulationWelcomeView.axaml</DependentUpon>
     </Compile>
@@ -79,5 +75,9 @@
 
   <ItemGroup>
     <Folder Include="Db\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sim_Web\Sim_Web.csproj" />
   </ItemGroup>
 </Project>

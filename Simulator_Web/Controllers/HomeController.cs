@@ -1,95 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Simulator_Web.Db;
 using Simulator_Web.Models;
 
 namespace Simulator_Web.Controllers
 {
     public class HomeController : Controller
     {
+        DataContext dataContext = new DataContext();
         // GET: HomeController
         public ActionResult Index()
         {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Index2(string Email, string Password)
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Index3(string Email, string Password)
-        {
-            return View();
-        }
-
-
-        // GET: HomeController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: HomeController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: HomeController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: HomeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: HomeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: HomeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: HomeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //if (HttpContext.Session.Get("Login") is null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
+            var myListObjects = dataContext.simulationRuns.ToList();
+            ViewData["SiteName"] = "Home page";
+            return View(myListObjects);
         }
     }
 }

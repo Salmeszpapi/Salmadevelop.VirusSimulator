@@ -1,6 +1,6 @@
 ﻿using ReactiveUI.Fody.Helpers;
-using Simulator_Web.Db;
-using Simulator_Web.Models;
+using Sim_Web.Db;
+using Sim_Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

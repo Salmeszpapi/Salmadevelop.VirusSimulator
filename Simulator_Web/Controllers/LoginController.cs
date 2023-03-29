@@ -8,26 +8,30 @@ namespace Simulator_Web.Controllers
     public class LoginController : Controller
     {
         DataContext dataContext = new DataContext(); 
+
         public ActionResult Index()
         {
-            var a = HttpContext.Session.Get("Login");
-            HttpContext.Session.SetString("Login", "True");
-            var ab = HttpContext.Session.Get("Login");
+            if(HttpContext.Session.Get("Login") is not null)
+            {
+                return RedirectToAction("Index","Home");
+            }
+
+            //var a = HttpContext.Session.Get("Login");
+            //HttpContext.Session.SetString("Login", "True");
+            //var ab = HttpContext.Session.Get("Login");
             string name = "New Name";
             return View("Login");
         }
 
         public ActionResult Login()
         {
+        
             return View("Login");
         }
 
         [HttpPost]
         public ActionResult Login(string Email, string Password)
         {
-            var aaa = HttpContext.Session.Get("Login");
-            HttpContext.Session.Remove("Login");
-            var aafa = HttpContext.Session.Get("Login");
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
 
@@ -40,15 +44,12 @@ namespace Simulator_Web.Controllers
                     Password = Hasher.HashData(Password);
                     if (a.pw == Password)
                     {
+                        HttpContext.Session.SetString("Login", "True");
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-
-                    }
                 }
+                ViewData["Error"] = "Bad username or password";
             }
-            
             return View("Login");
         }
 
@@ -74,6 +75,7 @@ namespace Simulator_Web.Controllers
 
                     });
                     dataContext.SaveChanges();
+                    HttpContext.Session.SetString("Login", "True");
                     return RedirectToAction("Index", "Home");
                 }
                 else
