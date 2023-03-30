@@ -17,12 +17,12 @@ namespace VirusSimulator_UI.Models
     public static class Simulator
     {
         public static string VirusName = "Default";
-        public static double PROPABILITYTOBEDEAD = 0.1;
+        public static double PROPABILITYTOBEDEAD = 0.25;
         public static double PROPABILITYTOCURE = 0.3;
         public static bool RunningSimulation { get; set; } = false;
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 13;
-        public static double InfectionChance { get; set; } = 0.02;
+        public static double InfectionChance { get; set; } = 0.06;
         public static int Iteration { get; set; }
 
         public static int AllPeople { get; set; }

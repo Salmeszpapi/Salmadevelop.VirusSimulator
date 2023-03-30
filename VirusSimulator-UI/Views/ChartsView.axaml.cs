@@ -75,7 +75,7 @@ namespace VirusSimulator_UI.Views
 
                 double currentRightEdge = AvaPlot1.Plot.GetAxisLimits().XMax;
                 if (NextPointIndex > currentRightEdge)
-                    AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 100);
+                    AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 30);
                 AvaPlot1.Render();
             }
         }

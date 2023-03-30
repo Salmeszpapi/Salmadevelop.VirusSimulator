@@ -108,24 +108,18 @@ namespace VirusSimulator_UI.Models
         private void IterateThroughtPersonsInfect(RectanglePointer rectanglePointer)
         {
             rectanglePointer.InitialCountInfected();
-            var myinfectedPersons = rectanglePointer.persons.Where(x =>x.Infected == true).ToList();
-            List<Person> people = new List<Person>();
-            foreach (var item in rectanglePointer.persons)
-            {
-                if (item.Infected)
-                {
-                    people.Add(item);
-                }
-            }
-            int myCounter = 0;
-            var test = rectanglePointer.InfectedCount;
             if (rectanglePointer.HasInfectedPerson()) //initial infected count probably missing
             {
                 for (int i = 0; i < rectanglePointer.persons.Count; i++)
                 {
+
                     var person = rectanglePointer.persons[i];
                     if (person is not null && !person.Dead)
                     {
+                        if (person.Infected)
+                        {
+                            person.InfectedDays++;
+                        }
                         if (!person.Infected && person.TimesInfected == 0)
                         {
                             TryInfect(rectanglePointer, Simulator.InfectionChance, person);
@@ -133,35 +127,32 @@ namespace VirusSimulator_UI.Models
                         else if (!person.Infected && person.TimesInfected != 0)
                         {
                             TryInfect(rectanglePointer, Simulator.InfectionChance / person.TimesInfected, person);
-                        }
-                        else if (person.Infected && Simulator.Iteration != 0 && (Simulator.Iteration % Simulator.MaxIterationCount == 0))
-                        {
-                            var random = new Random().NextDouble();
-                            if (Simulator.PROPABILITYTOBEDEAD >= random)
-                            {
-                                rectanglePointer.DeadCount++;
-                                //rectanglePointer.persons.Remove(person);
-                                person.Dead = true;
-                                rectanglePointer.InfectedCount--;
-                            }
-                            else if (Simulator.PROPABILITYTOCURE < random)
-                            {
-                                myCounter++;
-                                if (rectanglePointer.InfectedCount < 0)
-                                {
 
-                                }
-
-                                rectanglePointer.InfectedCount--;
-                                person.Infected = false;
-                                person.InfectedDays = 0;
-                            }
-                            else
-                            {
-
-                            }
                         }
                     }
+                    if (person.Infected && person.InfectedDays >= Simulator.MaxIterationCount && !person.Dead)
+                    {
+                        var random = new Random().NextDouble();
+                        if (Simulator.PROPABILITYTOBEDEAD >= random)
+                        {
+                            rectanglePointer.DeadCount++;
+                            //rectanglePointer.persons.Remove(person);
+                            person.Dead = true;
+                            rectanglePointer.InfectedCount--;
+                        }
+                        else if (Simulator.PROPABILITYTOCURE < random)
+                        {
+                            if (rectanglePointer.InfectedCount < 0)
+                            {
+
+                            }
+
+                            rectanglePointer.InfectedCount--;
+                            person.Infected = false;
+                            person.InfectedDays = 0;
+                        }
+                    }
+
                 }
             }
         }
@@ -172,7 +163,11 @@ namespace VirusSimulator_UI.Models
             for (int i = 0; i < rectanglePointer.persons.Count; i++)
             {
                 var person = rectanglePointer.persons[i];
-                if (rectanglePointer.neighbours.Count > 1 && !person.Dead)
+                if(person.Infected && rectanglePointer.HouseTypeEnum == HouseTypeEnum.Hospital)
+                {
+                    //stay in hospital end rest.
+                }
+                else if (rectanglePointer.neighbours.Count > 1 && !person.Dead)
                 {
                     var chanceToMove = 1 / Convert.ToDouble(rectanglePointer.neighbours.Count);
                     MovePersons(rectanglePointer,person, myPersonList, chanceToMove);
@@ -192,28 +187,25 @@ namespace VirusSimulator_UI.Models
         {
             if (new Random().NextDouble() <= chanceToMove)
             {
+                bool personMoved= false;
                 if(person.Infected) 
                 {
                     foreach (var item in rectanglePointer.neighbours)
                     {
-                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital && person.Infected)
+                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital)
                         {
                             item.persons.Add(person);
                             removeRectanglePersons.Add(person);
-                            brea
-                        }
-                        else if (item.HouseTypeEnum == HouseTypeEnum.WorkPlace && !person.Infected)
-                        {
-                            item.persons.Add(person);
-                            removeRectanglePersons.Add(person);
-                        }
-                        else
-                        {
-                            var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
-                            rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
-                            removeRectanglePersons.Add(person);
+                            personMoved = true;
+                            break;
                         }
                     }
+                }
+                if (!personMoved)
+                {
+                    var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
+                    rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
+                    removeRectanglePersons.Add(person);
                 }
 
             }
