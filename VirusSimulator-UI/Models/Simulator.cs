@@ -1,4 +1,5 @@
-﻿using ReactiveUI.Fody.Helpers;
+﻿using Avalonia.Controls.Shapes;
+using ReactiveUI.Fody.Helpers;
 using Sim_Web.Db;
 using Sim_Web.Models;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +37,7 @@ namespace VirusSimulator_UI.Models
 
         public static void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
+            //SaveSimulation(rectanglePointer);
             var mySimulation = new SimulationRun() {DateOfRun = DateTime.Now,VirusName = VirusName };
             var _dataContext1 = new DataContext();
 
@@ -63,6 +66,26 @@ namespace VirusSimulator_UI.Models
             thread.Start();
             Trace.WriteLine("Salmi");
         }
+
+        private static void SaveSimulation(List<RectanglePointer> rectanglePointers)
+        {
+            //List<Rectangle> myRectangles = new List<Rectangle>();
+            //foreach (var item in rectanglePointers)
+            //{
+            //    myRectangles.Add(item.rectangle); 
+            //    item.rectangle = null;
+                
+                
+            //}
+            //string jsonString = JsonSerializer.Serialize(rectanglePointers);
+            //List<BaseRectangle> deptObj = JsonSerializer.Deserialize<List<BaseRectangle>>(jsonString);
+
+            //for (int i = 0; i < myRectangles.Count; i++)
+            //{
+            //    rectanglePointers[i].rectangle = myRectangles[0];
+            //}
+        }
+
         private static void SaveCurrentPeopleDatasToDb(int simulatorId, DataContext dataContext)
         {
 

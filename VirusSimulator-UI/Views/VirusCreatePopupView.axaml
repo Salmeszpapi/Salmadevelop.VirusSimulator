@@ -45,14 +45,14 @@
 				<Slider Name="SliderWithTooltip"
 					TickPlacement="BottomRight"
 					IsSnapToTickEnabled="True"
-					Ticks="0,1,2,3,4,5,6,7,8,9,10"
+					Ticks="0,1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100"
 					Value="{Binding InfectionChanceSlider}"
 					Minimum="0"
-					Maximum="10"
+					Maximum="100"
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='Value \{0:f\}'}" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}%'}" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />
@@ -73,7 +73,7 @@
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='Value \{0:f\}'}" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}'}%" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />
@@ -94,7 +94,7 @@
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='Value \{0:f\}'}" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}'}%" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />
@@ -115,7 +115,7 @@
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='Value \{0:f\}'}" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}'}" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />
