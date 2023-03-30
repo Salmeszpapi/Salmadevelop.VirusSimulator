@@ -188,13 +188,27 @@ namespace VirusSimulator_UI.Models
                 rectanglePointer.persons.Remove(person);
             }
         }
-        private void MovePersons(RectanglePointer rectanglePointer,Person person,List<Person> people,double chanceToMove)
+        private void MovePersons(RectanglePointer rectanglePointer,Person person,List<Person> removeRectanglePersons,double chanceToMove)
         {
             if (new Random().NextDouble() <= chanceToMove)
             {
-                var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
-                rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
-                people.Add(person);
+                if(person.Infected) 
+                {
+                    foreach (var item in rectanglePointer.neighbours)
+                    {
+                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital)
+                        {
+                            item.persons.Add(person);
+                            removeRectanglePersons.Add(person);
+                        }
+                    }
+                }
+                else
+                {
+                    var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
+                    rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
+                    removeRectanglePersons.Add(person);
+                }
             }
         }
 

@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Simulator_Web/Db/sqlite.db-wal
 /Simulator_Web/Db/sqlite.db-shm
+/Sim_Web/Db/sqlite.db-shm
+/Sim_Web/Db/sqlite.db-wal
