@@ -196,19 +196,26 @@ namespace VirusSimulator_UI.Models
                 {
                     foreach (var item in rectanglePointer.neighbours)
                     {
-                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital)
+                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital && person.Infected)
+                        {
+                            item.persons.Add(person);
+                            removeRectanglePersons.Add(person);
+                            brea
+                        }
+                        else if (item.HouseTypeEnum == HouseTypeEnum.WorkPlace && !person.Infected)
                         {
                             item.persons.Add(person);
                             removeRectanglePersons.Add(person);
                         }
+                        else
+                        {
+                            var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
+                            rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
+                            removeRectanglePersons.Add(person);
+                        }
                     }
                 }
-                else
-                {
-                    var myRandomNumber = new Random().Next(rectanglePointer.neighbours.Count);
-                    rectanglePointer.neighbours[myRandomNumber].persons.Add(person);
-                    removeRectanglePersons.Add(person);
-                }
+
             }
         }
 
