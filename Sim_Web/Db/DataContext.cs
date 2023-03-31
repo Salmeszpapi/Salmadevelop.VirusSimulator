@@ -27,7 +27,6 @@ namespace Sim_Web.Db
             {
                 pathOfDb =  Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
             }
-            //pathOfDb = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
         }
     }
 }
