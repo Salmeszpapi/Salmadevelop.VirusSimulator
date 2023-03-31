@@ -25,10 +25,6 @@ namespace VirusSimulator_UI.ViewModels
         {
             
         }
-        public async Task Test2Async(ChartsView chartsView)
-        {
-
-        }
         public async Task DoStuff(ChartsView chartsView)
         {
 

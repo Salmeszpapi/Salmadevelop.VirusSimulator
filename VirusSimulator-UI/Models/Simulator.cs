@@ -26,10 +26,10 @@ namespace VirusSimulator_UI.Models
         public static double InfectionChance { get; set; } = 0.06;
         public static int Iteration { get; set; }
 
-        public static int AllPeople { get; set; }
-        public static int AllHealthyPeoples { get; set; }
-        public static int AllInfectedPeoples { get; set; }
-        public static int AllDeadPeoples { get; set; }
+        public static int? AllPeople { get; set; }
+        public static int? AllHealthyPeoples { get; set; }
+        public static int? AllInfectedPeoples { get; set; }
+        public static int? AllDeadPeoples { get; set; }
 
         public static void StopSimulation()
         {
@@ -53,7 +53,7 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
-                    //Thread.Sleep(1000);
+                    Thread.Sleep(1000);
                     Simulator.Iteration++;
                     SaveCurrentPeopleDatasToDb(myId, _dataContext1);
                 } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);
@@ -65,6 +65,15 @@ namespace VirusSimulator_UI.Models
             thread.IsBackground = true;
             thread.Start();
             Trace.WriteLine("Salmi");
+            ResetPeaples();
+        }
+
+        private static void ResetPeaples()
+        {
+            AllPeople = null;
+            AllHealthyPeoples = null;
+            AllDeadPeoples = null;
+            AllInfectedPeoples = null;
         }
 
         private static void SaveSimulation(List<RectanglePointer> rectanglePointers)
@@ -91,10 +100,10 @@ namespace VirusSimulator_UI.Models
 
             dataContext.simulationDatas.Add(new SimulationData()
             {
-                AllDeadPeoples= AllDeadPeoples,
-                AllHealthyPeoples= AllHealthyPeoples,
-                AllPeople= AllPeople,
-                AllInfectedPeoples= AllInfectedPeoples,
+                AllDeadPeoples= AllDeadPeoples.Value,
+                AllHealthyPeoples= AllHealthyPeoples.Value,
+                AllPeople= AllPeople.Value,
+                AllInfectedPeoples= AllInfectedPeoples.Value,
                 SimulationId = simulatorId
             });
             dataContext.SaveChanges();
@@ -108,7 +117,9 @@ namespace VirusSimulator_UI.Models
         }
         public static List<int> GetPeopleData()
         {
-            return new List<int> { AllPeople,AllHealthyPeoples,AllInfectedPeoples,AllDeadPeoples };
+            return new List<int> {
+                AllPeople.Value,AllHealthyPeoples.Value,AllInfectedPeoples.Value,AllDeadPeoples.Value
+            };
         }
     }
 }

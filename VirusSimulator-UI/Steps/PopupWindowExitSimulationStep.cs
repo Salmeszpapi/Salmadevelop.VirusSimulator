@@ -54,10 +54,10 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.SimulationButtonVisible = false;
             mainWindowViewModel.ChartsButtonVisible = false;
 
-            mainWindowViewModel.AllDeadPeoples = 0;
-            mainWindowViewModel.AllInfectedPeoples = 0;
-            mainWindowViewModel.AllHealthyPeoples = 0;
-            mainWindowViewModel.AllPeople = 0;
+            mainWindowViewModel.AllDeadPeoples = null;
+            mainWindowViewModel.AllInfectedPeoples = null;
+            mainWindowViewModel.AllHealthyPeoples = null;
+            mainWindowViewModel.AllPeople = null;
 
             myPopupWindowExitSimulationView.Close();
         }

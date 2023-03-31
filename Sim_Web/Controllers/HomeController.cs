@@ -57,14 +57,10 @@ namespace Sim_Web.Controllers
                 startInfo.RedirectStandardOutput = true;
                 startInfo.RedirectStandardError = true;
                 startInfo.UseShellExecute = false;
-                startInfo.CreateNoWindow = true;
+                startInfo.CreateNoWindow = false;
                 Process process = new Process();
                 process.StartInfo = startInfo;
                 process.Start();
-
-                string output = process.StandardOutput.ReadToEnd();
-
-                string errors = process.StandardError.ReadToEnd();
             }
             catch(Exception ex)
             {

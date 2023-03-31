@@ -19,6 +19,7 @@ namespace VirusSimulator_UI.Views
         readonly ScottPlot.Plottable.SignalPlot SignalPlot2;
         readonly ScottPlot.Plottable.SignalPlot SignalPlot3;
         readonly ScottPlot.Plottable.SignalPlot SignalPlot4;
+        readonly ScottPlot.Plottable.SignalPlot SignalPlot5;
         readonly double[] Values = new double[100_000];
         readonly double[] Values2 = new double[100_000];
         readonly double[] Values3 = new double[100_000];
@@ -43,22 +44,17 @@ namespace VirusSimulator_UI.Views
             AvaPlot1.Plot.YLabel("Persons");
             //AvaPlot1.Plot.AddScatter(DataGen.Consecutive(51), DataGen.Consecutive(51), label: "sin");
         }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
             LiveTime3 = new DispatcherTimer();
             LiveTime3.Interval = TimeSpan.FromSeconds(1);
-            LiveTime3.Tick += newTest123;
+            LiveTime3.Tick += NewTest123;
             LiveTime3.Start();
         }
-        private void Kiki2(object sender, EventArgs e)
-        {
-            if (Values[-1] != Simulator.AllInfectedPeoples)
-            {
-                
-            }
-        }
-        private void newTest123(object sender, EventArgs e)
+
+        private void NewTest123(object sender, EventArgs e)
         {
             if(Simulator.RunningSimulation)
             {
@@ -70,6 +66,11 @@ namespace VirusSimulator_UI.Views
                 SignalPlot2.MaxRenderIndex = NextPointIndex;
                 SignalPlot3.MaxRenderIndex = NextPointIndex;
                 SignalPlot4.MaxRenderIndex = NextPointIndex;
+                SignalPlot.Label = "Infected";
+                SignalPlot2.Label = "Healthy";
+                SignalPlot3.Label = "Dead";
+                SignalPlot4.Label = "All";
+                AvaPlot1.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
 
                 NextPointIndex += 1;
 

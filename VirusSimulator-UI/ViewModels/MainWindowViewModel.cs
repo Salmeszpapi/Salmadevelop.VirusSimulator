@@ -47,13 +47,13 @@ namespace VirusSimulator_UI.ViewModels
         public IBitmap StopSimulationButton { get; set; }
         public IBitmap PauseSimulationButton { get; set; }
         [Reactive]
-        public int AllPeople { get; set; }
+        public int? AllPeople { get; set; }
         [Reactive]
-        public int AllHealthyPeoples { get; set; }
+        public int? AllHealthyPeoples { get; set; }
         [Reactive]
-        public int AllInfectedPeoples { get; set; }
+        public int? AllInfectedPeoples { get; set; }
         [Reactive]
-        public int AllDeadPeoples { get; set; }
+        public int? AllDeadPeoples { get; set; }
 
         [Reactive]
         public ReactiveCommand<Unit, Unit> StartSimulationButtonClicked { get; set; }
@@ -112,10 +112,13 @@ namespace VirusSimulator_UI.ViewModels
 
             LiveTime.Stop();
             SimulationTimer.Stop();
+            if (Simulator.RunningSimulation) 
+            {
+                WorkFlowManager.DeleteStep("ChartsStep");
+            }
             Simulator.RunningSimulation = false;
             PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
             mypopup.GetWindow().Show();
-
         }
 
         private void BackToWelcomeView()
