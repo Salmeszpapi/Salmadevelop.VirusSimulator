@@ -5,6 +5,7 @@ using Sim_Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -38,6 +39,7 @@ namespace VirusSimulator_UI.Models
         public static void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             //SaveSimulation(rectanglePointer);
+            var solutionFileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
             var mySimulation = new SimulationRun() {DateOfRun = DateTime.Now,VirusName = VirusName };
             var _dataContext1 = new DataContext();
 

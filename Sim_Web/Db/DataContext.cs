@@ -6,7 +6,7 @@ namespace Sim_Web.Db
 {
     public class DataContext : DbContext
     {
-
+        public string pathOfDb { get; set; }
         public DbSet<SimulationRun> simulationRuns => Set<SimulationRun>();
         public DbSet<SimulationData> simulationDatas => Set<SimulationData>();
         public DbSet<LoginData> loginDatas => Set<LoginData>();
@@ -17,7 +17,17 @@ namespace Sim_Web.Db
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=C:\\Diploma\\ApplicationCore\\Sim_Web\\Db\\sqlite.db");
+            pathOfDb = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+            SetPath();
+            optionsBuilder.UseSqlite($"Data Source={pathOfDb}\\Sim_Web\\Db\\sqlite.db");
+        }
+        public void SetPath()
+        {
+            if (pathOfDb.Contains("Debug"))
+            {
+                pathOfDb =  Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+            }
+            //pathOfDb = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
         }
     }
 }
