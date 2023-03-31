@@ -52,8 +52,8 @@ namespace Sim_Web.Controllers
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = @"powershell.exe";
-
-                startInfo.Arguments = @"cd C:\Diploma\ApplicationCore\VirusSimulator-UI\bin\Debug\net6.0;& C:\Diploma\ApplicationCore\VirusSimulator-UI\bin\Debug\net6.0\VirusSimulator_UI.exe";
+                var solutionPath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+                startInfo.Arguments = $@"cd {solutionPath}\VirusSimulator-UI\bin\Debug\net6.0;& {solutionPath}\VirusSimulator-UI\bin\Debug\net6.0\VirusSimulator_UI.exe";
                 startInfo.RedirectStandardOutput = true;
                 startInfo.RedirectStandardError = true;
                 startInfo.UseShellExecute = false;
