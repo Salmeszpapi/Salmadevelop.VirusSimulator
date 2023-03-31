@@ -70,7 +70,7 @@ namespace Sim_Web.Controllers
             {
 
             }
-            return View();
+            return RedirectToAction("Panel");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
