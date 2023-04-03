@@ -74,5 +74,36 @@ namespace Sim_Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult CreateVirus(string Name, int ProbabilityToDead,int IncubationTime,int InfectionSeverity, int ProbabilityToCure)
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                ViewData["Error"] = "Please set password or user correctly";
+            }
+            else
+            {
+                var virusName = dataContext.VirusData.Where(x => x.Name == Name).FirstOrDefault();
+                if (virusName is null)
+                {
+                    var a = (double)ProbabilityToCure / 10;
+                    dataContext.VirusData.Add(new Virus()
+                    {
+                        Name = Name,
+                        IncubationTime = (double)IncubationTime,
+                        ProbabilityToDead = (double)ProbabilityToDead / 10,
+                        ProbabilityToCure = (double)ProbabilityToCure / 10,
+                        InfectionSeverity = (double)InfectionSeverity / 10,
+                    });
+                    dataContext.SaveChanges();
+
+                }
+                else
+                {
+                    ViewData["Error"] = "Bad username or password";
+                }
+                
+            }
+            return View();
+        }
     }
 }

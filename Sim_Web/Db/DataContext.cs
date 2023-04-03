@@ -10,6 +10,7 @@ namespace Sim_Web.Db
         public DbSet<SimulationRun> simulationRuns => Set<SimulationRun>();
         public DbSet<SimulationData> simulationDatas => Set<SimulationData>();
         public DbSet<LoginData> loginDatas => Set<LoginData>();
+        public DbSet<Virus> VirusData => Set<Virus>();
 
         public DataContext()
         {

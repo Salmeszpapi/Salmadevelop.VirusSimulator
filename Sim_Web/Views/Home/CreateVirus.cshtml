@@ -1,0 +1,231 @@
+﻿<html>
+<head>
+    <title>
+        How to insert spaces/tabs in text using HTML/CSS?
+    </title>
+</head>
+<body>
+        <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="~Home/Panel">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">Welcome to virus simulatior viewer</h1>
+        </div>
+    </div>
+    <div class="container h-100">
+        <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create your virus</p>
+
+                    <form method="post" action="/Home/CreateVirus" class="mx-1 mx-md-4">
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="text" name="Name" id="form3Example1c" class="form-control">
+                                <label class="form-label" for="form3Example1c">Virus name</label>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="range" name="InfectionSeverity" id="rang1" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
+                                <h3 id="result1">50%</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="range" name="ProbabilityToDead" id="rang2" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
+                                <h3 id="result2">50%</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="range" name="ProbabilityToCure" id="rang3" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
+                                <h3 id="result3">50%</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="range" name="IncubationTime" id="rang4" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
+                                <h3 id="result4">50%</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" charset="utf-8">
+//var myRange = document.querySelector('#myRange');
+//var myValue = document.querySelector('#myValue');
+
+//var myRange2 = document.querySelector('#myRange2');
+//var myValue2= document.querySelector('#myValue2');
+
+//var myUnits = '%';
+//var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
+//var px =  ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
+
+//var off2 = myRange2.offsetWidth / (parseInt(myRange2.max) - parseInt(myRange2.min));
+//var px2 = ((myRange2.valueAsNumber - parseInt(myRange2.min)) * off) - (myValue2.offsetParent.offsetWidth / 2);
+
+//  myValue.parentElement.style.left = px + 'px';
+//  myValue.parentElement.style.top = myRange.offsetHeight + 'px';
+//  myValue.innerHTML = myRange.value + ' ' + myUnits;
+
+//    myValue2.parentElement.style.left = px2 + 'px';
+//    myValue2.parentElement.style.top = myRange2.offsetHeight + 'px';
+//    myValue2.innerHTML = myRange2.value + ' ' + myUnits;
+
+//  myRange.oninput =function(){
+//    let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
+
+//    let px2 = ((myRange2.valueAsNumber - parseInt(myRange2.min)) * off2) - (myValue2.offsetWidth / 2);
+
+//    myValue.innerHTML = myRange.value + ' ' + myUnits;
+//    myValue.parentElement.style.left = px + 'px';
+//        document.getElementById("myValue").style.color = "green";
+//    console.log("helllo");
+//        switch (true){
+//            case (myRange.value < 10):
+//                break;
+//            case (myRange.value < 20):
+//            document.getElementById("myValue").style.color = "orange";
+//                break;
+//            case (myRange.value < 30):
+//                document.getElementById("myValue").style.color = "blue";
+//                break;
+//            case (myRange.value < 60):
+//                document.getElementById("myValue").style.color = "purple";
+//                break;
+//            case (myRange.value < 100):
+//                document.getElementById("myValue").style.color = "yellow";
+//                break;
+//            case (myRange.value < 300):
+//                document.getElementById("myValue").style.color = "red";
+//                break;
+//        }
+        
+//  };
+rang1.oninput = function () {
+    switch (true){
+            case (rang1.value < 5):
+                document.getElementById("result1").style.color = "green";
+            break;
+            case (rang1.value < 15):
+                document.getElementById("result1").style.color = "orange";
+            break;
+            case (rang1.value < 30):
+                document.getElementById("result1").style.color = "red";
+            break;
+            case (rang1.value < 50):
+                document.getElementById("result1").style.color = "burgundy";
+            break;
+            default:
+                document.getElementById("result1").style.color = "red";
+            break;
+    }
+        let rangeValue = document.querySelector('#rang1').value;
+        document.getElementById("result1").innerHTML = rangeValue + '%';
+}
+
+    rang2.oninput = function () {
+        switch (true) {
+            case (rang2.value < 5):
+                document.getElementById("result2").style.color = "green";
+                break;
+            case (rang2.value < 15):
+                document.getElementById("result2").style.color = "orange";
+                break;
+            case (rang2.value < 30):
+                document.getElementById("result2").style.color = "red";
+                break;
+            case (rang2.value < 50):
+                document.getElementById("result2").style.color = "burgundy";
+                break;
+            default:
+                document.getElementById("result2").style.color = "red";
+                break;
+        }
+        let rangeValue = document.querySelector('#rang2').value;
+        document.getElementById("result2").innerHTML = rangeValue + '%';
+    }
+    rang3.oninput = function () {
+        switch (true) {
+            case (rang3.value < 5):
+                document.getElementById("result3").style.color = "green";
+                break;
+            case (rang3.value < 15):
+                document.getElementById("result3").style.color = "#F7A620";
+                break;
+            case (rang3.value < 30):
+                document.getElementById("result3").style.color = "red";
+                break;
+            case (rang3.value < 50):
+                document.getElementById("result3").style.color = "red";
+                break;
+            default:
+                document.getElementById("result3").style.color = "#BA3636";
+                break;
+        }
+        let rangeValue = document.querySelector('#rang3').value;
+        document.getElementById("result3").innerHTML = rangeValue + '%';
+    }
+    rang4.oninput = function () {
+        switch (true) {
+            case (rang4.value < 5):
+                document.getElementById("result4").style.color = "green";
+                break;
+            case (rang4.value < 15):
+                document.getElementById("result4").style.color = "#F7A620";
+                break;
+            case (rang4.value < 30):
+                document.getElementById("result4").style.color = "red";
+                break;
+            case (rang4.value < 50):
+                document.getElementById("result4").style.color = "red";
+                break;
+            default:
+                document.getElementById("result4").style.color = "#BA3636";
+                break;
+        }
+        let rangeValue = document.querySelector('#rang4').value;
+        document.getElementById("result4").innerHTML = rangeValue + '%';
+    }
+
+
+  </script>
+  <style>
+    input[type="range"] {
+        width: 400px;
+    }
+  </style>

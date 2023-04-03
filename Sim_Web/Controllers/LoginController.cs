@@ -38,11 +38,11 @@ namespace Sim_Web.Controllers
             }
             else
             {
-                var a = dataContext.loginDatas.Where(x => x.usr == Email).FirstOrDefault();
-                if (a is not null)
+                var user = dataContext.loginDatas.Where(x => x.usr == Email).FirstOrDefault();
+                if (user is not null)
                 {
                     Password1 = Hasher.HashData(Password1);
-                    if (a.pw == Password1)
+                    if (user.pw == Password1)
                     {
                         HttpContext.Session.SetString("Login", "True");
                         return RedirectToAction("Index", "Home");
