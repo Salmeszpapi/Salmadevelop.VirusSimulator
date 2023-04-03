@@ -32,8 +32,11 @@
 				</RadioButton>
 			</WrapPanel>
 		</StackPanel>
+
 		<StackPanel Height="308" IsVisible="{Binding VirusTypeDefault}">
-			
+			<StackPanel Margin="0,15,0,0" HorizontalAlignment="Center">
+				<ComboBox SelectedIndex="0" Items="{Binding Viruses}" SelectedItem="{Binding SelectedVirus, Mode=OneWayToSource}"/>
+			</StackPanel>
 		</StackPanel>
 		<StackPanel IsVisible="{Binding VirusTypeSpecial}">
 			<StackPanel Margin="30,20,30,0" Orientation="Horizontal">
@@ -73,7 +76,7 @@
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}'}%" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}%'}" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />
@@ -94,7 +97,7 @@
 					Width="200">
 					<Slider.Styles>
 						<Style Selector="Slider /template/ Thumb">
-							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}'}%" />
+							<Setter Property="ToolTip.Tip" Value="{Binding $parent[Slider].Value, Mode=OneWay, StringFormat='\{0:f\}%'}" />
 							<Setter Property="ToolTip.Placement" Value="Top" />
 							<Setter Property="ToolTip.VerticalOffset" Value="-10" />
 							<Setter Property="ToolTip.HorizontalOffset" Value="-30" />

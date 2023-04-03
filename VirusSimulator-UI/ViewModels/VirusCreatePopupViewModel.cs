@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using VirusSimulator_UI.Models;
+using Sim_Web.Db;
+using Sim_Web.Models;
+using DynamicData;
 
 namespace VirusSimulator_UI.ViewModels
 {
@@ -16,12 +19,29 @@ namespace VirusSimulator_UI.ViewModels
         public event EventHandler PropertyChanged;
         public VirusCreatePopupViewModel()
         {
-
+            GetVirusesFromDatabase();
         }
+
+        private void GetVirusesFromDatabase()
+        {
+            Viruses = new List<String>();
+            DataContext dataContext = new DataContext();
+            Virusmodels = dataContext.VirusData.ToList();
+            Viruses.Add("Default");
+            foreach(var virusName in Virusmodels)
+            {
+                Viruses.Add(virusName.Name);
+            }
+        }
+
         [Reactive]
         public ReactiveCommand<Unit, Unit> CreateButton { get; set; }
         [Reactive]
         public ReactiveCommand<Unit, Unit> BackButton { get; set; }
+        public List<Virus> Virusmodels { get; set; }
+        [Reactive]
+        private List<String> Viruses { get; set; } 
+        public string SelectedVirus { get; set; }   
         private int probabilityToDead { get; set; }
         private int probabilityToInfect { get; set; }
         private int itarationDay { get; set; }

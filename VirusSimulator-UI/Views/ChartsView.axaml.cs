@@ -30,7 +30,10 @@ namespace VirusSimulator_UI.Views
         public ChartsView()
         {
             InitializeComponent();
+
             AvaPlot1 = this.FindControl<AvaPlot> ("AvaPlot1");
+            AvaPlot1.Reset();
+
             SignalPlot = AvaPlot1.Plot.AddSignal(Values);
             SignalPlot2 = AvaPlot1.Plot.AddSignal(Values2);
             SignalPlot3 = AvaPlot1.Plot.AddSignal(Values3);

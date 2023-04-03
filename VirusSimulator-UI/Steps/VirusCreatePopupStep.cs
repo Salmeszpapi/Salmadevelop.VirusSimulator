@@ -70,6 +70,24 @@ namespace VirusSimulator_UI.Steps
             }// here we are restoring default values of simulator 
             else
             {
+                var myVirus = virusCreatePopupViewModel.SelectedVirus;
+                if(myVirus == "Default" || string.IsNullOrEmpty(myVirus))
+                {
+                    Simulator.InfectionChance = 0.06;
+                    Simulator.MaxIterationCount = 13;
+                    Simulator.PROPABILITYTOBEDEAD = 0.25;
+                    Simulator.PROPABILITYTOCURE = 0.3;
+                }
+                else
+                {
+                    var myTypeVirusObject = virusCreatePopupViewModel.Virusmodels.Where(x => x.Name == myVirus).FirstOrDefault();
+
+                    Simulator.InfectionChance = myTypeVirusObject.InfectionSeverity;
+                    Simulator.MaxIterationCount = (int)myTypeVirusObject.IncubationTime;
+                    Simulator.PROPABILITYTOBEDEAD = myTypeVirusObject.ProbabilityToDead;
+                    Simulator.PROPABILITYTOCURE = myTypeVirusObject.ProbabilityToCure;
+                }
+
 
             }
 
