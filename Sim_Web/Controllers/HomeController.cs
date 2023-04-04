@@ -76,6 +76,7 @@ namespace Sim_Web.Controllers
         }
         public IActionResult CreateVirus(string Name, int ProbabilityToDead,int IncubationTime,int InfectionSeverity, int ProbabilityToCure)
         {
+            ViewData["Error"] = "";
             if (string.IsNullOrEmpty(Name))
             {
                 ViewData["Error"] = "Please set password or user correctly";
@@ -104,6 +105,7 @@ namespace Sim_Web.Controllers
                 
             }
             return View();
+
         }
     }
 }

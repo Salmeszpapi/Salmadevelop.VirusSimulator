@@ -75,9 +75,14 @@
 
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
-
+                    @{
+                        if (ViewData["Error"] == "")
+                        {
+                            <img class="fit-image check-img" src="https://i.imgur.com/QH6Zd6Y.gif">
+                        }else{
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+                        }
+                    }                  
                 </div>
             </div>
         </div>
@@ -85,57 +90,6 @@
 </body>
 </html>
 <script type="text/javascript" charset="utf-8">
-//var myRange = document.querySelector('#myRange');
-//var myValue = document.querySelector('#myValue');
-
-//var myRange2 = document.querySelector('#myRange2');
-//var myValue2= document.querySelector('#myValue2');
-
-//var myUnits = '%';
-//var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
-//var px =  ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
-
-//var off2 = myRange2.offsetWidth / (parseInt(myRange2.max) - parseInt(myRange2.min));
-//var px2 = ((myRange2.valueAsNumber - parseInt(myRange2.min)) * off) - (myValue2.offsetParent.offsetWidth / 2);
-
-//  myValue.parentElement.style.left = px + 'px';
-//  myValue.parentElement.style.top = myRange.offsetHeight + 'px';
-//  myValue.innerHTML = myRange.value + ' ' + myUnits;
-
-//    myValue2.parentElement.style.left = px2 + 'px';
-//    myValue2.parentElement.style.top = myRange2.offsetHeight + 'px';
-//    myValue2.innerHTML = myRange2.value + ' ' + myUnits;
-
-//  myRange.oninput =function(){
-//    let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
-
-//    let px2 = ((myRange2.valueAsNumber - parseInt(myRange2.min)) * off2) - (myValue2.offsetWidth / 2);
-
-//    myValue.innerHTML = myRange.value + ' ' + myUnits;
-//    myValue.parentElement.style.left = px + 'px';
-//        document.getElementById("myValue").style.color = "green";
-//    console.log("helllo");
-//        switch (true){
-//            case (myRange.value < 10):
-//                break;
-//            case (myRange.value < 20):
-//            document.getElementById("myValue").style.color = "orange";
-//                break;
-//            case (myRange.value < 30):
-//                document.getElementById("myValue").style.color = "blue";
-//                break;
-//            case (myRange.value < 60):
-//                document.getElementById("myValue").style.color = "purple";
-//                break;
-//            case (myRange.value < 100):
-//                document.getElementById("myValue").style.color = "yellow";
-//                break;
-//            case (myRange.value < 300):
-//                document.getElementById("myValue").style.color = "red";
-//                break;
-//        }
-        
-//  };
 rang1.oninput = function () {
     switch (true){
             case (rang1.value < 5):
