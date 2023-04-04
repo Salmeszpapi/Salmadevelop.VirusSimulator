@@ -365,22 +365,29 @@ namespace VirusSimulator_UI.Views
             SimulationCanvas.Children.Add(textBlock);
             return textBlock;
         }
-        public void createNewRandomGraph(int text,int minConnection=1, int MaxConnection = 3)
+        public void createNewRandomGraph(int nodeCount,int minConnection=1, int MaxConnection = 100)
         {
             clearCanvas();
-            for (int i = 0; i < text; i++)
+            for (int i = 0; i < nodeCount; i++)
             {
                 Point newPoint = new Point(new Random().Next(0, 865-30), new Random().Next(0, 610-30));
                 DrawRectangle(newPoint);
             }
 
-            foreach (var rectangle in myRectanglesPoints)
+            for (int i = 0; i < MaxConnection; i++)
             {
-                for (int i = 0; i < new Random().Next(minConnection, MaxConnection-1); i++)
-                {
-                    Drawline(rectangle, myRectanglesPoints[new Random().Next(0, myRectanglesPoints.Count)]);
-                }
+                var myLuckyRectangle = myRectanglesPoints[new Random().Next(myRectanglesPoints.Count)];
+                Drawline(myLuckyRectangle, myRectanglesPoints[new Random().Next(myRectanglesPoints.Count)]);
             }
+
+
+            //foreach (var rectangle in myRectanglesPoints)
+            //{
+            //    for (int i = 0; i < new Random().Next(minConnection, MaxConnection-1); i++)
+            //    {
+            //        Drawline(rectangle, myRectanglesPoints[new Random().Next(0, myRectanglesPoints.Count)]);
+            //    }
+            //}
             //var result = CountTheHabitablehouses();
         }
 
