@@ -45,7 +45,8 @@ namespace VirusSimulator_UI.Steps
         }
         private void OpenSimulationClicked()
         {
-            
+            OpenSimulatorStep openSimulator = new OpenSimulatorStep();
+            openSimulator.GetWindow().Show();
         }
         private void RandomSimulationClicked()
         {

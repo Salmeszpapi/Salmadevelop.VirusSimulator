@@ -75,10 +75,16 @@ namespace VirusSimulator_UI.Views
             if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
             {
                 previousRectangle.ReadPeopleStatus();
-                myPopupStep.UpdateData(previousRectangle);
-                peoplesInNodeStep.UpdateData(previousRectangle);
-
+                //myPopupStep.UpdateData(previousRectangle);
+                
             }
+            if(peoplesInNodeStep!= null && previousRectangle != null)
+            {
+                peoplesInNodeStep.UpdateData(previousRectangle);
+                peoplesInNodeStep = new PeoplesInNodeStep(previousRectangle);
+                MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+            }
+
             ReColorizeRectangle();
         }
 
@@ -209,13 +215,10 @@ namespace VirusSimulator_UI.Views
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     sameRectangle.ReadPeopleStatus();
-
-                    
-
-                    if (myPopupStep is null)
-                    {
-                        myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
-                    }
+                    //if (myPopupStep is null)
+                    //{
+                    //    myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
+                    //}
                     if(peoplesInNodeStep is null)
                     {
                         
@@ -224,20 +227,25 @@ namespace VirusSimulator_UI.Views
                         MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
 
                     }
-                    if (previousRectangle == sameRectangle)
-                    {
-                        if (myPopupStep is not null && !myPopupStep.GetView().IsVisible)
-                        {
-                            myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
-                            myPopupStep.GetView().Show();
-                            peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
-                            MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
-                        }
-                    }
                     else
                     {
-                        myPopupStep.GetView().Close();
+                        peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+                        MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
                     }
+                    //if (previousRectangle == sameRectangle)
+                    //{
+                    //    if (myPopupStep is not null && !myPopupStep.GetView().IsVisible)
+                    //    {
+                    //        myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
+                    //        myPopupStep.GetView().Show();
+                    //        peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+                    //        MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    myPopupStep.GetView().Close();
+                    //}
                     previousRectangle = sameRectangle;
                 }
             }

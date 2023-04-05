@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VirusSimulator_UI.Views.OpenSimulatorView"
+        Title="OpenSimulatorView"
+		Width="500"
+		Height="460"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		WindowStartupLocation="CenterScreen">
+	<StackPanel Orientation="Vertical">
+		<StackPanel Margin="10" HorizontalAlignment="Center">
+			<Label Content="Load previous simulations" FontSize="18" FontWeight="Bold"/>
+		</StackPanel>
+		<StackPanel Margin="30">
+
+			<StackPanel Margin="0,15,0,0" HorizontalAlignment="Center">
+				<ComboBox SelectedIndex="0" Items="{Binding mysimulationRuns}" SelectedItem="{Binding SelectedVirus, Mode=OneWayToSource}"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+				Margin="0,100,0,0">
+				<Button Content="Back" Command="{Binding BackButtonClicked}" Margin="0,0,5,0"/>
+				<Button Content="Approve" Command="{Binding	YesButtonClicked}"/>
+			</StackPanel>
+		
+		</StackPanel>
+	</StackPanel>
+
+</Window>

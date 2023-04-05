@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls.Shapes;
+using DynamicData;
 using ReactiveUI.Fody.Helpers;
 using Sim_Web.Db;
 using Sim_Web.Models;
@@ -12,12 +13,13 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using VirusSimulator_UI.Steps;
 
 namespace VirusSimulator_UI.Models
 {
     public static class Simulator
     {
-        public static string VirusName = "Default";
+        public static string VirusName { get; set; } = "Default";
         public static double PROPABILITYTOBEDEAD = 0.25;
         public static double PROPABILITYTOCURE = 0.3;
         public static bool RunningSimulation { get; set; } = false;
@@ -36,9 +38,12 @@ namespace VirusSimulator_UI.Models
             RunningSimulation = false;
         }
 
-        public static void StartSimulation(List<RectanglePointer> rectanglePointer)
+        public static async void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
-            var mySimulation = new SimulationRun() {DateOfRun = DateTime.Now,VirusName = VirusName };
+            var mySimulation = new SimulationRun() {
+                DateOfRun = DateTime.Now,VirusName = VirusName, 
+                RectanglesWithPeople = await GetJsonFromRectangles()
+            };
             var _dataContext1 = new DataContext();
 
             _dataContext1.Attach(mySimulation);
@@ -66,6 +71,36 @@ namespace VirusSimulator_UI.Models
             thread.Start();
             Trace.WriteLine("Salmi");
             ResetPeaples();
+        }
+
+        private static async Task<string> GetJsonFromRectangles()
+        {
+            var options = new JsonSerializerOptions
+            {
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
+            };
+            SimulationPrepareStep simulationPrepareStep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
+            var myRectangles = simulationPrepareStep.GetView().myRectanglesPoints;
+            List<RectanglePointer> rectangles = new List<RectanglePointer>();
+            //foreach (var item in myRectangles)
+            //{
+            //    rectangles.Add(item);
+            //    item.rectangle = null;
+
+            //}
+            for (int i = 0; i < myRectangles.Count; i++)
+            {
+                rectangles.Add(myRectangles[i]);
+                myRectangles[i] = null;
+            }
+
+            string jsonString = JsonSerializer.Serialize(myRectangles, options);
+
+            for (int i = 0; i < rectangles.Count; i++)
+            {
+                myRectangles[i] = rectangles[i];
+            }
+            return jsonString;
         }
 
         private static void ResetPeaples()

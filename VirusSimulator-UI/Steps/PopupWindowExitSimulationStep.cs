@@ -59,6 +59,8 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.AllHealthyPeoples = null;
             mainWindowViewModel.AllPeople = null;
 
+            mainWindowViewModel.MyPointedDatasView = null;
+
             myPopupWindowExitSimulationView.Close();
         }
 

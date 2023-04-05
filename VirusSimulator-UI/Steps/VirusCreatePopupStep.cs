@@ -77,6 +77,7 @@ namespace VirusSimulator_UI.Steps
                     Simulator.MaxIterationCount = 13;
                     Simulator.PROPABILITYTOBEDEAD = 0.25;
                     Simulator.PROPABILITYTOCURE = 0.3;
+                    Simulator.VirusName = "Default";
                 }
                 else
                 {
@@ -86,6 +87,7 @@ namespace VirusSimulator_UI.Steps
                     Simulator.MaxIterationCount = (int)myTypeVirusObject.IncubationTime;
                     Simulator.PROPABILITYTOBEDEAD = myTypeVirusObject.ProbabilityToDead;
                     Simulator.PROPABILITYTOCURE = myTypeVirusObject.ProbabilityToCure;
+                    Simulator.VirusName = myTypeVirusObject.Name;
                 }
 
 

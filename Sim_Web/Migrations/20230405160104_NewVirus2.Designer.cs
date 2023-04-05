@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sim_Web.Db;
 
@@ -10,9 +11,10 @@ using Sim_Web.Db;
 namespace Sim_Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230405160104_NewVirus2")]
+    partial class NewVirus2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
@@ -64,10 +66,6 @@ namespace Sim_Web.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateOfRun")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RectanglesWithPeople")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("VirusName")

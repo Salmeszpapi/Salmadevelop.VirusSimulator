@@ -3,9 +3,9 @@ using Avalonia.Markup.Xaml;
 
 namespace VirusSimulator_UI.Views
 {
-    public partial class PeoplesInNodeView : UserControl
+    public partial class OpenSimulatorView : Window
     {
-        public PeoplesInNodeView()
+        public OpenSimulatorView()
         {
             InitializeComponent();
         }

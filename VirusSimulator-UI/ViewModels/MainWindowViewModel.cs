@@ -4,10 +4,13 @@ using Avalonia.Threading;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Sim_Web.Db;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reactive;
+using System.Text.Json;
 using VirusSimulator_UI.Models;
 using VirusSimulator_UI.Steps;
 
@@ -97,6 +100,7 @@ namespace VirusSimulator_UI.ViewModels
                 {
                     ChartsStep chartsStep = new ChartsStep();
                 }
+
             }
         }
         private void PauseSimulationClicked()
