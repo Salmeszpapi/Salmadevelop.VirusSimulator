@@ -23,21 +23,24 @@ namespace Sim_Web.Controllers
 
         public IActionResult Index()
         {
-            
-            //if (HttpContext.Session.Get("Login") is null)
-            //{
-            //    return RedirectToAction("Index", "Login");
-            //}
+
+            if (HttpContext.Session.Get("Login") is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
+        [Route("Home/Panel")]
         public IActionResult Panel()
         {
-            //if (HttpContext.Session.Get("Login") is null)
-            //{
-            //    return RedirectToAction("Index", "Login");
-            //}
+            if (HttpContext.Session.Get("Login") is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var simulationCounts = dataContext.simulationRuns.ToList().Count;
+            var virusTyepsCount = dataContext.VirusData.ToList().Count;
             ViewData["simulationCounts"] = simulationCounts;
+            ViewData["virusTyepsCount"] = virusTyepsCount;
 
             return View();
         }

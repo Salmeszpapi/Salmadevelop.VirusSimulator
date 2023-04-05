@@ -16,6 +16,6 @@ namespace VirusSimulator_UI.Steps
             ViewModelPropertyChanged?.Invoke(this, e);
         }
         public abstract UserControl GetScreenContent();
-
+        
     }
 }

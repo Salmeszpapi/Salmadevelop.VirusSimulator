@@ -7,18 +7,17 @@ namespace Sim_Web.Controllers
     public class LoginController : Controller
     {
         DataContext dataContext = new DataContext();
-
+        [Route("")]
         public ActionResult Index()
         {
             if (HttpContext.Session.Get("Login") is not null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Panel", "Home");
             }
             ViewData["Title"] = "Login page";
             //var a = HttpContext.Session.Get("Login");
             //HttpContext.Session.SetString("Login", "True");
             //var ab = HttpContext.Session.Get("Login");
-            string name = "New Name";
             return View("Login");
         }
         [Route("Login")]
@@ -45,7 +44,7 @@ namespace Sim_Web.Controllers
                     if (user.pw == Password1)
                     {
                         HttpContext.Session.SetString("Login", "True");
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Panel", "Home");
                     }
                 }
                 ViewData["Error"] = "Bad username or password";
@@ -78,7 +77,7 @@ namespace Sim_Web.Controllers
                         });
                         dataContext.SaveChanges();
                         HttpContext.Session.SetString("Login", "True");
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Panel", "Home");
                     }
                     else
                     {

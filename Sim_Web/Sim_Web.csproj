@@ -21,7 +21,7 @@
 		<ItemGroup>
 			<EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
 				<LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
-			</EmbeddedResource>
+			</EmbeddedResource> 
 		</ItemGroup>
 	</Target>
 

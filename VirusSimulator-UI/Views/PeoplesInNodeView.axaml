@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VirusSimulator_UI.Views.PeoplesInNodeView"
+			 BorderBrush="Black" BorderThickness="1">
+	<StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Label Grid.Row="0" Grid.Column="0" Content="Node :"/>
+			<Label Grid.Row="0" Grid.Column="1" Content="{Binding Id}" />
+			<Label Grid.Row="1" Grid.Column="0" Content="Healthy:" />
+			<Label Grid.Row="1" Grid.Column="1" Content="{Binding HealthyCount}" />
+			<Label Grid.Row="2" Grid.Column="0" Content="Infected:" />
+			<Label Grid.Row="2" Grid.Column="1" Content="{Binding InfectedCount}"/>
+			<Label Grid.Row="3" Grid.Column="0" Content="Dead:" />
+			<Label Grid.Row="3" Grid.Column="1" Content="{Binding DeadCount}" />
+			<Label Grid.Row="4" Grid.Column="0" Content="House type:"/>
+			<Label Grid.Row="4" Grid.Column="1" Content="{Binding HouseTypeEnum}" />
+			<Label Grid.Row="5" Grid.Column="0" Content="All people:"/>
+			<Label Grid.Row="5" Grid.Column="1" Content="{Binding PeoplesCount}"/>
+		</Grid>
+	</StackPanel>
+</UserControl>

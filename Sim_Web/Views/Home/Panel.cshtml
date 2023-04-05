@@ -3,24 +3,6 @@
 
     </head>
     <body>
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-pills card-header-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" href="Home/Panel">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h1 class="card-title">Welcome to virus simulatior viewer</h1>
-        </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -30,7 +12,7 @@
                         <center>
                             <h5 class="card-title">Start application</h5>
                             <p class="card-text">Total simulation runs: @ViewData["simulationCounts"]</p>
-                            <a href="@Url.Action("StartApp","Home")" class="btn btn-success">Go somewhere</a>
+                            <a href="@Url.Action("StartApp","Home")" class="btn btn-success">Start app</a>
                         </center>
                     </div>
                 </div>
@@ -41,8 +23,8 @@
                     <div class="card-body">
                         <center>
                             <h5 class="card-title">Create own virus</h5>
-                            <p class="card-text">More then 5 virus types</p>
-                            <a href="@Url.Action("CreateVirus","Home")" class="btn btn-warning">Go somewhere</a>
+                            <p class="card-text">More then @ViewData["virusTyepsCount"] virus types</p>
+                            <a href="@Url.Action("CreateVirus","Home")" class="btn btn-warning">Create virus</a>
                         </center>
                     </div>
                 </div>
@@ -52,60 +34,16 @@
                     <img class="card-img-top" src="~/Resources/2.png" alt="Card image cap">
                     <div class="card-body">
                         <center>
-                            <h5 class="card-title">Total simulation time: @ViewData["simulationCounts"]</h5>
-                            <p class="card-text">Create own virus for application</p>
-                            <a href="#" class="btn btn-danger">Go somewhere</a>
+                            <h5 class="card-title">Show results of simulation</h5>
+                            <p class="card-text">Show result of simulations</p>
+                            <a href="#" class="btn btn-danger">See results</a>
                         </center>
                     </div>
                 </div>
             </div>
         </div>
-<div id="title">
-        <label class="" id="fero">Hello World</label>
-            <input type="text" name="doc-title" value="" onchange="changeTheText" id="title" autocomplete="off">
-    </div>
-    <div id="title-select">
-        <input type="radio" name="title_format" value="title1" onclick="changeTheText(this.value);" class="title-format" id="title-format-0" value="0" checked="checked"><label for="title-format-0">Title 1</label><br>
-        <input type="radio" name="title_format" value="title2" onclick="changeTheText(this.value);" class="title-format" id="title-format-1" value="1"> <label for="title-format-1">Title 2</label><br>
-        <input type="radio" name="title_format" value="title3" onclick="changeTheText(this.value);" class="title-format" id="title-format-2" value="2"> <label for="title-format-2">Title 3</label>
-    </div>
-        <p id="demo"></p>
-        <label id="GFG">
-            Welcome to GeeksforGeeks
-        </label>
-        <button class="" id="122">asd</button>
-        <a href="\\DangerServer\Downloads\MyVirusArchive.exe"
-           type="application/octet-stream">Don't download this file!</a>
-@*        <div class="row">
-            <div class="col">
-                                <div class="card" src="Resources/" style="width: 18rem;">
-                    <img class="card-img-top" src="~/Resources/2.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" src="Resources/" style="width: 18rem;">
-                    <img class="card-img-top" src="~/Resources/2.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>*@
     </div>
     </body>
 </html>
 <script>
-function changeTheText(value) {
-        document.getElementById('fero').innerHTML = value;
-        document.getElementById('122').className = "btn btn-danger";
-        console.log(value);
-        //document.getElementById('title').value = changeTheTexta;
-}
 </script>

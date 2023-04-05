@@ -72,6 +72,8 @@ namespace VirusSimulator_UI.ViewModels
         [Reactive]
         public UserControl ChangableViews { get; set; }
         [Reactive]
+        public UserControl MyPointedDatasView { get; set; }
+        [Reactive]
         public bool SimulationButtonVisible{ get; set; }
         [Reactive]
         public bool ChartsButtonVisible { get; set; }
@@ -119,6 +121,7 @@ namespace VirusSimulator_UI.ViewModels
             Simulator.RunningSimulation = false;
             PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
             mypopup.GetWindow().Show();
+            //mainWindow.SetViewForPeople(new UserControl());
         }
 
         private void BackToWelcomeView()

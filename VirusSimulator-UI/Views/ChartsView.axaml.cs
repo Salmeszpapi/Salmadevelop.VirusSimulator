@@ -19,7 +19,6 @@ namespace VirusSimulator_UI.Views
         readonly ScottPlot.Plottable.SignalPlot SignalPlot2;
         readonly ScottPlot.Plottable.SignalPlot SignalPlot3;
         readonly ScottPlot.Plottable.SignalPlot SignalPlot4;
-        readonly ScottPlot.Plottable.SignalPlot SignalPlot5;
         readonly double[] Values = new double[100_000];
         readonly double[] Values2 = new double[100_000];
         readonly double[] Values3 = new double[100_000];

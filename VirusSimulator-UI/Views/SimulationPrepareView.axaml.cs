@@ -27,6 +27,8 @@ namespace VirusSimulator_UI.Views
         private int peopleIdcounter;
         private ShowPeaplesInNodeStep myPopupStep;
         private RectanglePointer previousRectangle;
+        private PeoplesInNodeStep peoplesInNodeStep;
+        private MainWindowStep MainWindowStep;
         public SimulationPrepareView()
         {
             InitializeComponent();
@@ -50,10 +52,11 @@ namespace VirusSimulator_UI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            MainWindowStep = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             if (LiveTime == null)
             {
                 LiveTime = new DispatcherTimer();
-                LiveTime.Interval = TimeSpan.FromMilliseconds(1);
+                LiveTime.Interval = TimeSpan.FromSeconds(1);
                 LiveTime.Tick += timer_Tick;
                 LiveTime.Start();
             }
@@ -73,6 +76,8 @@ namespace VirusSimulator_UI.Views
             {
                 previousRectangle.ReadPeopleStatus();
                 myPopupStep.UpdateData(previousRectangle);
+                peoplesInNodeStep.UpdateData(previousRectangle);
+
             }
             ReColorizeRectangle();
         }
@@ -204,9 +209,20 @@ namespace VirusSimulator_UI.Views
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     sameRectangle.ReadPeopleStatus();
-                    if(myPopupStep is null)
+
+                    
+
+                    if (myPopupStep is null)
                     {
                         myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
+                    }
+                    if(peoplesInNodeStep is null)
+                    {
+                        
+                        peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+
+                        MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+
                     }
                     if (previousRectangle == sameRectangle)
                     {
@@ -214,6 +230,8 @@ namespace VirusSimulator_UI.Views
                         {
                             myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
                             myPopupStep.GetView().Show();
+                            peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+                            MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
                         }
                     }
                     else

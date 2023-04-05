@@ -90,6 +90,11 @@
 					Command="{Binding ChartsViewButtonClicked}"
 					IsVisible="{Binding ChartsButtonVisible}">
 				</Button>
+				<StackPanel Margin="0,466,0,0">
+					<UserControl Content="{Binding MyPointedDatasView}">
+						
+					</UserControl>
+				</StackPanel>
 				<!--changeable content here via Bindings-->
 				<UserControl Grid.Column="1"
 							 Height="606"
