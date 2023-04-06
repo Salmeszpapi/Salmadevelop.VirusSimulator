@@ -1,5 +1,7 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
+using Sim_Web.Db;
+using Sim_Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,13 @@ namespace VirusSimulator_UI.Steps
         private void OkButton()
         {
             GetWindow().Close();
+            MainWindowStep myMainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
+            
+            var a = openSimulatorViewModel.selectedItem.Split(" ");
+            DataContext dataContext = new DataContext();
+            SimulationRun mySimulationRun = dataContext.simulationRuns.Where(x => x.Id.ToString() == a[0]).FirstOrDefault();
+            SimulationPrepareStep simulationPrepareStep = new SimulationPrepareStep(mySimulationRun);
+            myMainWindow.SetView(simulationPrepareStep.GetScreenContent());
             //throw new NotImplementedException();
         }
 

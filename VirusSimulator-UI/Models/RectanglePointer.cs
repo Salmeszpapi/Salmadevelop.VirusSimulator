@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace VirusSimulator_UI.Models
 {
-    public class RectanglePointer
+    public class RectanglePointer 
     {
         public int Id { get; set; }
         public Rectangle rectangle { get; set; }

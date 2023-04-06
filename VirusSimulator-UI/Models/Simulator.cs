@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls.Shapes;
+﻿using Avalonia;
+using Avalonia.Controls.Shapes;
 using DynamicData;
 using ReactiveUI.Fody.Helpers;
 using Sim_Web.Db;
@@ -40,9 +41,12 @@ namespace VirusSimulator_UI.Models
 
         public static async void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
+            var myItems = await GetJsonFromRectangles();
             var mySimulation = new SimulationRun() {
                 DateOfRun = DateTime.Now,VirusName = VirusName, 
-                RectanglesWithPeople = await GetJsonFromRectangles()
+                RectanglesWithPeople = myItems[0],
+                RectanglePointers = myItems[1],
+                Neighbours= myItems[2],
             };
             var _dataContext1 = new DataContext();
 
@@ -73,7 +77,7 @@ namespace VirusSimulator_UI.Models
             ResetPeaples();
         }
 
-        private static async Task<string> GetJsonFromRectangles()
+        private static async Task<List<string>> GetJsonFromRectangles()
         {
             var options = new JsonSerializerOptions
             {
@@ -81,26 +85,38 @@ namespace VirusSimulator_UI.Models
             };
             SimulationPrepareStep simulationPrepareStep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
             var myRectangles = simulationPrepareStep.GetView().myRectanglesPoints;
-            List<RectanglePointer> rectangles = new List<RectanglePointer>();
+            List<Rectangle> rectangles = new List<Rectangle>();
             //foreach (var item in myRectangles)
             //{
             //    rectangles.Add(item);
             //    item.rectangle = null;
 
             //}
+            List<string> ListOfPointers= new List<string>();
+            List<string> ListOfNeighbors= new List<string>();
+            string tempNeighbours = "";
             for (int i = 0; i < myRectangles.Count; i++)
             {
-                rectangles.Add(myRectangles[i]);
-                myRectangles[i] = null;
+                rectangles.Add(myRectangles[i].rectangle);
+                myRectangles[i].rectangle = null;
+                ListOfPointers.Add(myRectangles[i].pointer.X + ","+ myRectangles[i].pointer.Y);
+                foreach (var neigbor in myRectangles[i].neighbours)
+                {
+                    tempNeighbours += neigbor.Id + ",";
+                    
+                }
+                ListOfNeighbors.Add(tempNeighbours);
+                tempNeighbours = "";
             }
-
+            string jsonPointers = JsonSerializer.Serialize(ListOfPointers);
             string jsonString = JsonSerializer.Serialize(myRectangles, options);
+            string jsonNeighbours = JsonSerializer.Serialize(ListOfNeighbors);
 
             for (int i = 0; i < rectangles.Count; i++)
             {
-                myRectangles[i] = rectangles[i];
+                myRectangles[i].rectangle = rectangles[i];
             }
-            return jsonString;
+            return new List<string>() { jsonString, jsonPointers, jsonNeighbours };
         }
 
         private static void ResetPeaples()

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reactive;
-using System.Text.Json;
 using VirusSimulator_UI.Models;
 using VirusSimulator_UI.Steps;
 

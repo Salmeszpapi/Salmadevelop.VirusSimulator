@@ -49,9 +49,16 @@ namespace VirusSimulator_UI.Views
                 createNewRandomGraph(50);
             }
         }
+        public SimulationPrepareView(List<RectanglePointer> rectanglePointers)
+        {
+            InitializeComponent();
+            LoadOldSimulation(rectanglePointers);
+
+        }
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
             MainWindowStep = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             if (LiveTime == null)
             {
@@ -103,104 +110,106 @@ namespace VirusSimulator_UI.Views
                     //else if (percentDead < 60 || percentInfected < 60) item.rectangle.Fill = Brushes.Khaki;
                     //else if (percentDead < 80 || percentInfected < 80) item.rectangle.Fill = Brushes.Orange;
                     //else if (percentDead == 100 || percentInfected <= 100) item.rectangle.Fill = Brushes.Red;
-
-                    switch (percentInfected)
+                    if (item.rectangle is not null)
                     {
-                        case < 20 :
-                            switch (percentDead)
-                            {
-                                case < 40:
-                                    item.rectangle.Fill = Brushes.Green;
-                                    break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
-                                case > 95:
-                                    item.rectangle.Fill = Brushes.DarkRed;
-                                    break;
-                                case > 60:
-                                    item.rectangle.Fill = Brushes.IndianRed;
-                                    break;
-                            }
-                            break;
-                        case < 40 :
-                            switch (percentDead)
-                            {
-                                case < 40:
-                                    item.rectangle.Fill = Brushes.YellowGreen;
-                                    break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
+                        switch (percentInfected)
+                        {
+                            case < 20:
+                                switch (percentDead)
+                                {
+                                    case < 40:
+                                        item.rectangle.Fill = Brushes.Green;
+                                        break;
+                                    case 100:
+                                        item.rectangle.Fill = Brushes.Black;
+                                        break;
+                                    case > 95:
+                                        item.rectangle.Fill = Brushes.DarkRed;
+                                        break;
+                                    case > 60:
+                                        item.rectangle.Fill = Brushes.IndianRed;
+                                        break;
+                                }
+                                break;
+                            case < 40:
+                                switch (percentDead)
+                                {
+                                    case < 40:
+                                        item.rectangle.Fill = Brushes.YellowGreen;
+                                        break;
+                                    case 100:
+                                        item.rectangle.Fill = Brushes.Black;
+                                        break;
 
-                                case > 90:
-                                    item.rectangle.Fill = Brushes.DarkRed;
-                                    break;
-                                case > 60:
-                                    item.rectangle.Fill = Brushes.IndianRed;
-                                    break;
+                                    case > 90:
+                                        item.rectangle.Fill = Brushes.DarkRed;
+                                        break;
+                                    case > 60:
+                                        item.rectangle.Fill = Brushes.IndianRed;
+                                        break;
 
-                            }
-                            break;
-                        case < 60:
-                            switch (percentDead)
-                            {
-                                case < 40:
-                                    item.rectangle.Fill = Brushes.Khaki;
-                                    break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
-                                case > 90:
-                                    item.rectangle.Fill = Brushes.DarkRed;
-                                    break;
-                                case > 60:
-                                    item.rectangle.Fill = Brushes.DarkKhaki;
-                                    break;
+                                }
+                                break;
+                            case < 60:
+                                switch (percentDead)
+                                {
+                                    case < 40:
+                                        item.rectangle.Fill = Brushes.Khaki;
+                                        break;
+                                    case 100:
+                                        item.rectangle.Fill = Brushes.Black;
+                                        break;
+                                    case > 90:
+                                        item.rectangle.Fill = Brushes.DarkRed;
+                                        break;
+                                    case > 60:
+                                        item.rectangle.Fill = Brushes.DarkKhaki;
+                                        break;
 
 
-                            }
-                            break;
-                        case < 80:
-                            switch (percentDead)
-                            {
-                                case < 30:
-                                    item.rectangle.Fill = Brushes.Orange;
-                                    break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
-                                case < 85:
-                                    item.rectangle.Fill = Brushes.DarkOrange;
-                                    break;
-                                case > 60:
-                                    item.rectangle.Fill = Brushes.OrangeRed;
-                                    break;
-                            }
-                            item.rectangle.Fill = Brushes.Orange;
-                            break;
-                        case <= 100:
-                            switch (percentDead)
-                            {
-                                case < 30:
-                                    item.rectangle.Fill = Brushes.MediumVioletRed;
-                                    break;
-                                case < 40:
-                                    item.rectangle.Fill = Brushes.IndianRed;
-                                    break;
-                                case 100:
-                                    item.rectangle.Fill = Brushes.Black;
-                                    break;
-                                case > 60:
-                                    item.rectangle.Fill = Brushes.Red;
-                                    break;
-                                case < 80:
-                                    item.rectangle.Fill = Brushes.DarkRed;
-                                    break;
+                                }
+                                break;
+                            case < 80:
+                                switch (percentDead)
+                                {
+                                    case < 30:
+                                        item.rectangle.Fill = Brushes.Orange;
+                                        break;
+                                    case 100:
+                                        item.rectangle.Fill = Brushes.Black;
+                                        break;
+                                    case < 85:
+                                        item.rectangle.Fill = Brushes.DarkOrange;
+                                        break;
+                                    case > 60:
+                                        item.rectangle.Fill = Brushes.OrangeRed;
+                                        break;
+                                }
+                                item.rectangle.Fill = Brushes.Orange;
+                                break;
+                            case <= 100:
+                                switch (percentDead)
+                                {
+                                    case < 30:
+                                        item.rectangle.Fill = Brushes.MediumVioletRed;
+                                        break;
+                                    case < 40:
+                                        item.rectangle.Fill = Brushes.IndianRed;
+                                        break;
+                                    case 100:
+                                        item.rectangle.Fill = Brushes.Black;
+                                        break;
+                                    case > 60:
+                                        item.rectangle.Fill = Brushes.Red;
+                                        break;
+                                    case < 80:
+                                        item.rectangle.Fill = Brushes.DarkRed;
+                                        break;
 
-                            }
-                            item.rectangle.Fill = Brushes.Red;
-                            break;
+                                }
+                                item.rectangle.Fill = Brushes.Red;
+                                break;
+                        }
                     }
                 }
             }
@@ -391,6 +400,15 @@ namespace VirusSimulator_UI.Views
             SimulationCanvas.Children.Add(textBlock);
             return textBlock;
         }
+
+        private void LoadOldSimulation(List<RectanglePointer> rectanglePointers)
+        {
+            foreach (var rectanglePointer in rectanglePointers)
+            {
+                DrawRectangle(rectanglePointer.pointer);
+            }
+        }
+
         public void createNewRandomGraph(int nodeCount,int minConnection=1, int MaxConnection = 100)
         {
             clearCanvas();
@@ -405,16 +423,6 @@ namespace VirusSimulator_UI.Views
                 var myLuckyRectangle = myRectanglesPoints[new Random().Next(myRectanglesPoints.Count)];
                 Drawline(myLuckyRectangle, myRectanglesPoints[new Random().Next(myRectanglesPoints.Count)]);
             }
-
-
-            //foreach (var rectangle in myRectanglesPoints)
-            //{
-            //    for (int i = 0; i < new Random().Next(minConnection, MaxConnection-1); i++)
-            //    {
-            //        Drawline(rectangle, myRectanglesPoints[new Random().Next(0, myRectanglesPoints.Count)]);
-            //    }
-            //}
-            //var result = CountTheHabitablehouses();
         }
 
         private void clearCanvas()

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace Sim_Web.Models
 {
@@ -9,5 +10,7 @@ namespace Sim_Web.Models
         public DateTime DateOfRun { get; set; }
         public string VirusName { get; set; }
         public string RectanglesWithPeople { get; set; }
+        public string RectanglePointers { get; set; }
+        public string Neighbours { get; set; }
     }
 }

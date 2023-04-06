@@ -25,11 +25,13 @@ namespace VirusSimulator_UI.ViewModels
             mysimulationRuns = new List<string>();
             foreach (var item in a)
             {
-                mysimulationRuns.Add(item.Id + " " + item.VirusName);
+                mysimulationRuns.Add(item.Id +" "+item.VirusName);
             }
         }
         [Reactive]
         public List<string> mysimulationRuns { get; set; }
+        [Reactive]
+        public string selectedItem { get; set; }
         [Reactive]
         public ReactiveCommand<Unit, Unit> BackButtonClicked { get; set; }
         [Reactive]

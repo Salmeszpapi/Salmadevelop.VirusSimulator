@@ -1,8 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Sim_Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using VirusSimulator_UI.Models;
 using VirusSimulator_UI.ViewModels;
@@ -24,6 +29,26 @@ namespace VirusSimulator_UI.Steps
         {
             simulationPrepareViewModel = new SimulationPrepareViewModel();
             simulationPrapareView = new SimulationPrepareView() { DataContext = simulationPrepareViewModel };
+            WorkFlowManager.SaveStep(this);
+        }
+
+        public SimulationPrepareStep(SimulationRun mySimulationRun)
+        {
+            var options = new JsonSerializerOptions
+            {
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
+            };
+            List<RectanglePointer> deptObj = JsonSerializer.Deserialize<List<RectanglePointer>>(mySimulationRun.RectanglesWithPeople, options);
+            List<string> deptObj2 = JsonSerializer.Deserialize<List<string>>(mySimulationRun.RectanglePointers, options);
+            List<string> deptObj3 = JsonSerializer.Deserialize<List<string>>(mySimulationRun.Neighbours, options);
+            for (int i = 0; i < deptObj.Count; i++)
+            {
+                var a = deptObj2[i].Split(",");
+                var myPointer = new Point(Convert.ToDouble(a[0]), Convert.ToDouble(a[1]));
+                deptObj[i].pointer = myPointer;
+            }
+            simulationPrepareViewModel = new SimulationPrepareViewModel();
+            simulationPrapareView = new SimulationPrepareView(deptObj) { DataContext = simulationPrepareViewModel };
             WorkFlowManager.SaveStep(this);
         }
 

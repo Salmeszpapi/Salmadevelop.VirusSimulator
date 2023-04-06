@@ -10,6 +10,10 @@
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
 		ExtendClientAreaTitleBarHeightHint="-1"
+		Topmost="True"
+		Focusable="True"
+		CanResize="False"
+		ShowInTaskbar="False"
 		WindowStartupLocation="CenterScreen">
 	<StackPanel Orientation="Vertical">
 		<StackPanel Margin="10" HorizontalAlignment="Center">
@@ -18,7 +22,7 @@
 		<StackPanel Margin="30">
 
 			<StackPanel Margin="0,15,0,0" HorizontalAlignment="Center">
-				<ComboBox SelectedIndex="0" Items="{Binding mysimulationRuns}" SelectedItem="{Binding SelectedVirus, Mode=OneWayToSource}"/>
+				<ComboBox SelectedIndex="0" Items="{Binding mysimulationRuns}" SelectedItem="{Binding selectedItem, Mode=OneWayToSource}"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
 				Margin="0,100,0,0">
