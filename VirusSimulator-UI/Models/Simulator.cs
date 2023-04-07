@@ -94,6 +94,7 @@ namespace VirusSimulator_UI.Models
             //}
             List<string> ListOfPointers= new List<string>();
             List<string> ListOfNeighbors= new List<string>();
+            List<string> ListOfLines = new List<string>();
             string tempNeighbours = "";
             for (int i = 0; i < myRectangles.Count; i++)
             {

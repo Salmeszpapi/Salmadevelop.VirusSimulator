@@ -81,7 +81,7 @@ namespace VirusSimulator_UI.Views
         {
             if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
             {
-                previousRectangle.ReadPeopleStatus();
+                //previousRectangle.ReadPeopleStatus();
                 //myPopupStep.UpdateData(previousRectangle);
                 
             }
@@ -326,6 +326,20 @@ namespace VirusSimulator_UI.Views
                 SimulationCanvas.Children.Add(line);
             }
         }
+        private void DrawlineFromLoad(RectanglePointer rectangle1, RectanglePointer rectangle2)
+        {
+            if (rectangle1 != rectangle2 && !Simulator.RunningSimulation)
+            {
+                var line = new Line();
+                line.StartPoint = rectangle1.pointer;
+                line.EndPoint = rectangle2.pointer;
+                line.Stroke = Brushes.Black;
+                line.StrokeThickness = 1;
+                rectangle1.lines.Add(line);
+                rectangle2.lines.Add(line);
+                SimulationCanvas.Children.Add(line);
+            }
+        }
 
         private void DrawRectangle(Point mousePosition)
         {
@@ -406,7 +420,13 @@ namespace VirusSimulator_UI.Views
             foreach (var rectanglePointer in rectanglePointers)
             {
                 DrawRectangle(rectanglePointer.pointer);
+                foreach (var neigbourRectangle in rectanglePointer.neighbours)
+                {
+
+                    DrawlineFromLoad(rectanglePointer, neigbourRectangle);
+                }
             }
+
         }
 
         public void createNewRandomGraph(int nodeCount,int minConnection=1, int MaxConnection = 100)

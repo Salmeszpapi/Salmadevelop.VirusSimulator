@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Sim_Web.Models;
 using System;
@@ -40,12 +41,24 @@ namespace VirusSimulator_UI.Steps
             };
             List<RectanglePointer> deptObj = JsonSerializer.Deserialize<List<RectanglePointer>>(mySimulationRun.RectanglesWithPeople, options);
             List<string> deptObj2 = JsonSerializer.Deserialize<List<string>>(mySimulationRun.RectanglePointers, options);
-            List<string> deptObj3 = JsonSerializer.Deserialize<List<string>>(mySimulationRun.Neighbours, options);
+            List<string> myListOfRectangleNeigboursID = JsonSerializer.Deserialize<List<string>>(mySimulationRun.Neighbours, options);
             for (int i = 0; i < deptObj.Count; i++)
             {
-                var a = deptObj2[i].Split(",");
-                var myPointer = new Point(Convert.ToDouble(a[0]), Convert.ToDouble(a[1]));
+                var pointers = deptObj2[i].Split(",");
+                var myPointer = new Point(Convert.ToDouble(pointers[0]), Convert.ToDouble(pointers[1]));
                 deptObj[i].pointer = myPointer;
+                var mySplittedIdRectangles = myListOfRectangleNeigboursID[i].Split(",");
+                foreach (var item in mySplittedIdRectangles)
+                {
+                    if(!string.IsNullOrEmpty(item))
+                    {
+                        deptObj[i].neighbours.Add(deptObj.Where(x => x.Id == Convert.ToInt32(item)).FirstOrDefault());
+                    }
+                }
+
+                
+
+
             }
             simulationPrepareViewModel = new SimulationPrepareViewModel();
             simulationPrapareView = new SimulationPrepareView(deptObj) { DataContext = simulationPrepareViewModel };
