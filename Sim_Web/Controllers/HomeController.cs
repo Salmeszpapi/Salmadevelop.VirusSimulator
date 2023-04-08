@@ -110,5 +110,10 @@ namespace Sim_Web.Controllers
             return View();
 
         }
+        public IActionResult Result()
+        {
+
+            return View();
+        }
     }
 }

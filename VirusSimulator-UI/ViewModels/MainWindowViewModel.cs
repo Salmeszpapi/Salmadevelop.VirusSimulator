@@ -25,7 +25,6 @@ namespace VirusSimulator_UI.ViewModels
 
         public MainWindowViewModel() : base()
         {
-            AnalyzerBitmap = new Bitmap(@"Assets/cat.jpg");
             StartSimulationButton = new Bitmap(@"Assets/startSimulation.png");
             PauseSimulationButton = new Bitmap(@"Assets/pauseSimulation.png");
             StopSimulationButton = new Bitmap(@"Assets/stopSimulation.png");
