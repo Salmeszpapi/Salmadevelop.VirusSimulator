@@ -32,14 +32,6 @@ namespace VirusSimulator_UI.Steps
                 return null;
             }  
         }
-        //public static bool IsStepInTheWorkflowmanager(string name)
-        //{
-        //    if (listofSteps.ContainsKey(name));
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
         public static void DeleteStep(string name)
         {
             var step = listofSteps[name];

@@ -5,16 +5,11 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
-using System.Collections.Generic;
-using VirusSimulator_UI.Models;
-using System.Windows.Input;
-using Avalonia.Media.Imaging;
-using System.IO;
-using System.Linq;
-using SkiaSharp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using VirusSimulator_UI.Models;
 using VirusSimulator_UI.Steps;
-using System.Threading.Tasks;
 
 namespace VirusSimulator_UI.Views
 {
@@ -39,7 +34,7 @@ namespace VirusSimulator_UI.Views
             InitializeComponent();
 
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
-            
+
             if (nodeCount != null && minConnection != null && maxConnection != null)
             {
                 createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
@@ -83,9 +78,9 @@ namespace VirusSimulator_UI.Views
             {
                 //previousRectangle.ReadPeopleStatus();
                 //myPopupStep.UpdateData(previousRectangle);
-                
+
             }
-            if(peoplesInNodeStep!= null && previousRectangle != null)
+            if (peoplesInNodeStep != null && previousRectangle != null)
             {
                 peoplesInNodeStep.UpdateData(previousRectangle);
                 peoplesInNodeStep = new PeoplesInNodeStep(previousRectangle);
@@ -100,7 +95,7 @@ namespace VirusSimulator_UI.Views
             foreach (var item in myRectanglesPoints)
             {
                 item.ReadPeopleStatus();
-                if(item.persons.Count != 0)
+                if (item.persons.Count != 0)
                 {
                     var percentInfected = (100 * item.InfectedCount) / item.persons.Count;
                     var percentDead = (100 * item.DeadCount) / item.persons.Count;
@@ -228,9 +223,9 @@ namespace VirusSimulator_UI.Views
                     //{
                     //    myPopupStep = new ShowPeaplesInNodeStep(sameRectangle);
                     //}
-                    if(peoplesInNodeStep is null)
+                    if (peoplesInNodeStep is null)
                     {
-                        
+
                         peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
 
                         MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
@@ -261,7 +256,7 @@ namespace VirusSimulator_UI.Views
         }
 
         private void OnMouseClick(object sender, PointerPressedEventArgs e)
-        {
+        { 
             if (!Simulator.RunningSimulation)
             {
                 var mousePosition = e.GetPosition(SimulationCanvas);
@@ -269,26 +264,22 @@ namespace VirusSimulator_UI.Views
                 {
                     if (e.Source is Rectangle)
                     {
-
                         var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
-                        if (e.Source is Rectangle)
+                        MyPoints.Add(sameRectangle);
+                        if (MyPoints.Count == 2)
                         {
-                            MyPoints.Add(sameRectangle);
-                            if (MyPoints.Count == 2)
-                            {
-                                Drawline(MyPoints[0], MyPoints[1]);
-                                MyPoints.Clear();
-                            }
+                            Drawline(MyPoints[0], MyPoints[1]);
+                            MyPoints.Clear();
                         }
                     }
-                    else
+                    else 
                     {
                         MyPoints.Clear();
                         //if(myRectanglesPoints.Where(x => x.pointer.X))
                         DrawRectangle(mousePosition);
                     }
                 }
-                else
+                else if(e.GetPointerPoint(null).Properties.IsRightButtonPressed)
                 {
                     if (e.Source is Rectangle && !Simulator.RunningSimulation)
                     {
@@ -300,19 +291,23 @@ namespace VirusSimulator_UI.Views
                     }
                 }
             }
-            else if(e.Source is Rectangle && Simulator.RunningSimulation) 
+            else if (e.Source is Rectangle && Simulator.RunningSimulation)
             {
                 var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
-                Person targetPerson = sameRectangle.persons[new Random().Next(sameRectangle.persons.Count)];
-                targetPerson.Infected= true;
-                targetPerson.InfectedDays = 0;
+                Person targetPerson = sameRectangle.persons.Where(x=>x.Infected == false).ToList()[new Random().Next(sameRectangle.persons.Count)];
+                if (targetPerson is not null)
+                {
+                    targetPerson.Infected = true;
+                    targetPerson.InfectedDays = 0;
+                }
             }
-
         }
 
         private void Drawline(RectanglePointer rectangle1, RectanglePointer rectangle2)
         {
-            if (rectangle1 != rectangle2 && !Simulator.RunningSimulation && !(rectangle1.neighbours.Contains(rectangle2) && rectangle2.neighbours.Contains(rectangle1)))
+            if (rectangle1 != rectangle2 && !Simulator.RunningSimulation && 
+                !(rectangle1.neighbours.Contains(rectangle2) &&
+                rectangle2.neighbours.Contains(rectangle1)))
             {
                 var line = new Line();
                 line.StartPoint = rectangle1.pointer;
@@ -381,7 +376,7 @@ namespace VirusSimulator_UI.Views
                     myX = distance.X * -1;
                 }
 
-                if ((myX < 30.0 && myY < 30.0)  )
+                if ((myX < 30.0 && myY < 30.0))
                 {
                     return false;
                 }
@@ -429,12 +424,12 @@ namespace VirusSimulator_UI.Views
 
         }
 
-        public void createNewRandomGraph(int nodeCount,int minConnection=1, int MaxConnection = 100)
+        public void createNewRandomGraph(int nodeCount, int minConnection = 1, int MaxConnection = 100)
         {
             clearCanvas();
             for (int i = 0; i < nodeCount; i++)
             {
-                Point newPoint = new Point(new Random().Next(0, 865-30), new Random().Next(0, 610-30));
+                Point newPoint = new Point(new Random().Next(0, 865 - 30), new Random().Next(0, 610 - 30));
                 DrawRectangle(newPoint);
             }
 
@@ -447,7 +442,7 @@ namespace VirusSimulator_UI.Views
 
         private void clearCanvas()
         {
-            if(SimulationCanvas != null)
+            if (SimulationCanvas != null)
             {
                 Simulator.RunningSimulation = false;
                 SimulationCanvas.Children.Clear();
@@ -457,5 +452,5 @@ namespace VirusSimulator_UI.Views
             }
         }
 
-    }   
+    }
 }

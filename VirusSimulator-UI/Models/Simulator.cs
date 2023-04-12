@@ -66,14 +66,12 @@ namespace VirusSimulator_UI.Models
                     Simulator.Iteration++;
                     SaveCurrentPeopleDatasToDb(myId, _dataContext1);
                 } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);
-                Console.WriteLine("Asd");
                 RunningSimulation = false;
                 SimulatorState = SimulatorStateEnum.Stop;
             });
             //Simulation finished show popup window
             thread.IsBackground = true;
             thread.Start();
-            Trace.WriteLine("Salmi");
             ResetPeaples();
         }
 
@@ -86,12 +84,7 @@ namespace VirusSimulator_UI.Models
             SimulationPrepareStep simulationPrepareStep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
             var myRectangles = simulationPrepareStep.GetView().myRectanglesPoints;
             List<Rectangle> rectangles = new List<Rectangle>();
-            //foreach (var item in myRectangles)
-            //{
-            //    rectangles.Add(item);
-            //    item.rectangle = null;
 
-            //}
             List<string> ListOfPointers= new List<string>();
             List<string> ListOfNeighbors= new List<string>();
             List<string> ListOfLines = new List<string>();
@@ -126,25 +119,6 @@ namespace VirusSimulator_UI.Models
             AllHealthyPeoples = null;
             AllDeadPeoples = null;
             AllInfectedPeoples = null;
-        }
-
-        private static void SaveSimulation(List<RectanglePointer> rectanglePointers)
-        {
-            //List<Rectangle> myRectangles = new List<Rectangle>();
-            //foreach (var item in rectanglePointers)
-            //{
-            //    myRectangles.Add(item.rectangle); 
-            //    item.rectangle = null;
-                
-                
-            //}
-            //string jsonString = JsonSerializer.Serialize(rectanglePointers);
-            //List<BaseRectangle> deptObj = JsonSerializer.Deserialize<List<BaseRectangle>>(jsonString);
-
-            //for (int i = 0; i < myRectangles.Count; i++)
-            //{
-            //    rectanglePointers[i].rectangle = myRectangles[0];
-            //}
         }
 
         private static void SaveCurrentPeopleDatasToDb(int simulatorId, DataContext dataContext)

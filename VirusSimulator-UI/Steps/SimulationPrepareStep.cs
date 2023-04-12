@@ -56,9 +56,6 @@ namespace VirusSimulator_UI.Steps
                     }
                 }
 
-                
-
-
             }
             simulationPrepareViewModel = new SimulationPrepareViewModel();
             simulationPrapareView = new SimulationPrepareView(deptObj) { DataContext = simulationPrepareViewModel };
