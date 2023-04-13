@@ -133,20 +133,15 @@ namespace VirusSimulator_UI.Models
                     if (person.Infected && person.InfectedDays >= Simulator.MaxIterationCount && !person.Dead)
                     {
                         var random = new Random().NextDouble();
-                        if (Simulator.PROPABILITYTOBEDEAD >= random)
+                        if (Simulator.PROPABILITYTOBEDEAD * person.Imunity >= random )
                         {
                             rectanglePointer.DeadCount++;
                             //rectanglePointer.persons.Remove(person);
                             person.Dead = true;
                             rectanglePointer.InfectedCount--;
                         }
-                        else if (Simulator.PROPABILITYTOCURE < random)
-                        {
-                            if (rectanglePointer.InfectedCount < 0)
-                            {
-
-                            }
-
+                        else if (Simulator.PROPABILITYTOCURE * person.Imunity < random)
+                        { 
                             rectanglePointer.InfectedCount--;
                             person.Infected = false;
                             person.InfectedDays = 0;
@@ -188,16 +183,42 @@ namespace VirusSimulator_UI.Models
             if (new Random().NextDouble() <= chanceToMove)
             {
                 bool personMoved= false;
-                if(person.Infected) 
+                foreach (var item in rectanglePointer.neighbours)
                 {
-                    foreach (var item in rectanglePointer.neighbours)
+                    if(person.Infected && item.HouseTypeEnum == HouseTypeEnum.Hospital)
                     {
-                        if(item.HouseTypeEnum == HouseTypeEnum.Hospital)
+                        item.persons.Add(person);
+                        removeRectanglePersons.Add(person);
+                        personMoved = true;
+                        break;
+                    } else
+                    {
+                        if (rectanglePointer.HouseTypeEnum == HouseTypeEnum.WorkPlace)
                         {
-                            item.persons.Add(person);
-                            removeRectanglePersons.Add(person);
-                            personMoved = true;
-                            break;
+                            if (item.HouseTypeEnum == HouseTypeEnum.House || item.HouseTypeEnum == HouseTypeEnum.Store)
+                            {
+                                item.persons.Add(person);
+                                removeRectanglePersons.Add(person);
+                                personMoved = true;
+                                break;
+                            }
+                        }
+                        else if (rectanglePointer.HouseTypeEnum == HouseTypeEnum.House || rectanglePointer.HouseTypeEnum == HouseTypeEnum.Store)
+                        {
+                            if (person.Age > 18 && person.Age <= 65 && item.HouseTypeEnum == HouseTypeEnum.WorkPlace)
+                            {
+                                item.persons.Add(person);
+                                removeRectanglePersons.Add(person);
+                                personMoved = true;
+                                break;
+                            }
+                            else if (item.HouseTypeEnum == HouseTypeEnum.Store && person.Age > 65)
+                            {
+                                item.persons.Add(person);
+                                removeRectanglePersons.Add(person);
+                                personMoved = true;
+                                break;
+                            }
                         }
                     }
                 }
