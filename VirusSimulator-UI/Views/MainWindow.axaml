@@ -29,10 +29,14 @@
                    Height="1"
                    Margin="0"/>
 		<StackPanel Orientation="Horizontal">
-			<StackPanel HorizontalAlignment="Left" Width="540">
+			<StackPanel HorizontalAlignment="Left" Width="540" Orientation="Horizontal">
 				<Button Command="{Binding BackToWelcomeViewButton}">
 					<Image Width="30" Height="30" Source="/Assets/return.png"/>
 				</Button>
+				<Label Name="SimulatorName" VerticalAlignment="Bottom" Margin="100,0,0,0" FontSize="24" Foreground="Black" FontWeight="Bold" Content="{Binding SimulatorName}"/>
+			</StackPanel>
+			<StackPanel HorizontalAlignment="Left">
+				
 			</StackPanel>
 			<StackPanel HorizontalAlignment="Center" Width="340">
 				<Label Name="SimulationTimeLabel" FontSize="32" Foreground="Red" FontWeight="Bold" Content="{Binding SimulationTime2}"/>

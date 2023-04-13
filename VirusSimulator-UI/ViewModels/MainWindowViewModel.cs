@@ -43,6 +43,8 @@ namespace VirusSimulator_UI.ViewModels
         }
         [Reactive]
         public string SimulationTime2 { get; set; }
+        [Reactive]
+        public string SimulatorName { get; set; }
         public IBitmap AnalyzerBitmap { get; set; }
         public IBitmap StartSimulationButton { get; set; }
         public IBitmap StopSimulationButton { get; set; }
@@ -84,6 +86,7 @@ namespace VirusSimulator_UI.ViewModels
             if (!Simulator.RunningSimulation && (ChangableViews.GetType().Name == "SimulationPrepareView" ||
                 ChangableViews.GetType().Name == "ChartsView"))
             {
+                SimulatorName = $"Virus name: {Simulator.VirusName}";
                 var a = ChangableViews.GetType().Name;
                 SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Start();
@@ -120,6 +123,7 @@ namespace VirusSimulator_UI.ViewModels
             {
                 WorkFlowManager.DeleteStep("ChartsStep");
             }
+            SimulatorName = "";
             Simulator.RunningSimulation = false;
             PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
             mypopup.GetWindow().Show();
