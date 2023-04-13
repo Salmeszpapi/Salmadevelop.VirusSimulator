@@ -86,7 +86,7 @@ namespace VirusSimulator_UI.ViewModels
             if (!Simulator.RunningSimulation && (ChangableViews.GetType().Name == "SimulationPrepareView" ||
                 ChangableViews.GetType().Name == "ChartsView"))
             {
-                SimulatorName = $"Virus name: {Simulator.VirusName}";
+                SimulatorName = $"Virus: {Simulator.VirusName}";
                 var a = ChangableViews.GetType().Name;
                 SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Start();
