@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using VirusSimulator_UI.Models;
 
 namespace VirusSimulator_UI.ViewModels
 {
@@ -16,6 +17,8 @@ namespace VirusSimulator_UI.ViewModels
         {
 
         }
+        [Reactive]
+        public bool BackButtonVisible { get; set; }
 
         [Reactive]
         public ReactiveCommand<Unit, Unit> BackButtonClicked { get; set; }
