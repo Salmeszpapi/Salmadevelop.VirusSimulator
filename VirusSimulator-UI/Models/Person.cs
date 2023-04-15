@@ -60,4 +60,5 @@ namespace VirusSimulator_UI.Models
             }
         }
     }
+
 }

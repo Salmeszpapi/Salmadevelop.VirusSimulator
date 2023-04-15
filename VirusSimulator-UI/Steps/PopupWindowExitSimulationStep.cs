@@ -70,7 +70,6 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.LiveTime.Start();
             mainWindowViewModel.SimulationTimer.Start();
             myPopupWindowExitSimulationView.Close();
-
         }
     }
 }

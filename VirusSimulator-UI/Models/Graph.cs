@@ -127,7 +127,6 @@ namespace VirusSimulator_UI.Models
                         else if (!person.Infected && person.TimesInfected != 0)
                         {
                             TryInfect(rectanglePointer, Simulator.InfectionChance / person.TimesInfected, person);
-
                         }
                     }
                     if (person.Infected && person.InfectedDays >= Simulator.MaxIterationCount && !person.Dead)
@@ -234,7 +233,8 @@ namespace VirusSimulator_UI.Models
 
         private void TryInfect(RectanglePointer rectanglePointer, double infectionChance,Person person)
         {
-            if (new Random().NextDouble() < infectionChance)
+            var chanceToInfect = new Random().NextDouble();
+            if (chanceToInfect < infectionChance * person.Imunity)
             {
                 person.Infected = true;
                 person.InfectedDays++;
