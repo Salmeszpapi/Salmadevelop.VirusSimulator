@@ -5,8 +5,6 @@ using NuGet.ContentModel;
 using Sim_Web.Db;
 using Sim_Web.Models;
 using System.Diagnostics;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sim_Web.Controllers
 {
@@ -24,19 +22,19 @@ namespace Sim_Web.Controllers
         public IActionResult Index()
         {
 
-            if (HttpContext.Session.Get("Login") is null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            //if (HttpContext.Session.Get("Login") is null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
             return View();
         }
         [Route("Home/Panel")]
         public IActionResult Panel()
         {
-            if (HttpContext.Session.Get("Login") is null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            //if (HttpContext.Session.Get("Login") is null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
             var simulationCounts = dataContext.simulationRuns.ToList().Count;
             var virusTyepsCount = dataContext.VirusData.ToList().Count;
             ViewData["simulationCounts"] = simulationCounts;
@@ -112,8 +110,30 @@ namespace Sim_Web.Controllers
         }
         public IActionResult Result()
         {
+            var myAllSimulatedData = dataContext.simulationDatas.ToList();
+            return View(SeparateVirusRuns(myAllSimulatedData)[0]);
+        }
 
-            return View();
+        private List<List<SimulationData>> SeparateVirusRuns(List<SimulationData> simulationDatas)
+        {
+            List<List<SimulationData>> simulationDatasList = new List<List<SimulationData>>();
+            int myIdHelper = simulationDatas[0].SimulationId;
+            List<SimulationData> TempData = new List<SimulationData>();
+            foreach(SimulationData simulationData in simulationDatas)
+            {
+                if(simulationData.SimulationId == myIdHelper)
+                {
+                    TempData.Add(simulationData);
+                }
+                else if(simulationData.SimulationId != myIdHelper)
+                {
+                    myIdHelper= simulationData.SimulationId;
+                    simulationDatasList.Add(TempData.ToList());
+                    TempData.Clear();
+                }
+            }
+
+            return simulationDatasList;
         }
     }
 }

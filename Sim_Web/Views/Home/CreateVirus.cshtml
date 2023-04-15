@@ -26,6 +26,7 @@
                             <div class="form-outline flex-fill mb-0">
                                 <input type="range" name="InfectionSeverity" id="rang1" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
                                 <h3 id="result1">50%</h3>
+                                <label class="form-label">Infection severity</label>
                             </div>
                         </div>
                         <div class="d-flex flex-row align-items-center mb-4">
@@ -33,6 +34,7 @@
                             <div class="form-outline flex-fill mb-0">
                                 <input type="range" name="ProbabilityToDead" id="rang2" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
                                 <h3 id="result2">50%</h3>
+                                <label class="form-label">Probability to dead</label>
                             </div>
                         </div>
                         <div class="d-flex flex-row align-items-center mb-4">
@@ -40,13 +42,15 @@
                             <div class="form-outline flex-fill mb-0">
                                 <input type="range" name="ProbabilityToCure" id="rang3" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
                                 <h3 id="result3">50%</h3>
+                                <label class="form-label">Probability to cure</label>
                             </div>
                         </div>
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <input type="range" name="IncubationTime" id="rang4" width="300" value="50" min="0" max="100" @*oninput="this.nextElementSibling.value = this.value"*@>
-                                <h3 id="result4">50%</h3>
+                                <h3 id="result4">50</h3>
+                                <label class="form-label">Incubation time</label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
@@ -62,7 +66,7 @@
                         {
                             <img class="fit-image check-img" src="https://i.imgur.com/QH6Zd6Y.gif">
                         }else{
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+                            <img src="~/Resources/createSlider.png" class="img-fluid" alt="Sample image">
                         }
                     }                  
                 </div>
@@ -155,7 +159,7 @@ rang1.oninput = function () {
                 break;
         }
         let rangeValue = document.querySelector('#rang4').value;
-        document.getElementById("result4").innerHTML = rangeValue + '%';
+        document.getElementById("result4").innerHTML = rangeValue;
     }
 
 
