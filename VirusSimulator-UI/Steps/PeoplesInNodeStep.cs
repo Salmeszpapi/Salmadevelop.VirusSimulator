@@ -28,7 +28,7 @@ namespace VirusSimulator_UI.Steps
         }
         public void UpdateData(RectanglePointer rectanglePointer)
         {
-            peoplesInNodeViewModel.UpdateData(rectanglePointer);
+            //peoplesInNodeViewModel.UpdateData(rectanglePointer);
         }
 
     }

@@ -153,7 +153,14 @@ namespace VirusSimulator_UI.ViewModels
         {
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             ChartsStep charts = (ChartsStep)WorkFlowManager.GetStep("ChartsStep");
-            mainWindow.SetView(charts.GetScreenContent());
+            if (charts == null)
+            {
+                mainWindow.SetView(new ChartsStep().GetScreenContent());
+            }
+            else
+            {
+                mainWindow.SetView(charts.GetScreenContent());
+            }
         }
 
         private void SwitchToimulation()
