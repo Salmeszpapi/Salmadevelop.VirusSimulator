@@ -32,6 +32,11 @@ namespace VirusSimulator_UI.Steps
         {
             throw new NotImplementedException();
         }
+
+        public PopupWindowExitSimulationViewModel GetVM()
+        {
+            return myPopupWindowExitSimulationViewModel;
+        }
         public Window GetWindow()
         {
             return myPopupWindowExitSimulationView;

@@ -124,9 +124,13 @@ namespace VirusSimulator_UI.ViewModels
                 WorkFlowManager.DeleteStep("ChartsStep");
             }
             SimulatorName = "";
-            Simulator.RunningSimulation = false;
             PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
+            if(Simulator.RunningSimulation)
+            {
+                mypopup.GetVM().BackButtonVisible = true;
+            }
             mypopup.GetWindow().Show();
+            Simulator.RunningSimulation = false;
             //mainWindow.SetViewForPeople(new UserControl());
         }
 
