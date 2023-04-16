@@ -53,7 +53,7 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.SimulationTimer.Reset();
             mainWindowViewModel.SimulationTime2 = "";
             Simulator.RunningSimulation = false;
-            //WorkFlowManager.DeleteStep("SimulationPrepareStep");
+            
             Simulator.SimulatorState = SimulatorStateEnum.Stop;
             Simulator.Iteration = 0;
             mainWindowViewModel.SimulationButtonVisible = false;
@@ -65,7 +65,7 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.AllPeople = null;
 
             mainWindowViewModel.MyPointedDatasView = null;
-
+            WorkFlowManager.DeleteStep("ChartsStep");
             myPopupWindowExitSimulationView.Close();
         }
 
