@@ -33,6 +33,10 @@ namespace VirusSimulator_UI.Models
         public static int? AllHealthyPeoples { get; set; }
         public static int? AllInfectedPeoples { get; set; }
         public static int? AllDeadPeoples { get; set; }
+        public static int? AllOldPersonsInfected { get; set; }
+        public static int? AllOldPersons { get; set; }
+        public static int? AllYoung { get; set; }
+        public static int? AllYoungInfected { get; set; }
 
         public static void StopSimulation()
         {
@@ -134,12 +138,15 @@ namespace VirusSimulator_UI.Models
             });
             dataContext.SaveChanges();
         }
-        public static void PassNewData(int allPeople,int allHealthypeaples,int allInfectedPeoples,int allDeadPeoples)
+        public static void PassNewData(int allPeople,int allHealthypeaples,int allInfectedPeoples,int allDeadPeoples, int OldPersonsInfected, int allYoungInfected)
         {
             AllPeople = allPeople;
             AllHealthyPeoples= allHealthypeaples;
             AllInfectedPeoples= allInfectedPeoples;
             AllDeadPeoples = allDeadPeoples;
+            AllOldPersonsInfected= OldPersonsInfected;
+            AllYoungInfected = allYoungInfected;
+
         }
         public static List<int> GetPeopleData()
         {

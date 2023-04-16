@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Sim_Web.Db;
 using Sim_Web.Models;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,8 @@ namespace VirusSimulator_UI.Steps
             {
                 NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
             };
-            List<RectanglePointer> deptObj = JsonSerializer.Deserialize<List<RectanglePointer>>(mySimulationRun.RectanglesWithPeople, options);
+
+            List <RectanglePointer> deptObj = JsonSerializer.Deserialize<List<RectanglePointer>>(mySimulationRun.RectanglesWithPeople, options);
             List<string> deptObj2 = JsonSerializer.Deserialize<List<string>>(mySimulationRun.RectanglePointers, options);
             List<string> myListOfRectangleNeigboursID = JsonSerializer.Deserialize<List<string>>(mySimulationRun.Neighbours, options);
             for (int i = 0; i < deptObj.Count; i++)

@@ -22,12 +22,13 @@ namespace VirusSimulator_UI.Models
         {
             this.Id = Id;
             this.InfectedDays = 0;
-            GetInfectedWhenGenerated();
             GenerateAge();
+            GetInfectedWhenGenerated();
+
         }
         private void GetInfectedWhenGenerated()
         {
-            if (new Random().NextDouble() < Simulator.InfectionChance)
+            if (new Random().NextDouble() < Simulator.InfectionChance * this.Imunity)
             {
                 Infected = true;
                 TimesInfected++;

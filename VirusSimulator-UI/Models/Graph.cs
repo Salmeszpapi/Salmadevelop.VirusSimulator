@@ -79,6 +79,8 @@ namespace VirusSimulator_UI.Models
             var AllHealthypeaples = 0;
             var AllInfectedPeoples = 0;
             var AllDeadPeoples = 0;
+            var AllYoungInfected = 0;
+            var OldPersonsInfected = 0;
             foreach (var rectangle in rectanglePointers)
             {
                 AllPeople += rectangle.persons.Count;
@@ -86,10 +88,19 @@ namespace VirusSimulator_UI.Models
                 {
                     if(!person.Infected && !person.Dead)
                     {
+
                         AllHealthypeaples++;
                     }
                     else if(person.Infected && !person.Dead)
                     {
+                        if (person.Age <= 18)
+                        {
+                            AllYoungInfected++;
+                        }
+                        else
+                        {
+                            OldPersonsInfected++;
+                        }
                         AllInfectedPeoples++;
                     }else if (person.Dead)
                     {
@@ -97,7 +108,7 @@ namespace VirusSimulator_UI.Models
                     }
                 }
             }
-            Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples);
+            Simulator.PassNewData(AllPeople, AllHealthypeaples, AllInfectedPeoples, AllDeadPeoples, OldPersonsInfected, AllYoungInfected);
             foreach (var rectangle in rectanglePointers)
             {
                 IterateThroughtPersonsInfect(rectangle);

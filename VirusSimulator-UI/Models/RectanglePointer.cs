@@ -62,7 +62,7 @@ namespace VirusSimulator_UI.Models
 
         private void FillRectngleWithPeaople()
         {
-            generatePeople(1000,110000);
+            generatePeople(100,1100);
             //switch (HouseTypeEnum)
             //{
             //    case HouseTypeEnum.Hospital:

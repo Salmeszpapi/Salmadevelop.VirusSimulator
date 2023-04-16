@@ -61,9 +61,9 @@ namespace VirusSimulator_UI.Steps
         {  
             if(virusCreatePopupViewModel.VirusTypeSpecial)
             {
-                Simulator.InfectionChance = virusCreatePopupViewModel.InfectionChanceSlider / 10.0;
-                Simulator.PROPABILITYTOBEDEAD = virusCreatePopupViewModel.ChanceToDeadSlider / 10.0;
-                Simulator.PROPABILITYTOCURE = virusCreatePopupViewModel.ChanceToCureSlider / 10.0;
+                Simulator.InfectionChance = virusCreatePopupViewModel.InfectionChanceSlider / 100.0;
+                Simulator.PROPABILITYTOBEDEAD = virusCreatePopupViewModel.ChanceToDeadSlider / 100.0;
+                Simulator.PROPABILITYTOCURE = virusCreatePopupViewModel.ChanceToCureSlider / 100.0;
                 Simulator.MaxIterationCount = virusCreatePopupViewModel.IncubationPeriodSlider;
                 virusCreatePopupView.Hide();
 
