@@ -293,13 +293,21 @@ namespace VirusSimulator_UI.Views
             }
             else if (e.Source is Rectangle && Simulator.RunningSimulation)
             {
-                var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
-                Person targetPerson = sameRectangle.persons.Where(x=>x.Infected == false).ToList()[new Random().Next(sameRectangle.persons.Count)];
-                if (targetPerson is not null)
+                try
                 {
-                    targetPerson.Infected = true;
-                    targetPerson.InfectedDays = 0;
+                    var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
+                    Person targetPerson = sameRectangle.persons.Where(x => x.Infected == false).ToList()[new Random().Next(sameRectangle.persons.Count)];
+                    if (targetPerson is not null)
+                    {
+                        targetPerson.Infected = true;
+                        targetPerson.InfectedDays = 0;
+                    }
                 }
+                catch(Exception ee) 
+                {
+
+                }
+
             }
         }
 
