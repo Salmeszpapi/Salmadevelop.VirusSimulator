@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirusSimulator_UI.Models;
 using VirusSimulator_UI.ViewModels;
 using VirusSimulator_UI.Views;
 
@@ -27,6 +28,7 @@ namespace VirusSimulator_UI.Steps
 
         private void OkButton()
         {
+            Simulator.IsSimulatiorLoaded = true;
             GetWindow().Close();
             MainWindowStep myMainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             
@@ -40,7 +42,7 @@ namespace VirusSimulator_UI.Steps
 
         private void GoBack()
         {
-            throw new NotImplementedException();
+            GetWindow().Hide();
         }
 
         public override UserControl GetScreenContent()

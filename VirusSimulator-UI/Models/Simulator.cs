@@ -37,6 +37,7 @@ namespace VirusSimulator_UI.Models
         public static int? AllOldPersons { get; set; }
         public static int? AllYoung { get; set; }
         public static int? AllYoungInfected { get; set; }
+        public static bool IsSimulatiorLoaded { get; set; } = false;
 
         public static void StopSimulation()
         {
@@ -45,17 +46,24 @@ namespace VirusSimulator_UI.Models
 
         public static async void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
-            var myItems = await GetJsonFromRectangles();
-            var mySimulation = new SimulationRun() {
-                DateOfRun = DateTime.Now,VirusName = VirusName, 
-                RectanglesWithPeople = myItems[0],
-                RectanglePointers = myItems[1],
-                Neighbours= myItems[2],
-            };
             var _dataContext1 = new DataContext();
+            if (!IsSimulatiorLoaded)
+            {
+                var myItems = await GetJsonFromRectangles();
+                var mySimulation = new SimulationRun()
+                {
+                    DateOfRun = DateTime.Now,
+                    VirusName = VirusName,
+                    RectanglesWithPeople = myItems[0],
+                    RectanglePointers = myItems[1],
+                    Neighbours = myItems[2],
+                };
 
-            _dataContext1.Attach(mySimulation);
-            _dataContext1.SaveChanges();
+
+                _dataContext1.Attach(mySimulation);
+                _dataContext1.SaveChanges();
+            }
+            
             int myId = _dataContext1.simulationRuns.Max(p => p.Id);
             Trace.WriteLine("text");
             Thread thread = new Thread(()=>

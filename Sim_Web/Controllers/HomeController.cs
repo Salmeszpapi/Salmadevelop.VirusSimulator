@@ -92,9 +92,9 @@ namespace Sim_Web.Controllers
                     {
                         Name = Name,
                         IncubationTime = (double)IncubationTime,
-                        ProbabilityToDead = (double)ProbabilityToDead / 10,
-                        ProbabilityToCure = (double)ProbabilityToCure / 10,
-                        InfectionSeverity = (double)InfectionSeverity / 10,
+                        ProbabilityToDead = (double)ProbabilityToDead / 100,
+                        ProbabilityToCure = (double)ProbabilityToCure / 100,
+                        InfectionSeverity = (double)InfectionSeverity / 100,
                     });
                     dataContext.SaveChanges();
 
@@ -107,33 +107,48 @@ namespace Sim_Web.Controllers
             }
             return View();
 
+        } 
+        public IActionResult Result(int id)
+        {
+            ViewData["SimulationIdList"] = SimulationIdreturner();
+            if (id == 0)
+            {
+                return View();
+            }
+            return View(SeparateVirusRuns(id));
         }
-        public IActionResult Result()
+
+        private List<SimulationData> SeparateVirusRuns(int id)
+        {
+            var myAllSimulatedData = dataContext.simulationDatas.Where(x => x.SimulationId == id).ToList();
+            List<List<SimulationData>> simulationDatasList = new List<List<SimulationData>>();
+            
+            return myAllSimulatedData;
+        }
+        private List<int> SimulationIdreturner()
         {
             var myAllSimulatedData = dataContext.simulationDatas.ToList();
-            return View(SeparateVirusRuns(myAllSimulatedData)[0]);
-        }
+            List<int> mySimulationIds = new List<int>();
+            int? a = null; 
 
-        private List<List<SimulationData>> SeparateVirusRuns(List<SimulationData> simulationDatas)
-        {
-            List<List<SimulationData>> simulationDatasList = new List<List<SimulationData>>();
-            int myIdHelper = simulationDatas[0].SimulationId;
-            List<SimulationData> TempData = new List<SimulationData>();
-            foreach(SimulationData simulationData in simulationDatas)
+            foreach (var item in myAllSimulatedData)
             {
-                if(simulationData.SimulationId == myIdHelper)
+                if(a is null)
                 {
-                    TempData.Add(simulationData);
+                    a = item.SimulationId;
+                    mySimulationIds.Add(item.SimulationId);
                 }
-                else if(simulationData.SimulationId != myIdHelper)
+                
+                if(a != item.SimulationId)
                 {
-                    myIdHelper= simulationData.SimulationId;
-                    simulationDatasList.Add(TempData.ToList());
-                    TempData.Clear();
+                    a = item.SimulationId;
+                    mySimulationIds.Add(item.SimulationId);
                 }
+                
             }
 
-            return simulationDatasList;
+
+            return mySimulationIds;
         }
     }
 }

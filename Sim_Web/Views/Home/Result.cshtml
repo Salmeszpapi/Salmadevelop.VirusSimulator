@@ -5,31 +5,35 @@
         <div class="d-flex justify-content-center">
 
         <div class="p-2">
-            <h4 class="display-4 ">Chosen simulation from archive : </h4> 
+            <h4 class="display-4 ">Choose simulation from archive : </h4> 
         </div>
         <div class="p-2">
                 <button style="min-width:75; min-height:75px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
                 </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-        
+                <div class="dropdown-menu">
+                @{
+                    IEnumerable<int> mySimulationIds = ViewData["SimulationIdList"] as IEnumerable<int>;
+                    foreach (var item in mySimulationIds)
+                    {
+                            <a class="dropdown-item" href="/Home/Result?id=@item">@item</a>
+                    }
+                }
+                </div>
         </div>
         
     </div>
     </center>
 
-    <h3><a href="~/Home/Index">Back</a></h3>
+    @*<h3><a href="~/Home/Index">Back</a></h3>*@
     <div class="card">
         <div class="card-header">
             <center>
             <div class="chart1">
-                    <h1>TestTest</h1>
+                    @if (Model is not null)
+                    {
+                        <h1>TestTest</h1>
+                    }
                 <div style="width: 1000px; height: 700px"><canvas id="myChart"></canvas></div><br />
                @* <canvas id="myChart" style="width:200px;height:200px"></canvas>*@
             </div>
@@ -45,7 +49,7 @@
     var AllDeadPeoples = [];
     var MyLabelCount = [];
 
-    @if (Model.Count > 0)
+    @if (Model is not null)
     {
         int counter = 0;
         foreach (var item in Model)
@@ -61,92 +65,94 @@
         
         
     }
-        var Chart2 = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(Chart2, {
-        type: 'line',
-        data: {
-            labels: MyLabelCount,//x axis labels
-            datasets: [{
-                label: "All people",
-                backgroundColor: 'transparent',
-                borderColor: "#ff0000",
-                borderWidth: 2,
-                pointBorderColor: false,
-                startAngle: 0,
-                data: AllPeople,
-                fill: false,
-                lineTension: .4,
-                showLine: true,
-            }, {
-                label: "Infected",
-                fill: false,
-                lineTension: .4,
-                startAngle: 0,
-                data: AllInfectedPeoples,
-                backgroundColor: "transparent",
-                pointBorderColor: "#660066",
-                borderColor: '#660066',
-                borderWidth: 2,
-                showLine: true,
-            }, {
-                label: "Heathy",
-                fill: false,
-                lineTension: .4,
-                startAngle: 0,
-                data: AllHealthy,
-                backgroundColor: "transparent",
-                pointBorderColor: "#00b300",
-                borderColor: '#00b300',
-                borderWidth: 2,
-                showLine: true,
+
+            
+            var Chart2 = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(Chart2, {
+            type: 'line',
+            data: {
+                labels: MyLabelCount,//x axis labels
+                datasets: [{
+                    label: "All people",
+                    backgroundColor: 'transparent',
+                    borderColor: "#ff0000",
+                    borderWidth: 2,
+                    pointBorderColor: false,
+                    startAngle: 0,
+                    data: AllPeople,
+                    fill: false,
+                    lineTension: .4,
+                    showLine: true,
+                }, {
+                    label: "Infected",
+                    fill: false,
+                    lineTension: .4,
+                    startAngle: 0,
+                    data: AllInfectedPeoples,
+                    backgroundColor: "transparent",
+                    pointBorderColor: "#660066",
+                    borderColor: '#660066',
+                    borderWidth: 2,
+                    showLine: true,
+                }, {
+                    label: "Heathy",
+                    fill: false,
+                    lineTension: .4,
+                    startAngle: 0,
+                    data: AllHealthy,
+                    backgroundColor: "transparent",
+                    pointBorderColor: "#00b300",
+                    borderColor: '#00b300',
+                    borderWidth: 2,
+                    showLine: true,
+                },
+                {
+                    label: "Dead",
+                    fill: false,
+                    lineTension: .4,
+                    startAngle: 0,
+                    data: AllDeadPeoples,
+                    backgroundColor: "transparent",
+                    pointBorderColor: "#00b300",
+                    borderColor: '#00b300',
+                    borderWidth: 2,
+                    showLine: true,
+                }]
             },
-            {
-                label: "Dead",
-                fill: false,
-                lineTension: .4,
-                startAngle: 0,
-                data: AllDeadPeoples,
-                backgroundColor: "transparent",
-                pointBorderColor: "#00b300",
-                borderColor: '#00b300',
-                borderWidth: 2,
-                showLine: true,
-            }]
-        },
-        // Configuration options
-        options: {
-            title: {
-                display: true,
-                text: "Chosen simulation graph"
-            },
-            plugins: {
-            legend: {
-                labels: {
-                    // This more specific font property overrides the global property
+            // Configuration options
+            options: {
+                title: {
+                    display: true,
+                    text: "Chosen simulation graph"
+                },
+                plugins: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        font: {
+                            size: 25
+                        }
+                    }
+                }
+            },scales: {
+            x: {
+                ticks: {
                     font: {
-                        size: 25
+                        size: 30,
+                    }
+                }
+            },
+            y: {
+                ticks: {
+                    font: {
+                        size: 30,
                     }
                 }
             }
-        },scales: {
-        x: {
-            ticks: {
-                font: {
-                    size: 30,
-                }
-            }
-        },
-        y: {
-            ticks: {
-                font: {
-                    size: 30,
-                }
-            }
         }
-    }
 
             
-        }
-    });
-
+            }
+        });
+    
 </script>

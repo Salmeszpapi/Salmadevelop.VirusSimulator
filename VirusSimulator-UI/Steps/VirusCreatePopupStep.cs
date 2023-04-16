@@ -58,8 +58,9 @@ namespace VirusSimulator_UI.Steps
             return virusCreatePopupView;
         }
         private void CreateButtonClicked()
-        {  
-            if(virusCreatePopupViewModel.VirusTypeSpecial)
+        {
+            Simulator.IsSimulatiorLoaded = false;
+            if (virusCreatePopupViewModel.VirusTypeSpecial)
             {
                 Simulator.InfectionChance = virusCreatePopupViewModel.InfectionChanceSlider / 100.0;
                 Simulator.PROPABILITYTOBEDEAD = virusCreatePopupViewModel.ChanceToDeadSlider / 100.0;
