@@ -134,19 +134,19 @@ rang1.oninput = function () {
     rang3.oninput = function () {
         switch (true) {
             case (rang3.value < 5):
-                document.getElementById("result3").style.color = "green";
+                document.getElementById("result3").style.color = "#BA3636";
                 break;
             case (rang3.value < 15):
                 document.getElementById("result3").style.color = "#F7A620";
                 break;
             case (rang3.value < 30):
-                document.getElementById("result3").style.color = "red";
+                document.getElementById("result3").style.color = "green";
                 break;
             case (rang3.value < 50):
-                document.getElementById("result3").style.color = "red";
+                document.getElementById("result3").style.color = "green";
                 break;
             default:
-                document.getElementById("result3").style.color = "#BA3636";
+                document.getElementById("result3").style.color = "green";
                 break;
         }
         let rangeValue = document.querySelector('#rang3').value;
