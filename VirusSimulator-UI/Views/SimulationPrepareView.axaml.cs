@@ -35,13 +35,16 @@ namespace VirusSimulator_UI.Views
 
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
 
-            if (nodeCount != null && minConnection != null && maxConnection != null)
+            if (nodeCount is null || minConnection is null || maxConnection is null)
             {
-                createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
+                createNewRandomGraph(50);
             }
             else
             {
-                createNewRandomGraph(50);
+                if (nodeCount is null) nodeCount = "50";
+                if (nodeCount is null) minConnection = (Convert.ToInt32(nodeCount) / 2).ToString();
+                if (nodeCount is null) maxConnection = (Convert.ToInt32(nodeCount) * 2).ToString();
+                createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
             }
         }
         public SimulationPrepareView(List<RectanglePointer> rectanglePointers)

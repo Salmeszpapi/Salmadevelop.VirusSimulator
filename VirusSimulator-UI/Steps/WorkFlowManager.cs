@@ -34,11 +34,13 @@ namespace VirusSimulator_UI.Steps
         }
         public static void DeleteStep(string name)
         {
-
-            var step = listofSteps[name];
-            var view = step.GetScreenContent();
-            view = null;
-            listofSteps.Remove(name);
+            if (listofSteps.ContainsKey(name))
+            {
+                var step = listofSteps[name];
+                var view = step.GetScreenContent();
+                view = null;
+                listofSteps.Remove(name);
+            }
         }
     }
 }
