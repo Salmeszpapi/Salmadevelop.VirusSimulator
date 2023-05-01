@@ -168,6 +168,7 @@ namespace VirusSimulator_UI.Models
             for (int i = 0; i < rectanglePointer.persons.Count; i++)
             {
                 var person = rectanglePointer.persons[i];
+
                 if(person.Infected && rectanglePointer.HouseTypeEnum == HouseTypeEnum.Hospital)
                 {
                     //stay in hospital end rest.
@@ -195,7 +196,7 @@ namespace VirusSimulator_UI.Models
                 bool personMoved= false;
                 foreach (var item in rectanglePointer.neighbours)
                 {
-                    if(person.Infected && item.HouseTypeEnum == HouseTypeEnum.Hospital)
+                    if(person.Infected && item.HouseTypeEnum == HouseTypeEnum.Hospital && person.ProbabilityToGoHospital is not false)
                     {
                         item.persons.Add(person);
                         removeRectanglePersons.Add(person);

@@ -17,6 +17,7 @@ namespace VirusSimulator_UI.Models
         public int TimesInfected { get; set; }
         public int Age { get; set; }
         public double Imunity { get; set; }
+        public bool ProbabilityToGoHospital { get; set; } 
 
         public Person(int Id)
         {
@@ -39,6 +40,24 @@ namespace VirusSimulator_UI.Models
         {
             Age = new Random().Next(1,90);
             GenerateImunity();
+            GenerateProbabilityToGoHospital();
+        }
+
+        private void GenerateProbabilityToGoHospital()
+        {
+            var scoreOfHospitalization = new Random().Next(0,101);
+            switch (Age)
+            {
+                case <24:
+                    ProbabilityToGoHospital = scoreOfHospitalization < 70 ? true : false;
+                    break;
+                case < 75:
+                    ProbabilityToGoHospital = scoreOfHospitalization <= 60.5 ? true : false;
+                    break;
+                case >= 75:
+                    ProbabilityToGoHospital = scoreOfHospitalization <= 47.5 ? true : false;
+                    break;
+            }
         }
 
         private void GenerateImunity()

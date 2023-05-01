@@ -35,15 +35,15 @@ namespace VirusSimulator_UI.Views
 
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
 
-            if (nodeCount is null || minConnection is null || maxConnection is null)
+            if (nodeCount is null && minConnection is null && maxConnection is null)
             {
                 createNewRandomGraph(50);
             }
             else
             {
                 if (nodeCount is null) nodeCount = "50";
-                if (nodeCount is null) minConnection = (Convert.ToInt32(nodeCount) / 2).ToString();
-                if (nodeCount is null) maxConnection = (Convert.ToInt32(nodeCount) * 2).ToString();
+                if (minConnection is null) minConnection = (Convert.ToInt32(nodeCount) / 2).ToString();
+                if (maxConnection is null) maxConnection = (Convert.ToInt32(nodeCount) * 2).ToString();
                 createNewRandomGraph(Convert.ToInt32(nodeCount), Convert.ToInt32(minConnection), Convert.ToInt32(maxConnection));
             }
         }
@@ -333,19 +333,27 @@ namespace VirusSimulator_UI.Views
 
         private void DrawRectangle(Point mousePosition)
         {
-            if (DistanceCalculator(mousePosition) && true)
+            int tryToDrawRectangle = 0;
+            while (tryToDrawRectangle < 100)
             {
-                rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
-                Canvas.SetLeft(rectangle1, mousePosition.X);
-                Canvas.SetTop(rectangle1, mousePosition.Y);
-                var rectangleText = RectangleNamer();
-                SimulationCanvas.Children.Add(rectangle1);
-                var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 15, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
-                var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition, peopleIdcounter);
-                peopleIdcounter = newRectangle.PeopleIdcounter;
-                newRectangle.textBox = textblock;
-                myRectanglesPoints.Insert(rectangleText, newRectangle);
+                if (DistanceCalculator(mousePosition) && true)
+                {
+                    rectangle1 = new Rectangle() { Width = 15, Height = 15, Fill = Brushes.Gray, Stroke = Brushes.Black, Name = "asd" };
+                    Canvas.SetLeft(rectangle1, mousePosition.X);
+                    Canvas.SetTop(rectangle1, mousePosition.Y);
+                    var rectangleText = RectangleNamer();
+                    SimulationCanvas.Children.Add(rectangle1);
+                    var textblock = DrawText(mousePosition.X + 5, mousePosition.Y + 15, rectangleText.ToString(), Color.FromRgb(0, 0, 0));
+                    var newRectangle = new RectanglePointer(rectangleText, rectangle1, mousePosition, peopleIdcounter);
+                    peopleIdcounter = newRectangle.PeopleIdcounter;
+                    newRectangle.textBox = textblock;
+                    myRectanglesPoints.Insert(rectangleText, newRectangle);
+                    break;
+                }
+                mousePosition = new Point(new Random().Next(0, 865 - 30), new Random().Next(0, 610 - 30));
+                tryToDrawRectangle++;
             }
+            
         }
 
         private bool DistanceCalculator(Point point)

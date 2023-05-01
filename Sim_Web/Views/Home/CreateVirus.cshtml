@@ -65,8 +65,20 @@
                         if (ViewData["Error"] == "")
                         {
                             <img class="fit-image check-img" src="https://i.imgur.com/QH6Zd6Y.gif">
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function (event) {
+                                    window.setTimeout(function () {
+                                        window.location.href = '/Home/Panel';
+
+                                    }, 3000);
+                                });
+
+                            </script>
+
                         }else{
+
                             <img src="~/Resources/createSlider.png" class="img-fluid" alt="Sample image">
+                            
                         }
                     }                  
                 </div>

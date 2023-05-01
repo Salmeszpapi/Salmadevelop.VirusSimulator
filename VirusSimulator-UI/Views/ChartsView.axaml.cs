@@ -28,7 +28,7 @@ namespace VirusSimulator_UI.Views
         readonly double[] Values5 = new double[100_000];
         readonly double[] Values6 = new double[100_000];
         //readonly List<double> Values = new List<double>();
-        int NextPointIndex = Simulator.Iteration;
+        int NextPointIndex = Simulator.Iteration+1;
         DispatcherTimer LiveTime3;
         public ChartsView()
         {
