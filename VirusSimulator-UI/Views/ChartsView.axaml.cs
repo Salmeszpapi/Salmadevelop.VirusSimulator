@@ -28,7 +28,7 @@ namespace VirusSimulator_UI.Views
         readonly double[] Values5 = new double[100_000];
         readonly double[] Values6 = new double[100_000];
         //readonly List<double> Values = new List<double>();
-        int NextPointIndex = Simulator.Iteration+1;
+        int NextPointIndex = Simulator.Iteration;
         DispatcherTimer LiveTime3;
         public ChartsView()
         {
@@ -69,6 +69,7 @@ namespace VirusSimulator_UI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            Simulator.IterationIncremented += HandlingIterationIncrease;
             LiveTime3 = new DispatcherTimer();
             LiveTime3.Interval = TimeSpan.FromSeconds(1);
             LiveTime3.Tick += NewTest123;
@@ -77,31 +78,36 @@ namespace VirusSimulator_UI.Views
             AvaPlot1.Render();
         }
 
+        private void HandlingIterationIncrease(object? sender, EventArgs e)
+        {
+            Values[NextPointIndex] = (Convert.ToDouble(Simulator.AllInfectedPeoples));
+            Values2[NextPointIndex] = (Convert.ToDouble(Simulator.AllHealthyPeoples));
+            Values3[NextPointIndex] = (Convert.ToDouble(Simulator.AllDeadPeoples));
+            Values4[NextPointIndex] = Convert.ToDouble(Simulator.AllPeople - Simulator.AllDeadPeoples);
+            Values5[NextPointIndex] = (Convert.ToDouble(Simulator.AllOldPersonsInfected));
+            Values6[NextPointIndex] = Convert.ToDouble(Simulator.AllYoungInfected);
+            SignalPlot.MaxRenderIndex = NextPointIndex;
+            SignalPlot2.MaxRenderIndex = NextPointIndex;
+            SignalPlot3.MaxRenderIndex = NextPointIndex;
+            SignalPlot4.MaxRenderIndex = NextPointIndex;
+            SignalPlot5.MaxRenderIndex = NextPointIndex;
+            SignalPlot6.MaxRenderIndex = NextPointIndex;
+
+            AvaPlot1.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
+
+            NextPointIndex += 1;
+
+            double currentRightEdge = AvaPlot1.Plot.GetAxisLimits().XMax;
+            if (NextPointIndex > currentRightEdge)
+                AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 30);
+            AvaPlot1.Render();
+        }
+
         private void NewTest123(object sender, EventArgs e)
         {
             if(Simulator.RunningSimulation)
             {
-                Values[NextPointIndex] = (Convert.ToDouble(Simulator.AllInfectedPeoples));
-                Values2[NextPointIndex] = (Convert.ToDouble(Simulator.AllHealthyPeoples));
-                Values3[NextPointIndex] = (Convert.ToDouble(Simulator.AllDeadPeoples));
-                Values4[NextPointIndex] = Convert.ToDouble(Simulator.AllPeople - Simulator.AllDeadPeoples);
-                Values5[NextPointIndex] = (Convert.ToDouble(Simulator.AllOldPersonsInfected));
-                Values6[NextPointIndex] = Convert.ToDouble(Simulator.AllYoungInfected);
-                SignalPlot.MaxRenderIndex = NextPointIndex;
-                SignalPlot2.MaxRenderIndex = NextPointIndex;
-                SignalPlot3.MaxRenderIndex = NextPointIndex;
-                SignalPlot4.MaxRenderIndex = NextPointIndex;
-                SignalPlot5.MaxRenderIndex = NextPointIndex;
-                SignalPlot6.MaxRenderIndex = NextPointIndex;
 
-                AvaPlot1.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
-
-                NextPointIndex += 1;
-
-                double currentRightEdge = AvaPlot1.Plot.GetAxisLimits().XMax;
-                if (NextPointIndex > currentRightEdge)
-                    AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 30);
-                AvaPlot1.Render();
             }
         }
     }

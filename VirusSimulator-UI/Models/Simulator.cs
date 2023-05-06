@@ -27,7 +27,14 @@ namespace VirusSimulator_UI.Models
         public static SimulatorStateEnum SimulatorState { get; set; }
         public static int MaxIterationCount { get; set; } = 13;
         public static double InfectionChance { get; set; } = 0.06;
-        public static int Iteration { get; set; }
+        public static int Iteration { 
+            get { return _Iteration; } 
+            set {
+                IterationIncremented.Invoke(null, EventArgs.Empty);
+                _Iteration = value;
+            }
+        }
+        private static int _Iteration { get; set; }
 
         public static int? AllPeople { get; set; }
         public static int? AllHealthyPeoples { get; set; }
@@ -38,6 +45,7 @@ namespace VirusSimulator_UI.Models
         public static int? AllYoung { get; set; }
         public static int? AllYoungInfected { get; set; }
         public static bool IsSimulatiorLoaded { get; set; } = false;
+        public static event EventHandler IterationIncremented;
 
         public static void StopSimulation()
         {

@@ -118,9 +118,6 @@ namespace VirusSimulator_UI.Views
                                     case < 40:
                                         item.rectangle.Fill = Brushes.Green;
                                         break;
-                                    case 100:
-                                        item.rectangle.Fill = Brushes.Black;
-                                        break;
                                     case > 95:
                                         item.rectangle.Fill = Brushes.DarkRed;
                                         break;
@@ -135,10 +132,6 @@ namespace VirusSimulator_UI.Views
                                     case < 40:
                                         item.rectangle.Fill = Brushes.YellowGreen;
                                         break;
-                                    case 100:
-                                        item.rectangle.Fill = Brushes.Black;
-                                        break;
-
                                     case > 90:
                                         item.rectangle.Fill = Brushes.DarkRed;
                                         break;
@@ -153,9 +146,6 @@ namespace VirusSimulator_UI.Views
                                 {
                                     case < 40:
                                         item.rectangle.Fill = Brushes.Khaki;
-                                        break;
-                                    case 100:
-                                        item.rectangle.Fill = Brushes.Black;
                                         break;
                                     case > 90:
                                         item.rectangle.Fill = Brushes.DarkRed;
@@ -172,9 +162,6 @@ namespace VirusSimulator_UI.Views
                                 {
                                     case < 30:
                                         item.rectangle.Fill = Brushes.Orange;
-                                        break;
-                                    case 100:
-                                        item.rectangle.Fill = Brushes.Black;
                                         break;
                                     case < 85:
                                         item.rectangle.Fill = Brushes.DarkOrange;
@@ -193,9 +180,6 @@ namespace VirusSimulator_UI.Views
                                         break;
                                     case < 40:
                                         item.rectangle.Fill = Brushes.IndianRed;
-                                        break;
-                                    case 100:
-                                        item.rectangle.Fill = Brushes.Black;
                                         break;
                                     case > 60:
                                         item.rectangle.Fill = Brushes.Red;
