@@ -52,7 +52,18 @@ namespace VirusSimulator_UI.Views
             AvaPlot1.Plot.SetAxisLimits(0, 100, 0, Simulator.AllPeople);
             AvaPlot1.Plot.XLabel("Time");
             AvaPlot1.Plot.YLabel("Persons");
-            //AvaPlot1.Plot.AddScatter(DataGen.Consecutive(51), DataGen.Consecutive(51), label: "sin");
+            SignalPlot.Label = "Infected";
+            SignalPlot2.Label = "Healthy";
+            SignalPlot3.Label = "Dead";
+            SignalPlot4.Label = "All";
+            SignalPlot5.Label = "Old infected";
+            SignalPlot6.Label = "Young infected";
+            Values[0] = (Convert.ToDouble(Simulator.AllInfectedPeoples));
+            Values2[0] = (Convert.ToDouble(Simulator.AllHealthyPeoples));
+            Values3[0] = (Convert.ToDouble(Simulator.AllDeadPeoples));
+            Values4[0] = Convert.ToDouble(Simulator.AllPeople - Simulator.AllDeadPeoples);
+            Values5[0] = (Convert.ToDouble(Simulator.AllOldPersonsInfected));
+            Values6[0] = Convert.ToDouble(Simulator.AllYoungInfected);
         }
 
         private void InitializeComponent()
@@ -62,6 +73,8 @@ namespace VirusSimulator_UI.Views
             LiveTime3.Interval = TimeSpan.FromSeconds(1);
             LiveTime3.Tick += NewTest123;
             LiveTime3.Start();
+            AvaPlot1 = this.FindControl<AvaPlot>("AvaPlot1");
+            AvaPlot1.Render();
         }
 
         private void NewTest123(object sender, EventArgs e)
@@ -80,12 +93,7 @@ namespace VirusSimulator_UI.Views
                 SignalPlot4.MaxRenderIndex = NextPointIndex;
                 SignalPlot5.MaxRenderIndex = NextPointIndex;
                 SignalPlot6.MaxRenderIndex = NextPointIndex;
-                SignalPlot.Label = "Infected";
-                SignalPlot2.Label = "Healthy";
-                SignalPlot3.Label = "Dead";
-                SignalPlot4.Label = "All";
-                SignalPlot5.Label = "Old infected";
-                SignalPlot6.Label = "Young infected";
+
                 AvaPlot1.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
 
                 NextPointIndex += 1;
