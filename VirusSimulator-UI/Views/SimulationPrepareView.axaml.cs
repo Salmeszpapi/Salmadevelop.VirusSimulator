@@ -58,6 +58,7 @@ namespace VirusSimulator_UI.Views
             AvaloniaXamlLoader.Load(this);
             SimulationCanvas = this.FindControl<Canvas>("SimulationCanvas");
             MainWindowStep = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
+            Simulator.IterationIncremented += Simulator_IterationIncremented;
             if (LiveTime == null)
             {
                 LiveTime = new DispatcherTimer();
@@ -67,11 +68,16 @@ namespace VirusSimulator_UI.Views
             }
         }
 
+        private void Simulator_IterationIncremented(object? sender, EventArgs e)
+        {
+            Dispatcher.UIThread.InvokeAsync(new Action(() => { RefressRectangleContent(); }));
+        }
+
         private void timer_Tick(object sender, EventArgs e)
         {
             if (Simulator.RunningSimulation)
             {
-                RefressRectangleContent();
+                //RefressRectangleContent();
                 //Simulator.Iteration++;
             }
         }
@@ -85,7 +91,7 @@ namespace VirusSimulator_UI.Views
             }
             if (peoplesInNodeStep != null && previousRectangle != null)
             {
-                peoplesInNodeStep.UpdateData(previousRectangle);
+                //peoplesInNodeStep.UpdateData(previousRectangle);
                 peoplesInNodeStep = new PeoplesInNodeStep(previousRectangle);
                 MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
             }

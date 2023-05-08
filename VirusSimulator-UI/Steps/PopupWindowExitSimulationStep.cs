@@ -45,6 +45,7 @@ namespace VirusSimulator_UI.Steps
         private void StopSimulation()
         {
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
+            PeoplesInNodeStep myPeoplesInNodeStep = (PeoplesInNodeStep)WorkFlowManager.GetStep("PeoplesInNodeStep");
             SimulationWelcomeStep simulationWelcomeStep = (SimulationWelcomeStep)WorkFlowManager.GetStep("SimulationWelcomeStep");
             mainWindow.SetView(simulationWelcomeStep.GetScreenContent());
 
@@ -67,11 +68,16 @@ namespace VirusSimulator_UI.Steps
             mainWindowViewModel.MyPointedDatasView = null;
             WorkFlowManager.DeleteStep("ChartsStep");
             myPopupWindowExitSimulationView.Close();
+
+            myPeoplesInNodeStep.TearDown();
+            WorkFlowManager.DeleteStep("PeoplesInNodeStep");
+
         }
 
         private void GoBack()
         {
             Simulator.RunningSimulation = true;
+            Simulator.SimulatorState = SimulatorStateEnum.Run;
             mainWindowViewModel.LiveTime.Start();
             mainWindowViewModel.SimulationTimer.Start();
             myPopupWindowExitSimulationView.Close();

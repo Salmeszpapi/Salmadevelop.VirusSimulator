@@ -48,7 +48,7 @@ namespace VirusSimulator_UI.Views
             SignalPlot3.Color = Color.Black;
             SignalPlot4.Color = Color.Blue;
             SignalPlot5.Color = Color.Brown;
-            SignalPlot6.Color = Color.Pink;
+            SignalPlot6.Color = Color.Purple;
             AvaPlot1.Plot.SetAxisLimits(0, 100, 0, Simulator.AllPeople);
             AvaPlot1.Plot.XLabel("Time");
             AvaPlot1.Plot.YLabel("Persons");

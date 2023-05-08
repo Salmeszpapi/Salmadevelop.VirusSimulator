@@ -83,7 +83,7 @@ namespace VirusSimulator_UI.Models
         }
         public void ReadPeopleStatus()
         {
-            PeoplesCount = persons.Count;
+            //PeoplesCount = persons.Count;
             GetInfectedAndHealthyPersonsCount();
         }
         private void generatePeople(int min, int max=50)
@@ -101,8 +101,10 @@ namespace VirusSimulator_UI.Models
         {
             HealthyCount = 0;
             InfectedCount = 0;
+            var localDeadPersons = 0;
             for (int i = 0; i < persons.Count; i++)
             {
+                if (persons[i].Dead) { localDeadPersons++; }
                 if (persons[i] is not null && !persons[i].Infected && !persons[i].Dead)
                 {
                     HealthyCount++;
@@ -112,7 +114,7 @@ namespace VirusSimulator_UI.Models
                     InfectedCount++;
                 }
             }
-            
+            PeoplesCount = persons.Count - localDeadPersons;
         }
         public bool HasInfectedPerson()
         {

@@ -30,6 +30,10 @@ namespace VirusSimulator_UI.Steps
         {
             //peoplesInNodeViewModel.UpdateData(rectanglePointer);
         }
-
+        public void TearDown()
+        {
+            peoplesInNodeViewModel = null;
+            peoplesInNodeView = null;
+        }
     }
 }
