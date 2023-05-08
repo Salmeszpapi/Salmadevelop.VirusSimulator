@@ -69,7 +69,7 @@ namespace VirusSimulator_UI.Steps
             WorkFlowManager.DeleteStep("ChartsStep");
             myPopupWindowExitSimulationView.Close();
 
-            myPeoplesInNodeStep.TearDown();
+            //myPeoplesInNodeStep.TearDown();
             WorkFlowManager.DeleteStep("PeoplesInNodeStep");
 
         }
@@ -77,7 +77,6 @@ namespace VirusSimulator_UI.Steps
         private void GoBack()
         {
             Simulator.RunningSimulation = true;
-            Simulator.SimulatorState = SimulatorStateEnum.Run;
             mainWindowViewModel.LiveTime.Start();
             mainWindowViewModel.SimulationTimer.Start();
             myPopupWindowExitSimulationView.Close();

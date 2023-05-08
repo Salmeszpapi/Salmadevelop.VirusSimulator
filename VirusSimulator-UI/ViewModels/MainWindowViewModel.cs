@@ -37,10 +37,26 @@ namespace VirusSimulator_UI.ViewModels
             ChartsViewButtonClicked = ReactiveCommand.Create(SwitchToCharts);
             SimulationViewClicked = ReactiveCommand.Create(SwitchToimulation);
 
+            Simulator.IterationIncremented += Simulator_IterationIncremented;
             LiveTime = new DispatcherTimer();
             LiveTime.Interval = TimeSpan.FromMilliseconds(1);
-            LiveTime.Tick += timer_Tick;
+            //LiveTime.Tick += timer_Tick;
         }
+
+        private void Simulator_IterationIncremented(object? sender, EventArgs e)
+        {
+            if (Simulator.RunningSimulation)
+            {
+                SimulationTime2 = Simulator.Iteration + " Days";
+
+                var myPeopleList = Simulator.GetPeopleData();
+                AllPeople = myPeopleList[0] - myPeopleList[3];
+                AllHealthyPeoples = myPeopleList[1];
+                AllInfectedPeoples = myPeopleList[2];
+                AllDeadPeoples = myPeopleList[3];
+            }
+        }
+
         [Reactive]
         public string SimulationTime2 { get; set; }
         [Reactive]
@@ -115,21 +131,21 @@ namespace VirusSimulator_UI.ViewModels
             }
         }
         private void StopSimulationClicked()
-        {
-
-            LiveTime.Stop();
-            SimulationTimer.Stop();
-
-            SimulatorName = "";
-            PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
-            if(Simulator.RunningSimulation)
+        {   
+            if(WorkFlowManager.GetStep("ChartsStep") is not null)
             {
+                LiveTime.Stop();
+                SimulationTimer.Stop();
+                PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
                 mypopup.GetVM().BackButtonVisible = true;
+                Simulator.RunningSimulation = false;
+                mypopup.GetWindow().Show();
+                Simulator.RunningSimulation = false;
+                //mainWindow.SetViewForPeople(new UserControl());
+                SimulatorName = "";
+                SimulationTime2 = "";
             }
-            mypopup.GetWindow().Show();
-            Simulator.RunningSimulation = false;
-            Simulator.Iteration = 0;
-            //mainWindow.SetViewForPeople(new UserControl());
+
         }
 
         private void BackToWelcomeView()
@@ -137,16 +153,16 @@ namespace VirusSimulator_UI.ViewModels
             ChangableViews = simulationStep.GetScreenContent();
         }
 
-        void timer_Tick(object sender, EventArgs e)
-        {
-            SimulationTime2 = Simulator.Iteration + " Days";
+        //void timer_Tick(object sender, EventArgs e)
+        //{
+        //    SimulationTime2 = Simulator.Iteration + " Days";
 
-            var myPeopleList = Simulator.GetPeopleData();
-            AllPeople = myPeopleList[0] - myPeopleList[3];
-            AllHealthyPeoples = myPeopleList[1];
-            AllInfectedPeoples = myPeopleList[2];
-            AllDeadPeoples= myPeopleList[3];
-        }
+        //    var myPeopleList = Simulator.GetPeopleData();
+        //    AllPeople = myPeopleList[0] - myPeopleList[3];
+        //    AllHealthyPeoples = myPeopleList[1];
+        //    AllInfectedPeoples = myPeopleList[2];
+        //    AllDeadPeoples= myPeopleList[3];
+        //}
         private void SwitchToCharts()
         {
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");

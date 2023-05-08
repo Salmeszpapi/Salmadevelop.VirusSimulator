@@ -70,32 +70,35 @@ namespace VirusSimulator_UI.Views
 
         private void Simulator_IterationIncremented(object? sender, EventArgs e)
         {
-            Dispatcher.UIThread.InvokeAsync(new Action(() => { RefressRectangleContent(); }));
+
+            //Dispatcher.UIThread.InvokeAsync(new Action(() => { RefressRectangleContent(); }));
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
             if (Simulator.RunningSimulation)
             {
-                //RefressRectangleContent();
-                //Simulator.Iteration++;
+                RefressRectangleContent();
             }
         }
         private void RefressRectangleContent()
         {
-            if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
-            {
-                //previousRectangle.ReadPeopleStatus();
-                //myPopupStep.UpdateData(previousRectangle);
+            //if (myPopupStep is not null && myPopupStep.GetView().IsVisible)
+            //{
+            //    //previousRectangle.ReadPeopleStatus();
+            //    //myPopupStep.UpdateData(previousRectangle);
 
-            }
-            if (peoplesInNodeStep != null && previousRectangle != null)
+            //}
+            //if (peoplesInNodeStep != null && previousRectangle != null)
+            //{
+            //    //peoplesInNodeStep.UpdateData(previousRectangle);
+            //    peoplesInNodeStep = new PeoplesInNodeStep(previousRectangle);
+            //    MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+            //}
+            if(Simulator.RunningSimulation && peoplesInNodeStep is not null)
             {
-                //peoplesInNodeStep.UpdateData(previousRectangle);
-                peoplesInNodeStep = new PeoplesInNodeStep(previousRectangle);
-                MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+                peoplesInNodeStep.peoplesInNodeViewModel.clearData();
             }
-
             ReColorizeRectangle();
         }
 
@@ -212,20 +215,23 @@ namespace VirusSimulator_UI.Views
                 {
                     var sameRectangle = myRectanglesPoints.Where(x => x.rectangle == e.Source).FirstOrDefault();
                     sameRectangle.ReadPeopleStatus();
-
-                    if (peoplesInNodeStep is null)
+                    if(!Simulator.RunningSimulation) 
                     {
+                        if (peoplesInNodeStep is null)
+                        {
 
-                        peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+                            peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
 
-                        MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+                            MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
 
+                        }
+                        else
+                        {
+                            peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
+                            MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
+                        }
                     }
-                    else
-                    {
-                        peoplesInNodeStep = new PeoplesInNodeStep(sameRectangle);
-                        MainWindowStep.SetViewForPeople(peoplesInNodeStep.GetScreenContent());
-                    }
+
 
                     previousRectangle = sameRectangle;
                 }

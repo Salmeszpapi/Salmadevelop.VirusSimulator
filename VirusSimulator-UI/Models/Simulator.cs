@@ -82,7 +82,7 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(50);
                     Simulator.Iteration++;
                     SaveCurrentPeopleDatasToDb(myId, _dataContext1);
                 } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);

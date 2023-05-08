@@ -20,17 +20,17 @@ namespace VirusSimulator_UI.ViewModels
             Id = rectanglePointer.Id;
         }
         [Reactive]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Reactive]
-        public int PeoplesCount { get; set; }
+        public int? PeoplesCount { get; set; }
         [Reactive]
-        public int DeadCount { get; set; }
+        public int? DeadCount { get; set; }
         [Reactive]
-        public int InfectedCount { get; set; }
+        public int? InfectedCount { get; set; }
         [Reactive]
-        public HouseTypeEnum HouseTypeEnum { get; set; }
+        public HouseTypeEnum? HouseTypeEnum { get; set; }
         [Reactive]
-        public int HealthyCount { get; set; }
+        public int? HealthyCount { get; set; }
         public void UpdateData(RectanglePointer rectanglePointer)
         {
             PeoplesCount = rectanglePointer.PeoplesCount;
@@ -39,6 +39,15 @@ namespace VirusSimulator_UI.ViewModels
             HealthyCount = rectanglePointer.HealthyCount;
             HouseTypeEnum= rectanglePointer.HouseTypeEnum;
             Id = rectanglePointer.Id;
+        }
+        public void clearData()
+        {
+            PeoplesCount = null;
+            DeadCount = null;
+            InfectedCount = null;
+            HouseTypeEnum = null;
+            HealthyCount = null;
+            Id = null;
         }
     }
 }

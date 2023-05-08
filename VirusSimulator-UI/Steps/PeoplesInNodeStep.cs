@@ -13,7 +13,7 @@ namespace VirusSimulator_UI.Steps
     
     internal class PeoplesInNodeStep : BaseStep
     {
-        private PeoplesInNodeViewModel peoplesInNodeViewModel;
+        public PeoplesInNodeViewModel peoplesInNodeViewModel;
         private PeoplesInNodeView peoplesInNodeView;
         public PeoplesInNodeStep(RectanglePointer myRectanglePointer)
         {

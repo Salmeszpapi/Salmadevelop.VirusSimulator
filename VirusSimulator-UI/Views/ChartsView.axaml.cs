@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Reactive.Disposables;
 using VirusSimulator_UI.Models;
 
 namespace VirusSimulator_UI.Views
@@ -69,13 +70,14 @@ namespace VirusSimulator_UI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            Simulator.IterationIncremented += HandlingIterationIncrease;
+            
             LiveTime3 = new DispatcherTimer();
             LiveTime3.Interval = TimeSpan.FromSeconds(1);
             LiveTime3.Tick += NewTest123;
             LiveTime3.Start();
             AvaPlot1 = this.FindControl<AvaPlot>("AvaPlot1");
             AvaPlot1.Render();
+            Simulator.IterationIncremented += HandlingIterationIncrease;
         }
 
         private void HandlingIterationIncrease(object? sender, EventArgs e)
@@ -96,11 +98,7 @@ namespace VirusSimulator_UI.Views
             AvaPlot1.Plot.Legend(location: ScottPlot.Alignment.UpperRight);
 
             NextPointIndex += 1;
-
-            double currentRightEdge = AvaPlot1.Plot.GetAxisLimits().XMax;
-            if (NextPointIndex > currentRightEdge)
-                AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 30);
-            AvaPlot1.Render();
+            TryRender();
         }
 
         private void NewTest123(object sender, EventArgs e)
@@ -108,6 +106,23 @@ namespace VirusSimulator_UI.Views
             if(Simulator.RunningSimulation)
             {
 
+            }
+        }
+        private void TryRender()
+        {
+            double currentRightEdge = AvaPlot1.Plot.GetAxisLimits().XMax;
+            if (NextPointIndex > currentRightEdge)
+                AvaPlot1.Plot.SetAxisLimits(xMax: currentRightEdge + 30);
+
+            bool failed = false;
+            try
+            {
+                AvaPlot1.Render();
+            }
+            catch (Exception ex)
+            {
+                failed = true;
+                TryRender();
             }
         }
     }
