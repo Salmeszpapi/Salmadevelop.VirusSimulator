@@ -7,6 +7,7 @@
         x:Class="VirusSimulator_UI.Views.MainWindow"
         Title="VirusSimulator_UI"
 	    WindowStartupLocation="CenterScreen"
+		Topmost="False"
 	    Width="1020"
 	    Height="780"
 	    MaxWidth="1920"
