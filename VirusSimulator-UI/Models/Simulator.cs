@@ -45,6 +45,7 @@ namespace VirusSimulator_UI.Models
         public static int? AllYoung { get; set; }
         public static int? AllYoungInfected { get; set; }
         public static bool IsSimulatiorLoaded { get; set; } = false;
+        public static int SpeedOfSimulation { get; set; } = 1;
         public static event EventHandler IterationIncremented;
 
         public static void StopSimulation()
@@ -55,10 +56,11 @@ namespace VirusSimulator_UI.Models
         public static async void StartSimulation(List<RectanglePointer> rectanglePointer)
         {
             var _dataContext1 = new DataContext();
+            SimulationRun mySimulation;
             if (!IsSimulatiorLoaded)
             {
                 var myItems = await GetJsonFromRectangles();
-                var mySimulation = new SimulationRun()
+                 mySimulation = new SimulationRun()
                 {
                     DateOfRun = DateTime.Now,
                     VirusName = VirusName,
@@ -82,10 +84,17 @@ namespace VirusSimulator_UI.Models
                 do
                 {
                     graph.IterateThroughtRectangles();
-                    Thread.Sleep(50);
+                    if(SpeedOfSimulation == 6)
+                    {
+                        Thread.Sleep(50);
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000 / SpeedOfSimulation);
+                    }
                     Simulator.Iteration++;
                     SaveCurrentPeopleDatasToDb(myId, _dataContext1);
-                } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples !=0);
+                } while (SimulatorState == SimulatorStateEnum.Run && AllPeople > 0 && AllInfectedPeoples != 0);
                 RunningSimulation = false;
                 SimulatorState = SimulatorStateEnum.Stop;
             });

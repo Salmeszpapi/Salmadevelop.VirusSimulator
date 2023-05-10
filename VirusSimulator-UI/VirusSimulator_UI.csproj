@@ -10,6 +10,12 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaResource Remove="Assets\pauseSimulation.png" />
+    <AvaloniaResource Remove="Assets\speed1.png" />
+    <AvaloniaResource Remove="Assets\speed2.png" />
+    <AvaloniaResource Remove="Assets\speed3.png" />
+    <AvaloniaResource Remove="Assets\speed4.png" />
+    <AvaloniaResource Remove="Assets\speed5.png" />
+    <AvaloniaResource Remove="Assets\speed6.png" />
     <AvaloniaResource Remove="Assets\startSimulation.png" />
     <AvaloniaResource Remove="Assets\stopSimulation.png" />
     <None Remove=".gitignore" />
@@ -56,12 +62,30 @@
     <None Update="Assets\return.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\speed2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\startSimulation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
 	<AvaloniaResource Update="Assets\Slovakia.png">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</AvaloniaResource>
+	<None Update="Assets\speed1.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\speed3.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\speed4.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\speed5.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="Assets\speed6.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
 	<None Update="Assets\stopSimulation.png">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>

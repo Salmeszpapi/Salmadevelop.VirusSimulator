@@ -28,11 +28,13 @@ namespace VirusSimulator_UI.ViewModels
             StartSimulationButton = new Bitmap(@"Assets/startSimulation.png");
             PauseSimulationButton = new Bitmap(@"Assets/pauseSimulation.png");
             StopSimulationButton = new Bitmap(@"Assets/stopSimulation.png");
+            ModifySimulationSpeedButton = new Bitmap(@"Assets/speed1.png");
             simulationStep = new SimulationWelcomeStep(this);
             ChangableViews = simulationStep.GetScreenContent();
             StartSimulationButtonClicked = ReactiveCommand.Create(StartSimulationClicked);
             PauseSimulationClickedCliced = ReactiveCommand.Create(PauseSimulationClicked);
             StopSimulationClickedClicked = ReactiveCommand.Create(StopSimulationClicked);
+            ModifySimulationSpeedClicked = ReactiveCommand.Create(ModifySpeed);
             BackToWelcomeViewButton = ReactiveCommand.Create(BackToWelcomeView);
             ChartsViewButtonClicked = ReactiveCommand.Create(SwitchToCharts);
             SimulationViewClicked = ReactiveCommand.Create(SwitchToimulation);
@@ -64,6 +66,8 @@ namespace VirusSimulator_UI.ViewModels
         public IBitmap AnalyzerBitmap { get; set; }
         public IBitmap StartSimulationButton { get; set; }
         public IBitmap StopSimulationButton { get; set; }
+        [Reactive]
+        public IBitmap ModifySimulationSpeedButton { get; set; }
         public IBitmap PauseSimulationButton { get; set; }
         [Reactive]
         public int? AllPeople { get; set; }
@@ -87,6 +91,8 @@ namespace VirusSimulator_UI.ViewModels
         public ReactiveCommand<Unit, Unit> ChartsViewButtonClicked { get; set; }
         [Reactive]
         public ReactiveCommand<Unit, Unit> SimulationViewClicked { get; set; }
+        [Reactive]
+        public ReactiveCommand<Unit, Unit> ModifySimulationSpeedClicked { get; set; }
 
         [Reactive]
         public UserControl ChangableViews { get; set; }
@@ -183,6 +189,12 @@ namespace VirusSimulator_UI.ViewModels
             MainWindowStep mainWindow = (MainWindowStep)WorkFlowManager.GetStep("MainWindowStep");
             SimulationPrepareStep mySimulationPrepareStep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
             mainWindow.SetView(mySimulationPrepareStep.GetScreenContent());
+        }
+        private void ModifySpeed()
+        {
+            Simulator.SpeedOfSimulation++;
+            if (Simulator.SpeedOfSimulation >= 7) Simulator.SpeedOfSimulation = 1;
+            ModifySimulationSpeedButton = new Bitmap($@"Assets/speed{Simulator.SpeedOfSimulation}.png");
         }
     }
 }
