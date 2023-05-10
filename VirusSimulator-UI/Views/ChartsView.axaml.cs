@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reactive.Disposables;
+using System.Threading;
 using VirusSimulator_UI.Models;
 
 namespace VirusSimulator_UI.Views
@@ -37,7 +38,6 @@ namespace VirusSimulator_UI.Views
 
             AvaPlot1 = this.FindControl<AvaPlot> ("AvaPlot1");
             AvaPlot1.Reset();
-
             SignalPlot = AvaPlot1.Plot.AddSignal(Values);
             SignalPlot2 = AvaPlot1.Plot.AddSignal(Values2);
             SignalPlot3 = AvaPlot1.Plot.AddSignal(Values3);
@@ -65,6 +65,7 @@ namespace VirusSimulator_UI.Views
             Values4[0] = Convert.ToDouble(Simulator.AllPeople - Simulator.AllDeadPeoples);
             Values5[0] = (Convert.ToDouble(Simulator.AllOldPersonsInfected));
             Values6[0] = Convert.ToDouble(Simulator.AllYoungInfected);
+            Thread.Sleep(50);
         }
 
         private void InitializeComponent()

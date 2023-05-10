@@ -134,9 +134,10 @@ namespace VirusSimulator_UI.ViewModels
         {   
             if(WorkFlowManager.GetStep("ChartsStep") is not null)
             {
+                SimulationPrepareStep myPreparestep = (SimulationPrepareStep)WorkFlowManager.GetStep("SimulationPrepareStep");
                 LiveTime.Stop();
                 SimulationTimer.Stop();
-                PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this);
+                PopupWindowExitSimulationStep mypopup = new PopupWindowExitSimulationStep(this, myPreparestep);
                 mypopup.GetVM().BackButtonVisible = true;
                 Simulator.RunningSimulation = false;
                 mypopup.GetWindow().Show();

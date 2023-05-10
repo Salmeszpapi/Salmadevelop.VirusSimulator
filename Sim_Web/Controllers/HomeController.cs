@@ -127,28 +127,29 @@ namespace Sim_Web.Controllers
         }
         private List<int> SimulationIdreturner()
         {
-            var myAllSimulatedData = dataContext.simulationDatas.ToList();
-            List<int> mySimulationIds = new List<int>();
-            int? a = null; 
+            var mySimulatedRuns = dataContext.simulationRuns.Select(x =>x.Id).ToList();
+            //var myAllSimulatedData = dataContext.simulationDatas.ToList();
+            //List<int> mySimulationIds = new List<int>();
+            //int? a = null; 
 
-            foreach (var item in myAllSimulatedData)
-            {
-                if(a is null)
-                {
-                    a = item.SimulationId;
-                    mySimulationIds.Add(item.SimulationId);
-                }
+            //foreach (var item in myAllSimulatedData)
+            //{
+            //    if(a is null)
+            //    {
+            //        a = item.SimulationId;
+            //        mySimulationIds.Add(item.SimulationId);
+            //    }
                 
-                if(a != item.SimulationId)
-                {
-                    a = item.SimulationId;
-                    mySimulationIds.Add(item.SimulationId);
-                }
+            //    if(a != item.SimulationId)
+            //    {
+            //        a = item.SimulationId;
+            //        mySimulationIds.Add(item.SimulationId);
+            //    }
                 
-            }
+            //}
 
 
-            return mySimulationIds;
+            return mySimulatedRuns;
         }
     }
 }

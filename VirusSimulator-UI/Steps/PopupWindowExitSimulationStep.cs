@@ -16,14 +16,16 @@ namespace VirusSimulator_UI.Steps
         private PopupWindowExitSimulationViewModel myPopupWindowExitSimulationViewModel;
         private PopupWindowExitSimulationView myPopupWindowExitSimulationView;
         private MainWindowViewModel mainWindowViewModel;
-        public PopupWindowExitSimulationStep(MainWindowViewModel mainWindowViewModel) 
+        private SimulationPrepareStep simulationPrepareStep;
+        public PopupWindowExitSimulationStep(MainWindowViewModel mainWindowViewModel,SimulationPrepareStep simulationPrepareStep) 
         {
             myPopupWindowExitSimulationViewModel = new PopupWindowExitSimulationViewModel();
             myPopupWindowExitSimulationView = new PopupWindowExitSimulationView(){ DataContext = myPopupWindowExitSimulationViewModel };
             myPopupWindowExitSimulationViewModel.BackButtonClicked = ReactiveCommand.Create(GoBack);
             myPopupWindowExitSimulationViewModel.YesButtonClicked = ReactiveCommand.Create(StopSimulation);
             this.mainWindowViewModel = mainWindowViewModel;
-
+            Simulator.SimulatorState = SimulatorStateEnum.Pause;
+            this.simulationPrepareStep = simulationPrepareStep;
 
             WorkFlowManager.SaveStep(this);
         }
@@ -77,6 +79,8 @@ namespace VirusSimulator_UI.Steps
         private void GoBack()
         {
             Simulator.RunningSimulation = true;
+            Simulator.StartSimulation(simulationPrepareStep.GetView().myRectanglesPoints);
+            Simulator.SimulatorState = SimulatorStateEnum.Run;
             mainWindowViewModel.LiveTime.Start();
             mainWindowViewModel.SimulationTimer.Start();
             myPopupWindowExitSimulationView.Close();
