@@ -60,7 +60,7 @@ namespace VirusSimulator_UI.Models
             if (!IsSimulatiorLoaded)
             {
                 var myItems = await GetJsonFromRectangles();
-                 mySimulation = new SimulationRun()
+                mySimulation = new SimulationRun()
                 {
                     DateOfRun = DateTime.Now,
                     VirusName = VirusName,
@@ -72,6 +72,7 @@ namespace VirusSimulator_UI.Models
 
                 _dataContext1.Attach(mySimulation);
                 _dataContext1.SaveChanges();
+                IsSimulatiorLoaded = true;
             }
             
             int myId = _dataContext1.simulationRuns.Max(p => p.Id);

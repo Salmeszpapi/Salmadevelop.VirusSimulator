@@ -22,6 +22,7 @@ namespace VirusSimulator_UI
             {
                 MainWindowStep mainWindow = new MainWindowStep();
                 desktop.MainWindow = mainWindow.GetScreenWindow();
+                desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnMainWindowClose;
             }
 
             base.OnFrameworkInitializationCompleted();

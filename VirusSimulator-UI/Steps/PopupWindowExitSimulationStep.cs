@@ -73,6 +73,7 @@ namespace VirusSimulator_UI.Steps
 
             //myPeoplesInNodeStep.TearDown();
             WorkFlowManager.DeleteStep("PeoplesInNodeStep");
+            Simulator.IsSimulatiorLoaded =false;
 
         }
 
